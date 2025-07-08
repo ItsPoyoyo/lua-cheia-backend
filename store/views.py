@@ -75,54 +75,68 @@ class CartAPIView(generics.ListCreateAPIView):
             color = payload.get('color')
             cart_id = payload.get('cart_id')
 
+            # Validate quantity
+            if qty <= 0:
+                return Response(
+                    {"error": "Quantity must be greater than 0"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
             product = Product.objects.get(status="published", id=product_id)
             
-            # Enhanced stock validation
+            # Check if product is active and available
+            if not product.in_stock:
+                return Response(
+                    {"error": f"{product.title} is currently out of stock"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Enhanced stock validation with better error handling
             available_stock = product.stock_qty
             color_obj = None
             size_obj = None
             
             # Check color stock if specified
             if color and color != "No Color":
-                color_obj = Color.objects.filter(product=product, name=color).first()
-                if not color_obj:
+                try:
+                    color_obj = Color.objects.get(product=product, name=color)
+                    if not color_obj.in_stock or color_obj.stock_qty <= 0:
+                        return Response(
+                            {"error": f"Color '{color}' is out of stock for {product.title}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    if color_obj.stock_qty < qty:
+                        return Response(
+                            {"error": f"Only {color_obj.stock_qty} available in color '{color}' for {product.title}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    available_stock = min(available_stock, color_obj.stock_qty)
+                except Color.DoesNotExist:
                     return Response(
-                        {"error": f"Color '{color}' is not available for this product"},
+                        {"error": f"Color '{color}' is not available for {product.title}"},
                         status=status.HTTP_400_BAD_REQUEST
                     )
-                if color_obj.stock_qty < qty:
-                    if color_obj.stock_qty == 0:
-                        return Response(
-                            {"error": f"Color '{color}' is out of stock"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    else:
-                        return Response(
-                            {"error": f"Only {color_obj.stock_qty} available in color '{color}'"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                available_stock = min(available_stock, color_obj.stock_qty)
             
             # Check size stock if specified
             if size and size != "No Size":
-                size_obj = Size.objects.filter(product=product, name=size).first()
-                if not size_obj:
+                try:
+                    size_obj = Size.objects.get(product=product, name=size)
+                    if not size_obj.in_stock or size_obj.stock_qty <= 0:
+                        return Response(
+                            {"error": f"Size '{size}' is out of stock for {product.title}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    if size_obj.stock_qty < qty:
+                        return Response(
+                            {"error": f"Only {size_obj.stock_qty} available in size '{size}' for {product.title}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    available_stock = min(available_stock, size_obj.stock_qty)
+                except Size.DoesNotExist:
                     return Response(
-                        {"error": f"Size '{size}' is not available for this product"},
+                        {"error": f"Size '{size}' is not available for {product.title}"},
                         status=status.HTTP_400_BAD_REQUEST
                     )
-                if size_obj.stock_qty < qty:
-                    if size_obj.stock_qty == 0:
-                        return Response(
-                            {"error": f"Size '{size}' is out of stock"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    else:
-                        return Response(
-                            {"error": f"Only {size_obj.stock_qty} available in size '{size}'"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                available_stock = min(available_stock, size_obj.stock_qty)
             
             # Final stock check
             if available_stock < qty:
@@ -140,12 +154,12 @@ class CartAPIView(generics.ListCreateAPIView):
             # Check cart limit
             if qty > product.max_cart_limit:
                 return Response(
-                    {"error": f"Maximum {product.max_cart_limit} items allowed per order"},
+                    {"error": f"Maximum {product.max_cart_limit} items allowed per order for {product.title}"},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             user = User.objects.get(id=user_id) if user_id and user_id != 'undefined' else None
-            tax = Tax.objects.filter(country=country).first()
+            tax = Tax.objects.filter(country=country, active=True).first()
             tax_rate = tax.rate / 100 if tax else 0
 
             sub_total = price * qty
@@ -154,49 +168,93 @@ class CartAPIView(generics.ListCreateAPIView):
             service_fee = sub_total * Decimal(0.01)
             total = sub_total + shipping_total + tax_fee + service_fee
 
-            cart = Cart.objects.filter(cart_id=cart_id, product=product, color=color, size=size).first()
+            # Check if item already exists in cart
+            cart = Cart.objects.filter(
+                cart_id=cart_id, 
+                product=product, 
+                color=color or "No Color", 
+                size=size or "No Size"
+            ).first()
+            
             if cart:
                 # Update existing cart item
                 new_qty = cart.qty + qty
+                
+                # Re-validate stock for new quantity
                 if new_qty > available_stock:
+                    remaining = max(0, available_stock - cart.qty)
+                    if remaining == 0:
+                        return Response(
+                            {"error": f"Cannot add more. {product.title} is already at maximum available quantity in your cart"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    else:
+                        return Response(
+                            {"error": f"Cannot add {qty} more. Only {remaining} more available for {product.title}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                
+                if new_qty > product.max_cart_limit:
                     return Response(
-                        {"error": f"Cannot add {qty} more. Only {available_stock - cart.qty} more available"},
+                        {"error": f"Cannot add {qty} more. Maximum {product.max_cart_limit} items allowed per order for {product.title}"},
                         status=status.HTTP_400_BAD_REQUEST
                     )
+                
                 cart.qty = new_qty
                 cart.sub_total = price * new_qty
                 cart.shipping_ammount = shipping_ammount * new_qty
                 cart.tax_fee = cart.sub_total * Decimal(tax_rate)
                 cart.service_fee = cart.sub_total * Decimal(0.01)
                 cart.total = cart.sub_total + cart.shipping_ammount + cart.tax_fee + cart.service_fee
+                cart.save()
+                
+                return Response(
+                    {'message': f"Cart updated successfully. {product.title} quantity is now {new_qty}"},
+                    status=status.HTTP_200_OK
+                )
             else:
                 # Create new cart item
-                cart = Cart()
-                cart.product = product
-                cart.user = user
-                cart.qty = qty
-                cart.price = price
-                cart.sub_total = sub_total
-                cart.shipping_ammount = shipping_total
-                cart.tax_fee = tax_fee
-                cart.color = color
-                cart.size = size
-                cart.country = country
-                cart.cart_id = cart_id
-                cart.service_fee = service_fee
-                cart.total = total
+                cart = Cart.objects.create(
+                    product=product,
+                    user=user,
+                    qty=qty,
+                    price=price,
+                    sub_total=sub_total,
+                    shipping_ammount=shipping_total,
+                    tax_fee=tax_fee,
+                    color=color or "No Color",
+                    size=size or "No Size",
+                    country=country,
+                    cart_id=cart_id,
+                    service_fee=service_fee,
+                    total=total
+                )
 
-            cart.save()
-
-            return Response(
-                {'message': "Cart Updated Successfully" if cart.id else "Cart Created Successfully"},
-                status=status.HTTP_200_OK
-            )
+                return Response(
+                    {'message': f"{product.title} added to cart successfully"},
+                    status=status.HTTP_201_CREATED
+                )
 
         except Product.DoesNotExist:
-            return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Product not found or is not available"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except ValueError as e:
+            return Response(
+                {"error": f"Invalid data provided: {str(e)}"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": f"An error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 class CartListView(generics.ListAPIView):
     serializer_class = CartSerializer
@@ -248,54 +306,64 @@ class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [AllowAny]
 
     def get_object(self):
+        cart_id = self.kwargs['cart_id']
         item_id = self.kwargs['item_id']
-        return Cart.objects.get(id=item_id)
-
-    def perform_destroy(self, instance):
-        # Restore stock when item is removed from cart
-        instance.product.stock_qty += instance.qty
-        instance.product.save()
+        user_id = self.kwargs.get('user_id')
         
-        # Also restore color and size stock if applicable
-        if instance.color and instance.color != "No Color":
-            color_obj = Color.objects.filter(product=instance.product, name=instance.color).first()
-            if color_obj:
-                color_obj.stock_qty += instance.qty
-                color_obj.save()
-        
-        if instance.size and instance.size != "No Size":
-            size_obj = Size.objects.filter(product=instance.product, name=instance.size).first()
-            if size_obj:
-                size_obj.stock_qty += instance.qty
-                size_obj.save()
-        
-        instance.delete()
-
-
+        if user_id is not None:
+            user = User.objects.get(id=user_id)
+            return Cart.objects.get(cart_id=cart_id, id=item_id, user=user)
+        return Cart.objects.get(cart_id=cart_id, id=item_id)
 
 class createOrderAPIView(generics.CreateAPIView):
     serializer_class = CartOrderSerializer
-    queryset = CartOrder.objects.all()
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
-        payload = request.data
-        with transaction.atomic():
-            try:
-                # Create order
-                order = CartOrder.objects.create(
-                    buyer=User.objects.get(id=payload['user_id']) if payload['user_id'] != 0 else None,
-                    payment_status="pending",
-                    full_name=payload['full_name'],
-                    email=payload['email'],
-                    phone=payload['phone'],
-                    address=payload['address'],
-                    city=payload['city'],
-                    state=payload['state'],
-                    country=payload['country']
+    def create(self, request):
+        try:
+            payload = request.data
+            
+            # Validate required fields
+            required_fields = ['full_name', 'email', 'phone', 'address', 'city', 'state', 'country', 'cart_id']
+            for field in required_fields:
+                if not payload.get(field):
+                    return Response(
+                        {"error": f"{field.replace('_', ' ').title()} is required"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+            full_name = payload['full_name']
+            email = payload['email']
+            phone = payload['phone']
+            address = payload['address']
+            city = payload['city']
+            state = payload['state']
+            country = payload['country']
+            cart_id = payload['cart_id']
+            user_id = payload.get('user_id')
+
+            user = User.objects.get(id=user_id) if user_id and user_id != 'undefined' else None
+            cart_items = Cart.objects.filter(cart_id=cart_id)
+
+            if not cart_items.exists():
+                return Response(
+                    {"error": "Cart is empty"},
+                    status=status.HTTP_400_BAD_REQUEST
                 )
 
-                cart_items = Cart.objects.filter(cart_id=payload['cart_id'])
+            with transaction.atomic():
+                # Create order
+                order = CartOrder.objects.create(
+                    buyer=user,
+                    full_name=full_name,
+                    email=email,
+                    phone=phone,
+                    address=address,
+                    city=city,
+                    state=state,
+                    country=country
+                )
+
                 totals = {
                     'shipping': Decimal(0.0),
                     'tax': Decimal(0.0),
@@ -305,6 +373,7 @@ class createOrderAPIView(generics.CreateAPIView):
                 }
 
                 for cart_item in cart_items:
+                    # Lock product for update to prevent race conditions
                     product = Product.objects.select_for_update().get(id=cart_item.product.id)
                     
                     # Enhanced stock validation for order creation
@@ -314,31 +383,33 @@ class createOrderAPIView(generics.CreateAPIView):
                     
                     # Check color stock if specified
                     if cart_item.color and cart_item.color != "No Color":
-                        color_obj = Color.objects.select_for_update().filter(
-                            product=product, 
-                            name=cart_item.color
-                        ).first()
-                        if not color_obj:
-                            raise Exception(f"Color '{cart_item.color}' is not available for {product.title}")
-                        if color_obj.stock_qty < cart_item.qty:
-                            raise Exception(f"Only {color_obj.stock_qty} available in color '{cart_item.color}' for {product.title}")
-                        available_stock = min(available_stock, color_obj.stock_qty)
+                        try:
+                            color_obj = Color.objects.select_for_update().get(
+                                product=product, 
+                                name=cart_item.color
+                            )
+                            if not color_obj.in_stock or color_obj.stock_qty < cart_item.qty:
+                                raise Exception(f"Insufficient stock for color '{cart_item.color}' of {product.title}. Only {color_obj.stock_qty} available")
+                            available_stock = min(available_stock, color_obj.stock_qty)
+                        except Color.DoesNotExist:
+                            raise Exception(f"Color '{cart_item.color}' is no longer available for {product.title}")
                     
                     # Check size stock if specified
                     if cart_item.size and cart_item.size != "No Size":
-                        size_obj = Size.objects.select_for_update().filter(
-                            product=product, 
-                            name=cart_item.size
-                        ).first()
-                        if not size_obj:
-                            raise Exception(f"Size '{cart_item.size}' is not available for {product.title}")
-                        if size_obj.stock_qty < cart_item.qty:
-                            raise Exception(f"Only {size_obj.stock_qty} available in size '{cart_item.size}' for {product.title}")
-                        available_stock = min(available_stock, size_obj.stock_qty)
+                        try:
+                            size_obj = Size.objects.select_for_update().get(
+                                product=product, 
+                                name=cart_item.size
+                            )
+                            if not size_obj.in_stock or size_obj.stock_qty < cart_item.qty:
+                                raise Exception(f"Insufficient stock for size '{cart_item.size}' of {product.title}. Only {size_obj.stock_qty} available")
+                            available_stock = min(available_stock, size_obj.stock_qty)
+                        except Size.DoesNotExist:
+                            raise Exception(f"Size '{cart_item.size}' is no longer available for {product.title}")
                     
                     # Final stock validation
                     if available_stock < cart_item.qty:
-                        raise Exception(f"Only {available_stock} available in stock for {product.title}")
+                        raise Exception(f"Insufficient stock for {product.title}. Only {available_stock} available, but {cart_item.qty} requested")
 
                     # Create order item
                     CartOrderItem.objects.create(
@@ -359,16 +430,22 @@ class createOrderAPIView(generics.CreateAPIView):
 
                     # Update product stock
                     product.stock_qty -= cart_item.qty
+                    if product.stock_qty <= 0:
+                        product.in_stock = False
                     product.save()
                     
                     # Update color stock if specified
                     if color_obj:
                         color_obj.stock_qty -= cart_item.qty
+                        if color_obj.stock_qty <= 0:
+                            color_obj.in_stock = False
                         color_obj.save()
                     
                     # Update size stock if specified
                     if size_obj:
                         size_obj.stock_qty -= cart_item.qty
+                        if size_obj.stock_qty <= 0:
+                            size_obj.in_stock = False
                         size_obj.save()
 
                     # Update totals
@@ -392,28 +469,28 @@ class createOrderAPIView(generics.CreateAPIView):
                 cart_items.delete()
 
                 return Response(
-                    {"message": "Order Created Successfully", "order_oid": order.oid},
+                    {"message": "Order created successfully", "order_oid": order.oid},
                     status=status.HTTP_201_CREATED
                 )
 
-            except Exception as e:
-                return Response(
-                    {"error": str(e)},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 class CheckoutView(generics.RetrieveAPIView):
     serializer_class = CartOrderSerializer
-    lookup_field = 'order_oid'
     permission_classes = [AllowAny]
+    lookup_field = "oid"
 
     def get_object(self):
-        order_oid = self.kwargs['order_oid']
-        return CartOrder.objects.get(oid=order_oid)
+        oid = self.kwargs['oid']
+        order = CartOrder.objects.get(oid=oid)
+        return order
 
 class CouponAPIView(generics.CreateAPIView):
-    serializer_class = CartOrderSerializer
-    queryset = Coupon.objects.all()
+    serializer_class = CouponSerializer
     permission_classes = [AllowAny]
 
     def create(self, request):
@@ -422,240 +499,149 @@ class CouponAPIView(generics.CreateAPIView):
         coupon_code = payload['coupon_code']
 
         order = CartOrder.objects.get(oid=order_oid)
-        coupon = Coupon.objects.filter(code=coupon_code).first()
+        coupon = Coupon.objects.filter(code=coupon_code, active=True).first()
 
-        if not coupon:
-            return Response({"message": "Coupon Does Not Exist", "icon": "error"})
-
-        order_items = CartOrderItem.objects.filter(order=order, vendor=coupon.vendor)
-        if not order_items:
-            return Response({"message": "Order Item Does Not Exist", "icon": "error"})
-
-        for item in order_items:
-            if coupon in item.coupon.all():
-                return Response({"message": "Coupon Already Activated", "icon": "warning"})
-
-            discount = item.total * coupon.discount / 100
-            item.total -= discount
-            item.sub_total -= discount
-            item.coupon.add(coupon)
-            item.saved += discount
-            item.save()
-
-            order.total -= discount
-            order.sub_total -= discount
-            order.saved += discount
+        if coupon:
+            order_total = order.total
+            new_total = order_total - order_total * coupon.discount / 100
+            order.total = new_total
+            order.saved = order_total - new_total
             order.save()
 
-        return Response({"message": "Coupon Activated", "icon": "success"})
+            return Response(
+                {"message": "Coupon Activated", "icon": "success"},
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"message": "Coupon Does Not Exists", "icon": "error"},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
 class StripeCheckoutView(generics.CreateAPIView):
-    """
-    Creates a Stripe Checkout session for an order
-    """
     serializer_class = CartOrderSerializer
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
-        order_oid = self.kwargs['order_oid']
-        
+    def create(self, request):
+        order_oid = self.request.data['order_oid']
+        order = CartOrder.objects.get(oid=order_oid)
+
+        if not order:
+            return Response(
+                {"message": "Order Not Found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
         try:
-            order = CartOrder.objects.select_related('buyer').get(oid=order_oid)
-            
-            # Early return if already paid
-            if order.payment_status == 'paid':
-                return Response(
-                    {"message": "Order already paid"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-
-            # Create line items from order items
-            line_items = [{
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {
-                        'name': item.product.title,
-                    },
-                    'unit_amount': int(item.price * 100),  # Convert to cents
-                },
-                'quantity': item.qty,
-            } for item in order.orderitem.all()]
-
             checkout_session = stripe.checkout.Session.create(
                 customer_email=order.email,
                 payment_method_types=['card'],
-                line_items=line_items,
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': order.full_name,
+                            },
+                            'unit_amount': int(order.total * 100),
+                        },
+                        'quantity': 1,
+                    }
+                ],
                 mode='payment',
-                success_url=(
-                    f'{settings.FRONTEND_URL}/payment-success/{order.oid}/'
-                    f'?session_id={{CHECKOUT_SESSION_ID}}'
-                ),
-                cancel_url=f'{settings.FRONTEND_URL}/payment-failed/',
-                metadata={
-                    'order_oid': order.oid,
-                    'buyer_id': str(order.buyer.id) if order.buyer else ''
-                },
-                expires_at=int((timezone.now() + timezone.timedelta(hours=1)).timestamp())
+                success_url=settings.FRONTEND_URL + '/payment-success/' + order.oid + '?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=settings.FRONTEND_URL + '/payment-failed/?session_id={CHECKOUT_SESSION_ID}',
             )
 
-            # Update order with session info
-            order.stripe_session_id = checkout_session.id
-            order.save(update_fields=['stripe_session_id'])
+            order.stripe_payment_intent = checkout_session['id']
+            order.save()
 
-            return Response({
-                'url': checkout_session.url,
-                'session_id': checkout_session.id
-            })
+            return Response({"checkout_url": checkout_session.url})
 
-        except CartOrder.DoesNotExist:
-            return Response(
-                {"message": "Order not found"}, 
-                status=status.HTTP_404_NOT_FOUND
-            )
-        except stripe.error.StripeError as e:
-            return Response(
-                {"error": f"Stripe error: {str(e)}"},
-                status=status.HTTP_502_BAD_GATEWAY
-            )
         except Exception as e:
             return Response(
-                {"error": f"Server error: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-
-class PaymentSuccessView(generics.CreateAPIView):
-    """
-    Handles payment verification and post-payment processing
-    """
-    serializer_class = CartOrderSerializer
-    permission_classes = [AllowAny]
-
-    def create(self, request, *args, **kwargs):
-        payload = request.data
-        order_oid = payload.get('order_oid')
-        session_id = payload.get('session_id')
-
-        # Input validation
-        if not order_oid or not session_id:
-            return Response(
-                {"message": "Missing order_oid or session_id"},
+                {"error": f"Something went wrong when trying to make payment. Error: {str(e)}"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        try:
-            # Fetch order with related data in single query
-            order = CartOrder.objects.select_related('buyer').prefetch_related(
-                'orderitem', 'orderitem__vendor', 'orderitem__product'
-            ).get(oid=order_oid)
+class PaymentSuccessView(generics.CreateAPIView):
+    serializer_class = CartOrderSerializer
+    permission_classes = [AllowAny]
 
-            # Retrieve Stripe session
+    def create(self, request):
+        payload = request.data
+        order_oid = payload['order_oid']
+        session_id = payload['session_id']
+
+        order = CartOrder.objects.get(oid=order_oid)
+        order_items = CartOrderItem.objects.filter(order=order)
+
+        if session_id != 'null':
             session = stripe.checkout.Session.retrieve(session_id)
 
-            # Validate session matches order
-            if session.metadata.get('order_oid') != order_oid:
-                return Response(
-                    {"message": "Session does not match order"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            if session.payment_status == 'paid':
+                if order.payment_status == "processing":
+                    order.payment_status = "paid"
+                    order.save()
 
-            # Handle payment status
-            if session.payment_status == "paid":
-                return self._handle_successful_payment(order, session)
-            else:
-                return Response(
-                    {"message": f"Payment status: {session.payment_status}"},
-                    status=status.HTTP_402_PAYMENT_REQUIRED
-                )
+                    if order.buyer != None:
+                        send_notification(user=order.buyer, order=order)
 
-        except CartOrder.DoesNotExist:
-            return Response(
-                {"message": "Order not found"}, 
-                status=status.HTTP_404_NOT_FOUND
-            )
-        except stripe.error.StripeError as e:
-            return Response(
-                {"error": f"Stripe error: {str(e)}"},
-                status=status.HTTP_502_BAD_GATEWAY
-            )
-        except Exception as e:
-            return Response(
-                {"error": f"Server error: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+                    for o in order_items:
+                        send_notification(vendor=o.vendor, order=order, order_item=o)
 
-    def _handle_successful_payment(self, order, session):
-        """Handle all post-payment success logic"""
-        if order.payment_status != "paid":
-            # Update order status
-            order.payment_status = "paid"
-            order.paid_at = timezone.now()
-            order.save()
+                    context = {
+                        'order': order,
+                        'order_items': order_items,
+                    }
+                    subject = f"Order Placed Successfully"
+                    text_body = render_to_string("email/customer_order_confirmation.txt", context)
+                    html_body = render_to_string("email/customer_order_confirmation.html", context)
 
-            # Process notifications
-            self._process_notifications(order)
-
-            return Response({"message": "Payment successful"})
-        
-        return Response({"message": "Order already paid"})
-
-    def _process_notifications(self, order):
-        """Send all post-payment notifications"""
-        if order.buyer:
-            # Buyer notification
-            send_notification(user=order.buyer, order=order)
-            self._send_email(
-                user=order.buyer,
-                order=order,
-                subject="Order Placed Successfully",
-                templates=(
-                    "email/customer_order_confirmation.txt",
-                    "email/customer_order_confirmation.html"
-                )
-            )
-
-        # Vendor notifications
-        for item in order.orderitem.all():
-            if item.vendor:
-                send_notification(user=item.vendor, order=order, order_item=item)
-                self._send_email(
-                    user=item.vendor,
-                    order=order,
-                    order_item=item,
-                    subject="New Sale!",
-                    templates=(
-                        "email/vendor_sale.txt",
-                        "email/vendor_sale.html"
+                    msg = EmailMultiAlternatives(
+                        subject=subject,
+                        body=text_body,
+                        from_email=settings.FROM_EMAIL,
+                        to=[order.email]
                     )
-                )
+                    msg.attach_alternative(html_body, "text/html")
+                    msg.send()
 
-    def _send_email(self, user, order, order_item=None, subject="", templates=()):
-        """Helper method to send templated emails"""
-        context = {
-            'order': order,
-            'order_item': order_item,
-            'user': user
-        }
-        
-        text_body = render_to_string(templates[0], context)
-        html_body = render_to_string(templates[1], context)
+                return Response({"message": "Payment Successful"})
+            else:
+                return Response({"message": "Payment Failed"})
+        else:
+            session = None
 
-        msg = EmailMultiAlternatives(
-            subject=subject,
-            from_email=settings.FROM_EMAIL,
-            to=[user.email],
-            body=text_body
-        )
-        msg.attach_alternative(html_body, "text/html")
-        msg.send()
+        return Response({"message": "Payment Successful"})
 
-class ReviewListAPIView(generics.ListAPIView):
+class ReviewListAPIView(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):
         product_id = self.kwargs['product_id']
-        return Review.objects.filter(product_id=product_id, active=True)
+        product = Product.objects.get(id=product_id)
+        return Review.objects.filter(product=product, active=True)
+
+    def create(self, request, *args, **kwargs):
+        payload = request.data
+        user_id = payload['user_id']
+        product_id = payload['product_id']
+        rating = payload['rating']
+        review = payload['review']
+
+        user = User.objects.get(id=user_id)
+        product = Product.objects.get(id=product_id)
+
+        Review.objects.create(
+            user=user,
+            product=product,
+            rating=rating,
+            review=review,
+        )
+
+        return Response({"message": "Review created successfully"}, status=status.HTTP_201_CREATED)
 
 class ReviewRatingAPIView(generics.CreateAPIView):
     serializer_class = ReviewSerializer
@@ -663,13 +649,22 @@ class ReviewRatingAPIView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         payload = request.data
+        user_id = payload['user_id']
+        product_id = payload['product_id']
+        rating = payload['rating']
+        review = payload['review']
+
+        user = User.objects.get(id=user_id)
+        product = Product.objects.get(id=product_id)
+
         Review.objects.create(
-            user_id=payload['user_id'],
-            product_id=payload['product_id'],
-            rating=payload['rating'],
-            review=payload['review']
+            user=user,
+            product=product,
+            rating=rating,
+            review=review,
         )
-        return Response({"message": "Review Created Successfully."}, status=status.HTTP_201_CREATED)
+
+        return Response({"message": "Review created successfully"}, status=status.HTTP_201_CREATED)
 
 class SearchProductAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
@@ -677,27 +672,27 @@ class SearchProductAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.GET.get('query')
-        return Product.objects.filter(status="published", title__icontains=query)
+        return Product.objects.filter(title__icontains=query, status="published")
 
 class CarouselImageList(generics.ListAPIView):
-    queryset = CarouselImage.objects.filter(is_active=True)
     serializer_class = CarouselImageSerializer
     permission_classes = [AllowAny]
+    queryset = CarouselImage.objects.filter(is_active=True)
 
 class OffersCarouselList(generics.ListAPIView):
-    queryset = OffersCarousel.objects.filter(is_active=True)
     serializer_class = OffersCarouselSerializer
     permission_classes = [AllowAny]
+    queryset = OffersCarousel.objects.filter(is_active=True)
 
 class BannerListAPIView(generics.ListAPIView):
-    queryset = Banner.objects.filter(is_active=True)
     serializer_class = BannerSerializer
     permission_classes = [AllowAny]
+    queryset = Banner.objects.filter(is_active=True)
 
 class MostViewedProductsAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
-
+    
     def get_queryset(self):
-        return Product.objects.filter(status="published").order_by('-views')[:18]
+        return Product.objects.filter(status="published").order_by('-views')[:10]
 

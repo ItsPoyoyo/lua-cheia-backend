@@ -16,11 +16,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['username'] = user.username
         try:
-            token[vendor_id] = user.vendor.id
+            token['vendor_id'] = user.vendor.id
         except:
             token['vendor_id'] = 0
 
-            return token
+        return token
         
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])

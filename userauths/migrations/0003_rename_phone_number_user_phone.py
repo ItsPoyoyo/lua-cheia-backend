@@ -10,9 +10,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='user',
-            old_name='phone_number',
-            new_name='phone',
-        ),
+        # This migration was incorrectly trying to rename a non-existent field
+        # The User model already has 'phone' field from the initial migration
+        # No operations needed
     ]
+
