@@ -77,30 +77,72 @@ class CartAPIView(generics.ListCreateAPIView):
 
             product = Product.objects.get(status="published", id=product_id)
             
-            # Check product stock
-            if product.stock_qty < qty:
-                return Response(
-                    {"error": f"Not enough stock for {product.title}. Available: {product.stock_qty}"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            # Enhanced stock validation
+            available_stock = product.stock_qty
+            color_obj = None
+            size_obj = None
             
             # Check color stock if specified
             if color and color != "No Color":
                 color_obj = Color.objects.filter(product=product, name=color).first()
-                if not color_obj or color_obj.stock_qty < qty:
+                if not color_obj:
                     return Response(
-                        {"error": f"Selected color {color} is out of stock"},
+                        {"error": f"Color '{color}' is not available for this product"},
                         status=status.HTTP_400_BAD_REQUEST
                     )
+                if color_obj.stock_qty < qty:
+                    if color_obj.stock_qty == 0:
+                        return Response(
+                            {"error": f"Color '{color}' is out of stock"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    else:
+                        return Response(
+                            {"error": f"Only {color_obj.stock_qty} available in color '{color}'"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                available_stock = min(available_stock, color_obj.stock_qty)
             
             # Check size stock if specified
             if size and size != "No Size":
                 size_obj = Size.objects.filter(product=product, name=size).first()
-                if not size_obj or size_obj.stock_qty < qty:
+                if not size_obj:
                     return Response(
-                        {"error": f"Selected size {size} is out of stock"},
+                        {"error": f"Size '{size}' is not available for this product"},
                         status=status.HTTP_400_BAD_REQUEST
                     )
+                if size_obj.stock_qty < qty:
+                    if size_obj.stock_qty == 0:
+                        return Response(
+                            {"error": f"Size '{size}' is out of stock"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    else:
+                        return Response(
+                            {"error": f"Only {size_obj.stock_qty} available in size '{size}'"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                available_stock = min(available_stock, size_obj.stock_qty)
+            
+            # Final stock check
+            if available_stock < qty:
+                if available_stock == 0:
+                    return Response(
+                        {"error": f"{product.title} is out of stock"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                else:
+                    return Response(
+                        {"error": f"Only {available_stock} available in stock for {product.title}"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
+            # Check cart limit
+            if qty > product.max_cart_limit:
+                return Response(
+                    {"error": f"Maximum {product.max_cart_limit} items allowed per order"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
             user = User.objects.get(id=user_id) if user_id and user_id != 'undefined' else None
             tax = Tax.objects.filter(country=country).first()
@@ -113,27 +155,42 @@ class CartAPIView(generics.ListCreateAPIView):
             total = sub_total + shipping_total + tax_fee + service_fee
 
             cart = Cart.objects.filter(cart_id=cart_id, product=product, color=color, size=size).first()
-            if not cart:
+            if cart:
+                # Update existing cart item
+                new_qty = cart.qty + qty
+                if new_qty > available_stock:
+                    return Response(
+                        {"error": f"Cannot add {qty} more. Only {available_stock - cart.qty} more available"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                cart.qty = new_qty
+                cart.sub_total = price * new_qty
+                cart.shipping_ammount = shipping_ammount * new_qty
+                cart.tax_fee = cart.sub_total * Decimal(tax_rate)
+                cart.service_fee = cart.sub_total * Decimal(0.01)
+                cart.total = cart.sub_total + cart.shipping_ammount + cart.tax_fee + cart.service_fee
+            else:
+                # Create new cart item
                 cart = Cart()
+                cart.product = product
+                cart.user = user
+                cart.qty = qty
+                cart.price = price
+                cart.sub_total = sub_total
+                cart.shipping_ammount = shipping_total
+                cart.tax_fee = tax_fee
+                cart.color = color
+                cart.size = size
+                cart.country = country
+                cart.cart_id = cart_id
+                cart.service_fee = service_fee
+                cart.total = total
 
-            cart.product = product
-            cart.user = user
-            cart.qty = qty
-            cart.price = price
-            cart.sub_total = sub_total
-            cart.shipping_ammount = shipping_total
-            cart.tax_fee = tax_fee
-            cart.color = color
-            cart.size = size
-            cart.country = country
-            cart.cart_id = cart_id
-            cart.service_fee = service_fee
-            cart.total = total
             cart.save()
 
             return Response(
                 {'message': "Cart Updated Successfully" if cart.id else "Cart Created Successfully"},
-                status=status.HTTP_200_OK if cart.id else status.HTTP_201_CREATED
+                status=status.HTTP_200_OK
             )
 
         except Product.DoesNotExist:
@@ -195,9 +252,26 @@ class CartItemDeleteAPIView(generics.DestroyAPIView):
         return Cart.objects.get(id=item_id)
 
     def perform_destroy(self, instance):
+        # Restore stock when item is removed from cart
         instance.product.stock_qty += instance.qty
         instance.product.save()
+        
+        # Also restore color and size stock if applicable
+        if instance.color and instance.color != "No Color":
+            color_obj = Color.objects.filter(product=instance.product, name=instance.color).first()
+            if color_obj:
+                color_obj.stock_qty += instance.qty
+                color_obj.save()
+        
+        if instance.size and instance.size != "No Size":
+            size_obj = Size.objects.filter(product=instance.product, name=instance.size).first()
+            if size_obj:
+                size_obj.stock_qty += instance.qty
+                size_obj.save()
+        
         instance.delete()
+
+
 
 class createOrderAPIView(generics.CreateAPIView):
     serializer_class = CartOrderSerializer
@@ -233,27 +307,38 @@ class createOrderAPIView(generics.CreateAPIView):
                 for cart_item in cart_items:
                     product = Product.objects.select_for_update().get(id=cart_item.product.id)
                     
-                    # Check product stock
-                    if product.stock_qty < cart_item.qty:
-                        raise Exception(f"Not enough stock for {product.title}. Available: {product.stock_qty}")
+                    # Enhanced stock validation for order creation
+                    available_stock = product.stock_qty
+                    color_obj = None
+                    size_obj = None
                     
                     # Check color stock if specified
                     if cart_item.color and cart_item.color != "No Color":
-                        color = Color.objects.select_for_update().filter(
+                        color_obj = Color.objects.select_for_update().filter(
                             product=product, 
                             name=cart_item.color
                         ).first()
-                        if not color or color.stock_qty < cart_item.qty:
-                            raise Exception(f"Not enough stock for color {cart_item.color}")
+                        if not color_obj:
+                            raise Exception(f"Color '{cart_item.color}' is not available for {product.title}")
+                        if color_obj.stock_qty < cart_item.qty:
+                            raise Exception(f"Only {color_obj.stock_qty} available in color '{cart_item.color}' for {product.title}")
+                        available_stock = min(available_stock, color_obj.stock_qty)
                     
                     # Check size stock if specified
                     if cart_item.size and cart_item.size != "No Size":
-                        size = Size.objects.select_for_update().filter(
+                        size_obj = Size.objects.select_for_update().filter(
                             product=product, 
                             name=cart_item.size
                         ).first()
-                        if not size or size.stock_qty < cart_item.qty:
-                            raise Exception(f"Not enough stock for size {cart_item.size}")
+                        if not size_obj:
+                            raise Exception(f"Size '{cart_item.size}' is not available for {product.title}")
+                        if size_obj.stock_qty < cart_item.qty:
+                            raise Exception(f"Only {size_obj.stock_qty} available in size '{cart_item.size}' for {product.title}")
+                        available_stock = min(available_stock, size_obj.stock_qty)
+                    
+                    # Final stock validation
+                    if available_stock < cart_item.qty:
+                        raise Exception(f"Only {available_stock} available in stock for {product.title}")
 
                     # Create order item
                     CartOrderItem.objects.create(
@@ -277,14 +362,14 @@ class createOrderAPIView(generics.CreateAPIView):
                     product.save()
                     
                     # Update color stock if specified
-                    if cart_item.color and cart_item.color != "No Color" and color:
-                        color.stock_qty -= cart_item.qty
-                        color.save()
+                    if color_obj:
+                        color_obj.stock_qty -= cart_item.qty
+                        color_obj.save()
                     
                     # Update size stock if specified
-                    if cart_item.size and cart_item.size != "No Size" and size:
-                        size.stock_qty -= cart_item.qty
-                        size.save()
+                    if size_obj:
+                        size_obj.stock_qty -= cart_item.qty
+                        size_obj.save()
 
                     # Update totals
                     totals['shipping'] += Decimal(cart_item.shipping_ammount)
@@ -615,3 +700,4 @@ class MostViewedProductsAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(status="published").order_by('-views')[:18]
+
