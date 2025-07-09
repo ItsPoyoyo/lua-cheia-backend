@@ -119,8 +119,8 @@ class ProductAdmin(admin.ModelAdmin):
     stock_status.short_description = "Stock Status"
     
     def total_stock(self, obj):
-        color_stock = sum(c.stock_qty for c in obj.color_set.all())
-        size_stock = sum(s.stock_qty for s in obj.size_set.all())
+        color_stock = sum(c.stock_qty for c in obj.colors.all())
+        size_stock = sum(s.stock_qty for s in obj.sizes.all())
         return f"Main: {obj.stock_qty} | Colors: {color_stock} | Sizes: {size_stock}"
     total_stock.short_description = "Stock Breakdown"
     
@@ -130,14 +130,14 @@ class ProductAdmin(admin.ModelAdmin):
         
         html = f"<strong>Main Stock:</strong> {obj.stock_qty}<br>"
         
-        colors = obj.color_set.all()
+        colors = obj.colors.all()
         if colors:
             html += "<strong>Color Stock:</strong><br>"
             for color in colors:
                 status = "✅" if color.stock_qty > 0 else "❌"
                 html += f"&nbsp;&nbsp;{status} {color.name}: {color.stock_qty}<br>"
         
-        sizes = obj.size_set.all()
+        sizes = obj.sizes.all()
         if sizes:
             html += "<strong>Size Stock:</strong><br>"
             for size in sizes:
