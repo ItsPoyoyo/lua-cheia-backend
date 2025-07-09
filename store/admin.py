@@ -82,7 +82,7 @@ class ProductAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('title', 'slug', 'description', 'image', 'category', 'vendor'),
+            'fields': ('title', 'description', 'image', 'category', 'vendor'),
             'classes': ('wide',)
         }),
         ('Pricing & Shipping', {
@@ -102,7 +102,7 @@ class ProductAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('System Fields', {
-            'fields': ('pid',),
+            'fields': ('slug', 'pid'),
             'classes': ('collapse',)
         }),
     )
