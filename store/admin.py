@@ -7,6 +7,7 @@ from store.models import (
     Product, Wishlist, Tax, Category, Gallery, Specification, Size, Color, Cart,
     CartOrder, CartOrderItem, Review, Coupon, Notification, CarouselImage, OffersCarousel, Banner
 )
+from store.permissions import VendedorPermissionMixin
 import logging
 
 # Set up logging
@@ -69,7 +70,7 @@ class CategoryAdmin(admin.ModelAdmin):
     product_count.short_description = "Products"
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = [
         'title', 'category', 'price', 'stock_status', 'total_stock', 
         'featured', 'status', 'vendor', 'views'
@@ -77,12 +78,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['category', 'vendor', 'featured', 'status', 'in_stock']
     search_fields = ['title', 'description', 'vendor__name']
     list_editable = ['featured', 'status']
-    readonly_fields = ['slug', 'pid', 'rating', 'views', 'date', 'stock_summary']
+    readonly_fields = ['pid', 'rating', 'views', 'date', 'stock_summary']
     prepopulated_fields = {'slug': ('title',)}
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('title', 'description', 'image', 'category', 'vendor'),
+            'fields': ('title', 'slug', 'description', 'image', 'category', 'vendor'),
             'classes': ('wide',)
         }),
         ('Pricing & Shipping', {
@@ -102,7 +103,7 @@ class ProductAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('System Fields', {
-            'fields': ('slug', 'pid'),
+            'fields': ('pid',),
             'classes': ('collapse',)
         }),
     )
@@ -253,7 +254,7 @@ class ReviewAdmin(admin.ModelAdmin):
     rating_stars.short_description = "Rating"
 
 @admin.register(Color)
-class ColorAdmin(admin.ModelAdmin):
+class ColorAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['name', 'product', 'color_preview', 'stock_qty', 'stock_status']
     list_filter = ['in_stock', 'product__vendor']
     search_fields = ['name', 'product__title']
@@ -278,7 +279,7 @@ class ColorAdmin(admin.ModelAdmin):
     stock_status.short_description = "Status"
 
 @admin.register(Size)
-class SizeAdmin(admin.ModelAdmin):
+class SizeAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['name', 'product', 'price', 'stock_qty', 'stock_status']
     list_filter = ['in_stock', 'product__vendor']
     search_fields = ['name', 'product__title']
@@ -294,7 +295,7 @@ class SizeAdmin(admin.ModelAdmin):
     stock_status.short_description = "Status"
 
 @admin.register(Gallery)
-class GalleryAdmin(admin.ModelAdmin):
+class GalleryAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['product', 'color', 'image_preview', 'active']
     list_filter = ['active', 'product__vendor']
     search_fields = ['product__title', 'color__name']
@@ -379,4 +380,160 @@ class WishlistAdmin(admin.ModelAdmin):
     list_display = ['user', 'product', 'date']
     list_filter = ['date']
     search_fields = ['user__username', 'product__title']
+
+
+
+# Enhanced Carousel Management
+class CarouselAutomationAdmin(admin.ModelAdmin):
+    """
+    Custom admin for carousel automation management
+    """
+    change_list_template = 'admin/carousel_automation_changelist.html'
+    
+    def changelist_view(self, request, extra_context=None):
+        from store.carousel_automation import CarouselAutomation
+        from store.models import OffersCarousel, Banner, CarouselImage
+        
+        extra_context = extra_context or {}
+        
+        # Get automation statistics
+        automation = CarouselAutomation()
+        extra_context.update({
+            'active_offers_carousels': OffersCarousel.objects.filter(is_active=True).count(),
+            'active_banners': Banner.objects.filter(is_active=True).count(),
+            'active_carousel_images': CarouselImage.objects.filter(is_active=True).count(),
+            'recent_automated_banners': Banner.objects.filter(
+                title__startswith='Oferta Especial'
+            ).order_by('-date')[:5],
+            'trending_products_count': automation.get_trending_products().count(),
+            'discounted_products_count': automation.get_discounted_products().count(),
+        })
+        
+        return super().changelist_view(request, extra_context=extra_context)
+    
+    def has_add_permission(self, request):
+        return False
+    
+    def has_change_permission(self, request, obj=None):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+# Update existing carousel admin classes
+class CarouselImageAdminEnhanced(admin.ModelAdmin):
+    list_display = ['caption', 'image_preview', 'is_active']
+    list_filter = ['is_active']
+    search_fields = ['caption']
+    list_editable = ['is_active']
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 100px; height: 60px; object-fit: cover;" />', obj.image.url)
+        return "No Image"
+    image_preview.short_description = "Preview"
+    
+    actions = ['activate_images', 'deactivate_images']
+    
+    def activate_images(self, request, queryset):
+        queryset.update(is_active=True)
+        self.message_user(request, f"{queryset.count()} carousel images activated.")
+    activate_images.short_description = "Activate selected carousel images"
+    
+    def deactivate_images(self, request, queryset):
+        queryset.update(is_active=False)
+        self.message_user(request, f"{queryset.count()} carousel images deactivated.")
+    deactivate_images.short_description = "Deactivate selected carousel images"
+
+
+class OffersCarouselAdminEnhanced(admin.ModelAdmin):
+    list_display = ['title', 'products_count', 'is_active', 'is_automated']
+    list_filter = ['is_active']
+    search_fields = ['title']
+    list_editable = ['is_active']
+    filter_horizontal = ['products']
+    
+    def products_count(self, obj):
+        return obj.products.count()
+    products_count.short_description = "Products Count"
+    
+    def is_automated(self, obj):
+        automated_titles = ['Productos Más Vendidos', 'Tendencias Actuales', 'Nuevos Arrivals', 'Ofertas Especiales']
+        return obj.title in automated_titles
+    is_automated.boolean = True
+    is_automated.short_description = "Automated"
+    
+    actions = ['trigger_automation', 'activate_carousels', 'deactivate_carousels']
+    
+    def trigger_automation(self, request, queryset):
+        from store.carousel_automation import CarouselAutomation
+        automation = CarouselAutomation()
+        result = automation.update_offers_carousel(force=True)
+        if result:
+            self.message_user(request, "Carousel automation triggered successfully.")
+        else:
+            self.message_user(request, "Carousel automation failed.", level='ERROR')
+    trigger_automation.short_description = "Trigger carousel automation"
+    
+    def activate_carousels(self, request, queryset):
+        queryset.update(is_active=True)
+        self.message_user(request, f"{queryset.count()} carousels activated.")
+    activate_carousels.short_description = "Activate selected carousels"
+    
+    def deactivate_carousels(self, request, queryset):
+        queryset.update(is_active=False)
+        self.message_user(request, f"{queryset.count()} carousels deactivated.")
+    deactivate_carousels.short_description = "Deactivate selected carousels"
+
+
+class BannerAdminEnhanced(admin.ModelAdmin):
+    list_display = ['title', 'image_preview', 'is_active', 'is_automated', 'date']
+    list_filter = ['is_active', 'date']
+    search_fields = ['title']
+    list_editable = ['is_active']
+    readonly_fields = ['date']
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 100px; height: 60px; object-fit: cover;" />', obj.image.url)
+        return "No Image"
+    image_preview.short_description = "Preview"
+    
+    def is_automated(self, obj):
+        return obj.title and (obj.title.startswith('Oferta Especial') or obj.title.startswith('Tendencia'))
+    is_automated.boolean = True
+    is_automated.short_description = "Automated"
+    
+    actions = ['trigger_banner_automation', 'activate_banners', 'deactivate_banners']
+    
+    def trigger_banner_automation(self, request, queryset):
+        from store.carousel_automation import CarouselAutomation
+        automation = CarouselAutomation()
+        result = automation.update_promotional_banners(force=True)
+        if result:
+            self.message_user(request, "Banner automation triggered successfully.")
+        else:
+            self.message_user(request, "Banner automation failed.", level='ERROR')
+    trigger_banner_automation.short_description = "Trigger banner automation"
+    
+    def activate_banners(self, request, queryset):
+        queryset.update(is_active=True)
+        self.message_user(request, f"{queryset.count()} banners activated.")
+    activate_banners.short_description = "Activate selected banners"
+    
+    def deactivate_banners(self, request, queryset):
+        queryset.update(is_active=False)
+        self.message_user(request, f"{queryset.count()} banners deactivated.")
+    deactivate_banners.short_description = "Deactivate selected banners"
+
+
+# Register the carousel automation admin (creates a menu item for automation)
+class CarouselAutomationProxy(OffersCarousel):
+    class Meta:
+        proxy = True
+        verbose_name = "Carousel Automation"
+        verbose_name_plural = "Carousel Automation"
+
+admin.site.register(CarouselAutomationProxy, CarouselAutomationAdmin)
 

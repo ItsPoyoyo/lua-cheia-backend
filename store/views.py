@@ -27,6 +27,111 @@ from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 
+def validate_product_stock(product, quantity, color_name=None, size_name=None):
+    """
+    Comprehensive stock validation with detailed error messages
+    Returns (is_valid, error_message, available_stock)
+    """
+    try:
+        # Check if product exists and is published
+        if product.status != "published":
+            return False, f"{product.title} is not available for purchase", 0
+        
+        # Check if product is marked as in stock
+        if not product.in_stock:
+            return False, f"{product.title} is currently out of stock", 0
+        
+        # Start with main product stock
+        available_stock = product.stock_qty
+        
+        # Check color stock if specified
+        if color_name and color_name != "No Color":
+            try:
+                color = product.colors.get(name=color_name)
+                if not color.in_stock:
+                    return False, f"Color '{color_name}' is out of stock for {product.title}", 0
+                if color.stock_qty <= 0:
+                    return False, f"Color '{color_name}' is out of stock for {product.title}", 0
+                # Use the minimum of product stock and color stock
+                available_stock = min(available_stock, color.stock_qty)
+            except Color.DoesNotExist:
+                return False, f"Color '{color_name}' is not available for {product.title}", 0
+        
+        # Check size stock if specified
+        if size_name and size_name != "No Size":
+            try:
+                size = product.sizes.get(name=size_name)
+                if not size.in_stock:
+                    return False, f"Size '{size_name}' is out of stock for {product.title}", 0
+                if size.stock_qty <= 0:
+                    return False, f"Size '{size_name}' is out of stock for {product.title}", 0
+                # Use the minimum of current available stock and size stock
+                available_stock = min(available_stock, size.stock_qty)
+            except Size.DoesNotExist:
+                return False, f"Size '{size_name}' is not available for {product.title}", 0
+        
+        # Check if requested quantity is available
+        if available_stock < quantity:
+            if available_stock == 0:
+                variant_info = ""
+                if color_name and color_name != "No Color":
+                    variant_info += f" in {color_name}"
+                if size_name and size_name != "No Size":
+                    variant_info += f" size {size_name}"
+                return False, f"{product.title}{variant_info} is out of stock", 0
+            else:
+                variant_info = ""
+                if color_name and color_name != "No Color":
+                    variant_info += f" in {color_name}"
+                if size_name and size_name != "No Size":
+                    variant_info += f" size {size_name}"
+                return False, f"Only {available_stock} available{variant_info} for {product.title}", available_stock
+        
+        # Check cart limit
+        if quantity > product.max_cart_limit:
+            return False, f"Maximum {product.max_cart_limit} items allowed per order for {product.title}", available_stock
+        
+        return True, "Stock available", available_stock
+        
+    except Exception as e:
+        return False, f"Error checking stock: {str(e)}", 0
+
+def update_product_stock(product, quantity, color_name=None, size_name=None):
+    """
+    Update stock levels after successful order
+    """
+    try:
+        # Update main product stock
+        product.stock_qty -= quantity
+        if product.stock_qty <= 0:
+            product.in_stock = False
+        product.save()
+        
+        # Update color stock if specified
+        if color_name and color_name != "No Color":
+            try:
+                color = product.colors.get(name=color_name)
+                color.stock_qty -= quantity
+                if color.stock_qty <= 0:
+                    color.in_stock = False
+                color.save()
+            except Color.DoesNotExist:
+                pass  # Color was deleted during order processing
+        
+        # Update size stock if specified
+        if size_name and size_name != "No Size":
+            try:
+                size = product.sizes.get(name=size_name)
+                size.stock_qty -= quantity
+                if size.stock_qty <= 0:
+                    size.in_stock = False
+                size.save()
+            except Size.DoesNotExist:
+                pass  # Size was deleted during order processing
+                
+    except Exception as e:
+        raise Exception(f"Error updating stock for {product.title}: {str(e)}")
+
 def send_notification(user=None, vendor=None, order=None, order_item=None):
     Notification.objects.create(
         user=user,
@@ -84,77 +189,14 @@ class CartAPIView(generics.ListCreateAPIView):
 
             product = Product.objects.get(status="published", id=product_id)
             
-            # Check if product is active and available
-            if not product.in_stock:
+            # Use improved stock validation
+            is_valid, error_msg, available_stock = validate_product_stock(
+                product, qty, color, size
+            )
+            
+            if not is_valid:
                 return Response(
-                    {"error": f"{product.title} is currently out of stock"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            
-            # Enhanced stock validation with better error handling
-            available_stock = product.stock_qty
-            color_obj = None
-            size_obj = None
-            
-            # Check color stock if specified
-            if color and color != "No Color":
-                try:
-                    color_obj = Color.objects.get(product=product, name=color)
-                    if not color_obj.in_stock or color_obj.stock_qty <= 0:
-                        return Response(
-                            {"error": f"Color '{color}' is out of stock for {product.title}"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    if color_obj.stock_qty < qty:
-                        return Response(
-                            {"error": f"Only {color_obj.stock_qty} available in color '{color}' for {product.title}"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    available_stock = min(available_stock, color_obj.stock_qty)
-                except Color.DoesNotExist:
-                    return Response(
-                        {"error": f"Color '{color}' is not available for {product.title}"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-            
-            # Check size stock if specified
-            if size and size != "No Size":
-                try:
-                    size_obj = Size.objects.get(product=product, name=size)
-                    if not size_obj.in_stock or size_obj.stock_qty <= 0:
-                        return Response(
-                            {"error": f"Size '{size}' is out of stock for {product.title}"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    if size_obj.stock_qty < qty:
-                        return Response(
-                            {"error": f"Only {size_obj.stock_qty} available in size '{size}' for {product.title}"},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                    available_stock = min(available_stock, size_obj.stock_qty)
-                except Size.DoesNotExist:
-                    return Response(
-                        {"error": f"Size '{size}' is not available for {product.title}"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-            
-            # Final stock check
-            if available_stock < qty:
-                if available_stock == 0:
-                    return Response(
-                        {"error": f"{product.title} is out of stock"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-                else:
-                    return Response(
-                        {"error": f"Only {available_stock} available in stock for {product.title}"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-            
-            # Check cart limit
-            if qty > product.max_cart_limit:
-                return Response(
-                    {"error": f"Maximum {product.max_cart_limit} items allowed per order for {product.title}"},
+                    {"error": error_msg},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
@@ -180,8 +222,12 @@ class CartAPIView(generics.ListCreateAPIView):
                 # Update existing cart item
                 new_qty = cart.qty + qty
                 
-                # Re-validate stock for new quantity
-                if new_qty > available_stock:
+                # Re-validate stock for new quantity using improved validation
+                is_valid_update, error_msg_update, available_stock_update = validate_product_stock(
+                    product, new_qty, color, size
+                )
+                
+                if not is_valid_update:
                     remaining = max(0, available_stock - cart.qty)
                     if remaining == 0:
                         return Response(
@@ -193,12 +239,6 @@ class CartAPIView(generics.ListCreateAPIView):
                             {"error": f"Cannot add {qty} more. Only {remaining} more available for {product.title}"},
                             status=status.HTTP_400_BAD_REQUEST
                         )
-                
-                if new_qty > product.max_cart_limit:
-                    return Response(
-                        {"error": f"Cannot add {qty} more. Maximum {product.max_cart_limit} items allowed per order for {product.title}"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
                 
                 cart.qty = new_qty
                 cart.sub_total = price * new_qty
@@ -376,41 +416,14 @@ class createOrderAPIView(generics.CreateAPIView):
                     # Lock product for update to prevent race conditions
                     product = Product.objects.select_for_update().get(id=cart_item.product.id)
                     
-                    # Enhanced stock validation for order creation
-                    available_stock = product.stock_qty
-                    color_obj = None
-                    size_obj = None
+                    # Use improved stock validation for order creation
+                    is_valid, error_msg, available_stock = validate_product_stock(
+                        product, cart_item.qty, cart_item.color, cart_item.size
+                    )
                     
-                    # Check color stock if specified
-                    if cart_item.color and cart_item.color != "No Color":
-                        try:
-                            color_obj = Color.objects.select_for_update().get(
-                                product=product, 
-                                name=cart_item.color
-                            )
-                            if not color_obj.in_stock or color_obj.stock_qty < cart_item.qty:
-                                raise Exception(f"Insufficient stock for color '{cart_item.color}' of {product.title}. Only {color_obj.stock_qty} available")
-                            available_stock = min(available_stock, color_obj.stock_qty)
-                        except Color.DoesNotExist:
-                            raise Exception(f"Color '{cart_item.color}' is no longer available for {product.title}")
+                    if not is_valid:
+                        raise Exception(error_msg)
                     
-                    # Check size stock if specified
-                    if cart_item.size and cart_item.size != "No Size":
-                        try:
-                            size_obj = Size.objects.select_for_update().get(
-                                product=product, 
-                                name=cart_item.size
-                            )
-                            if not size_obj.in_stock or size_obj.stock_qty < cart_item.qty:
-                                raise Exception(f"Insufficient stock for size '{cart_item.size}' of {product.title}. Only {size_obj.stock_qty} available")
-                            available_stock = min(available_stock, size_obj.stock_qty)
-                        except Size.DoesNotExist:
-                            raise Exception(f"Size '{cart_item.size}' is no longer available for {product.title}")
-                    
-                    # Final stock validation
-                    if available_stock < cart_item.qty:
-                        raise Exception(f"Insufficient stock for {product.title}. Only {available_stock} available, but {cart_item.qty} requested")
-
                     # Create order item
                     CartOrderItem.objects.create(
                         order=order,
@@ -428,25 +441,8 @@ class createOrderAPIView(generics.CreateAPIView):
                         vendor=product.vendor
                     )
 
-                    # Update product stock
-                    product.stock_qty -= cart_item.qty
-                    if product.stock_qty <= 0:
-                        product.in_stock = False
-                    product.save()
-                    
-                    # Update color stock if specified
-                    if color_obj:
-                        color_obj.stock_qty -= cart_item.qty
-                        if color_obj.stock_qty <= 0:
-                            color_obj.in_stock = False
-                        color_obj.save()
-                    
-                    # Update size stock if specified
-                    if size_obj:
-                        size_obj.stock_qty -= cart_item.qty
-                        if size_obj.stock_qty <= 0:
-                            size_obj.in_stock = False
-                        size_obj.save()
+                    # Use improved stock update function
+                    update_product_stock(product, cart_item.qty, cart_item.color, cart_item.size)
 
                     # Update totals
                     totals['shipping'] += Decimal(cart_item.shipping_ammount)
@@ -695,4 +691,144 @@ class MostViewedProductsAPIView(generics.ListAPIView):
     
     def get_queryset(self):
         return Product.objects.filter(status="published").order_by('-views')[:10]
+
+
+
+# Carousel Automation API Views
+from store.carousel_automation import CarouselAutomation
+# from store.tasks import update_carousels_task, update_offers_carousel_task, update_promotional_banners_task
+
+class CarouselAutomationAPIView(generics.GenericAPIView):
+    """
+    API endpoint to trigger carousel automation
+    """
+    
+    def post(self, request):
+        try:
+            automation_type = request.data.get('type', 'all')
+            force = request.data.get('force', False)
+            
+            automation = CarouselAutomation()
+            
+            if automation_type == 'offers':
+                result = automation.update_offers_carousel(force=force)
+                message = 'Offers carousel updated successfully' if result else 'Failed to update offers carousel'
+            elif automation_type == 'banners':
+                result = automation.update_promotional_banners(force=force)
+                message = 'Promotional banners updated successfully' if result else 'Failed to update promotional banners'
+            elif automation_type == 'images':
+                result = automation.update_carousel_images(force=force)
+                message = 'Carousel images updated successfully' if result else 'Failed to update carousel images'
+            else:  # all
+                result = automation.run_full_automation(force=force)
+                message = 'Full carousel automation completed successfully' if result else 'Carousel automation failed'
+            
+            return Response({
+                'success': result,
+                'message': message,
+                'type': automation_type,
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_200_OK if result else status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+        except Exception as e:
+            return Response({
+                'success': False,
+                'error': str(e),
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CarouselAutomationStatusAPIView(generics.GenericAPIView):
+    """
+    API endpoint to check carousel automation status
+    """
+    
+    def get(self, request):
+        try:
+            from store.models import OffersCarousel, Banner, CarouselImage
+            
+            # Get carousel statistics
+            offers_count = OffersCarousel.objects.filter(is_active=True).count()
+            banners_count = Banner.objects.filter(is_active=True).count()
+            carousel_images_count = CarouselImage.objects.filter(is_active=True).count()
+            
+            # Get recent automated content
+            recent_banners = Banner.objects.filter(
+                title__startswith='Oferta Especial'
+            ).order_by('-date')[:5]
+            
+            recent_carousels = OffersCarousel.objects.filter(
+                is_active=True
+            ).order_by('-id')[:5]
+            
+            return Response({
+                'success': True,
+                'statistics': {
+                    'active_offers_carousels': offers_count,
+                    'active_banners': banners_count,
+                    'active_carousel_images': carousel_images_count
+                },
+                'recent_automated_banners': [
+                    {
+                        'id': banner.id,
+                        'title': banner.title,
+                        'date': banner.date.isoformat() if banner.date else None,
+                        'is_active': banner.is_active
+                    } for banner in recent_banners
+                ],
+                'recent_carousels': [
+                    {
+                        'id': carousel.id,
+                        'title': carousel.title,
+                        'products_count': carousel.products.count(),
+                        'is_active': carousel.is_active
+                    } for carousel in recent_carousels
+                ],
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response({
+                'success': False,
+                'error': str(e),
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class TriggerCarouselTaskAPIView(generics.GenericAPIView):
+    """
+    API endpoint to trigger carousel automation as background task
+    """
+    
+    def post(self, request):
+        try:
+            automation_type = request.data.get('type', 'all')
+            force = request.data.get('force', False)
+            
+            # For testing without Celery, run automation directly
+            automation = CarouselAutomation()
+            
+            if automation_type == 'offers':
+                result = automation.update_offers_carousel(force=force)
+                message = 'Offers carousel automation completed'
+            elif automation_type == 'banners':
+                result = automation.update_promotional_banners(force=force)
+                message = 'Banner automation completed'
+            else:  # all
+                result = automation.run_full_automation(force=force)
+                message = 'Full carousel automation completed'
+            
+            return Response({
+                'success': result,
+                'message': f'{message} for type: {automation_type}',
+                'type': automation_type,
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_202_ACCEPTED)
+            
+        except Exception as e:
+            return Response({
+                'success': False,
+                'error': str(e),
+                'timestamp': timezone.now().isoformat()
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
