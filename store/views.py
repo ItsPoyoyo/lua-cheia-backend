@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.db import transaction
+from django.utils import timezone
 from decimal import Decimal
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -29,7 +30,7 @@ from rest_framework.permissions import AllowAny
 
 def validate_product_stock(product, quantity, color_name=None, size_name=None):
     """
-    Comprehensive stock validation with detailed error messages
+    Improved stock validation with better error handling
     Returns (is_valid, error_message, available_stock)
     """
     try:
@@ -44,13 +45,21 @@ def validate_product_stock(product, quantity, color_name=None, size_name=None):
         # Start with main product stock
         available_stock = product.stock_qty
         
+        # Normalize color and size values
+        color_name = color_name.strip() if color_name else None
+        size_name = size_name.strip() if size_name else None
+        
+        # Handle empty strings and None values
+        if color_name in [None, '', 'null', 'undefined', 'No Color']:
+            color_name = None
+        if size_name in [None, '', 'null', 'undefined', 'No Size']:
+            size_name = None
+        
         # Check color stock if specified
-        if color_name and color_name != "No Color":
+        if color_name:
             try:
-                color = product.colors.get(name=color_name)
-                if not color.in_stock:
-                    return False, f"Color '{color_name}' is out of stock for {product.title}", 0
-                if color.stock_qty <= 0:
+                color = product.colors.get(name__iexact=color_name)  # Case insensitive
+                if not color.in_stock or color.stock_qty <= 0:
                     return False, f"Color '{color_name}' is out of stock for {product.title}", 0
                 # Use the minimum of product stock and color stock
                 available_stock = min(available_stock, color.stock_qty)
@@ -58,12 +67,10 @@ def validate_product_stock(product, quantity, color_name=None, size_name=None):
                 return False, f"Color '{color_name}' is not available for {product.title}", 0
         
         # Check size stock if specified
-        if size_name and size_name != "No Size":
+        if size_name:
             try:
-                size = product.sizes.get(name=size_name)
-                if not size.in_stock:
-                    return False, f"Size '{size_name}' is out of stock for {product.title}", 0
-                if size.stock_qty <= 0:
+                size = product.sizes.get(name__iexact=size_name)  # Case insensitive
+                if not size.in_stock or size.stock_qty <= 0:
                     return False, f"Size '{size_name}' is out of stock for {product.title}", 0
                 # Use the minimum of current available stock and size stock
                 available_stock = min(available_stock, size.stock_qty)
@@ -74,16 +81,16 @@ def validate_product_stock(product, quantity, color_name=None, size_name=None):
         if available_stock < quantity:
             if available_stock == 0:
                 variant_info = ""
-                if color_name and color_name != "No Color":
+                if color_name:
                     variant_info += f" in {color_name}"
-                if size_name and size_name != "No Size":
+                if size_name:
                     variant_info += f" size {size_name}"
                 return False, f"{product.title}{variant_info} is out of stock", 0
             else:
                 variant_info = ""
-                if color_name and color_name != "No Color":
+                if color_name:
                     variant_info += f" in {color_name}"
-                if size_name and size_name != "No Size":
+                if size_name:
                     variant_info += f" size {size_name}"
                 return False, f"Only {available_stock} available{variant_info} for {product.title}", available_stock
         
@@ -94,38 +101,58 @@ def validate_product_stock(product, quantity, color_name=None, size_name=None):
         return True, "Stock available", available_stock
         
     except Exception as e:
-        return False, f"Error checking stock: {str(e)}", 0
+        print(f"Stock validation error: {str(e)}")  # For debugging
+        return False, f"Error validating stock. Please try again.", 0
 
 def update_product_stock(product, quantity, color_name=None, size_name=None):
     """
-    Update stock levels after successful order
+    Update stock levels after successful order with better error handling
     """
     try:
+        # Normalize color and size values
+        color_name = color_name.strip() if color_name else None
+        size_name = size_name.strip() if size_name else None
+        
+        # Handle empty strings and None values
+        if color_name in [None, '', 'null', 'undefined', 'No Color']:
+            color_name = None
+        if size_name in [None, '', 'null', 'undefined', 'No Size']:
+            size_name = None
+        
         # Update main product stock
-        product.stock_qty -= quantity
-        if product.stock_qty <= 0:
-            product.in_stock = False
-        product.save()
+        if product.stock_qty >= quantity:
+            product.stock_qty -= quantity
+            if product.stock_qty <= 0:
+                product.in_stock = False
+            product.save()
+        else:
+            raise Exception(f"Insufficient product stock for {product.title}")
         
         # Update color stock if specified
-        if color_name and color_name != "No Color":
+        if color_name:
             try:
-                color = product.colors.get(name=color_name)
-                color.stock_qty -= quantity
-                if color.stock_qty <= 0:
-                    color.in_stock = False
-                color.save()
+                color = product.colors.get(name__iexact=color_name)
+                if color.stock_qty >= quantity:
+                    color.stock_qty -= quantity
+                    if color.stock_qty <= 0:
+                        color.in_stock = False
+                    color.save()
+                else:
+                    raise Exception(f"Insufficient color stock for {color_name}")
             except Color.DoesNotExist:
                 pass  # Color was deleted during order processing
         
         # Update size stock if specified
-        if size_name and size_name != "No Size":
+        if size_name:
             try:
-                size = product.sizes.get(name=size_name)
-                size.stock_qty -= quantity
-                if size.stock_qty <= 0:
-                    size.in_stock = False
-                size.save()
+                size = product.sizes.get(name__iexact=size_name)
+                if size.stock_qty >= quantity:
+                    size.stock_qty -= quantity
+                    if size.stock_qty <= 0:
+                        size.in_stock = False
+                    size.save()
+                else:
+                    raise Exception(f"Insufficient size stock for {size_name}")
             except Size.DoesNotExist:
                 pass  # Size was deleted during order processing
                 
@@ -288,6 +315,148 @@ class CartAPIView(generics.ListCreateAPIView):
         except ValueError as e:
             return Response(
                 {"error": f"Invalid data provided: {str(e)}"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    def put(self, request, *args, **kwargs):
+        """Update cart item quantity"""
+        try:
+            payload = request.data
+            cart_id = payload.get('cart_id')
+            product_id = payload.get('product_id')
+            new_qty = int(payload.get('qty', 1))
+            color = payload.get('color', 'No Color')
+            size = payload.get('size', 'No Size')
+            country = payload.get('country')
+
+            # Validate quantity
+            if new_qty <= 0:
+                return Response(
+                    {"error": "Quantity must be greater than 0"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Find the cart item
+            cart_item = Cart.objects.filter(
+                cart_id=cart_id,
+                product_id=product_id,
+                color=color,
+                size=size
+            ).first()
+
+            if not cart_item:
+                return Response(
+                    {"error": "Cart item not found"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            product = cart_item.product
+
+            # Validate stock for new quantity
+            is_valid, error_msg, available_stock = validate_product_stock(
+                product, new_qty, color if color != 'No Color' else None, size if size != 'No Size' else None
+            )
+
+            if not is_valid:
+                return Response(
+                    {"error": error_msg},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Update cart item
+            tax = Tax.objects.filter(country=country, active=True).first()
+            tax_rate = tax.rate / 100 if tax else 0
+
+            cart_item.qty = new_qty
+            cart_item.sub_total = cart_item.price * new_qty
+            cart_item.shipping_ammount = cart_item.shipping_ammount / cart_item.qty * new_qty if cart_item.qty > 0 else 0
+            cart_item.tax_fee = cart_item.sub_total * Decimal(tax_rate)
+            cart_item.service_fee = cart_item.sub_total * Decimal(0.01)
+            cart_item.total = cart_item.sub_total + cart_item.shipping_ammount + cart_item.tax_fee + cart_item.service_fee
+            cart_item.save()
+
+            return Response(
+                {'message': f"Cart updated successfully. {product.title} quantity is now {new_qty}"},
+                status=status.HTTP_200_OK
+            )
+
+        except ValueError as e:
+            return Response(
+                {"error": f"Invalid quantity provided: {str(e)}"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Add a dedicated cart update endpoint
+class CartUpdateAPIView(generics.UpdateAPIView):
+    """Dedicated endpoint for updating cart item quantities"""
+    serializer_class = CartSerializer
+    permission_classes = [AllowAny]
+    
+    def get_object(self):
+        cart_id = self.kwargs.get('cart_id')
+        item_id = self.kwargs.get('item_id')
+        return Cart.objects.get(cart_id=cart_id, id=item_id)
+    
+    def patch(self, request, *args, **kwargs):
+        try:
+            cart_item = self.get_object()
+            new_qty = int(request.data.get('qty', 1))
+            
+            if new_qty <= 0:
+                return Response(
+                    {"error": "Quantity must be greater than 0"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate stock
+            is_valid, error_msg, available_stock = validate_product_stock(
+                cart_item.product, 
+                new_qty, 
+                cart_item.color if cart_item.color != 'No Color' else None,
+                cart_item.size if cart_item.size != 'No Size' else None
+            )
+            
+            if not is_valid:
+                return Response(
+                    {"error": error_msg},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Update cart item
+            tax = Tax.objects.filter(country=cart_item.country, active=True).first()
+            tax_rate = tax.rate / 100 if tax else 0
+            
+            cart_item.qty = new_qty
+            cart_item.sub_total = cart_item.price * new_qty
+            cart_item.shipping_ammount = (cart_item.shipping_ammount / cart_item.qty) * new_qty if cart_item.qty > 0 else 0
+            cart_item.tax_fee = cart_item.sub_total * Decimal(tax_rate)
+            cart_item.service_fee = cart_item.sub_total * Decimal(0.01)
+            cart_item.total = cart_item.sub_total + cart_item.shipping_ammount + cart_item.tax_fee + cart_item.service_fee
+            cart_item.save()
+            
+            return Response(
+                {'message': f"Cart updated successfully. {cart_item.product.title} quantity is now {new_qty}"},
+                status=status.HTTP_200_OK
+            )
+            
+        except Cart.DoesNotExist:
+            return Response(
+                {"error": "Cart item not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except ValueError as e:
+            return Response(
+                {"error": f"Invalid quantity: {str(e)}"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         except Exception as e:
@@ -692,11 +861,8 @@ class MostViewedProductsAPIView(generics.ListAPIView):
     def get_queryset(self):
         return Product.objects.filter(status="published").order_by('-views')[:10]
 
-
-
 # Carousel Automation API Views
 from store.carousel_automation import CarouselAutomation
-# from store.tasks import update_carousels_task, update_offers_carousel_task, update_promotional_banners_task
 
 class CarouselAutomationAPIView(generics.GenericAPIView):
     """
@@ -736,7 +902,6 @@ class CarouselAutomationAPIView(generics.GenericAPIView):
                 'error': str(e),
                 'timestamp': timezone.now().isoformat()
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class CarouselAutomationStatusAPIView(generics.GenericAPIView):
     """
@@ -793,7 +958,6 @@ class CarouselAutomationStatusAPIView(generics.GenericAPIView):
                 'error': str(e),
                 'timestamp': timezone.now().isoformat()
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class TriggerCarouselTaskAPIView(generics.GenericAPIView):
     """

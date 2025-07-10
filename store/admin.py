@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from store.models import (
     Product, Wishlist, Tax, Category, Gallery, Specification, Size, Color, Cart,
-    CartOrder, CartOrderItem, Review, Coupon, Notification, CarouselImage, OffersCarousel, Banner
+    CartOrder, CartOrderItem, Coupon, Notification, CarouselImage, OffersCarousel, Banner
 )
 from store.permissions import VendedorPermissionMixin
 import logging
@@ -73,17 +73,17 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = [
         'title', 'category', 'price', 'stock_status', 'total_stock', 
-        'featured', 'status', 'vendor', 'views'
+        'featured', 'status', 'views'
     ]
-    list_filter = ['category', 'vendor', 'featured', 'status', 'in_stock']
-    search_fields = ['title', 'description', 'vendor__name']
+    list_filter = ['category', 'featured', 'status', 'in_stock']
+    search_fields = ['title', 'description']
     list_editable = ['featured', 'status']
     readonly_fields = ['pid', 'rating', 'views', 'date', 'stock_summary']
     prepopulated_fields = {'slug': ('title',)}
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('title', 'slug', 'description', 'image', 'category', 'vendor'),
+            'fields': ('title', 'slug', 'description', 'image', 'category'),
             'classes': ('wide',)
         }),
         ('Pricing & Shipping', {
@@ -205,7 +205,7 @@ class CartOrderAdmin(admin.ModelAdmin):
     total_amount.short_description = "Total"
     
     def items_count(self, obj):
-        count = obj.cartorderitem_set.count()
+        count = obj.orderitem.count()
         return f"{count} items"
     items_count.short_description = "Items"
     
@@ -213,7 +213,7 @@ class CartOrderAdmin(admin.ModelAdmin):
         if not obj.pk:
             return "Save order first to see summary"
         
-        items = obj.cartorderitem_set.all()
+        items = obj.orderitem.all()
         html = "<strong>Order Items:</strong><br>"
         for item in items:
             html += f"• {item.product.title} x{item.qty} - ${item.total}<br>"
@@ -231,32 +231,19 @@ class CartOrderAdmin(admin.ModelAdmin):
 @admin.register(CartOrderItem)
 class CartOrderItemAdmin(admin.ModelAdmin):
     list_display = ['order_link', 'product', 'qty', 'color', 'size', 'total']
-    list_filter = ['order__payment_status', 'order__order_status', 'vendor']
+    list_filter = ['order__payment_status', 'order__order_status']
     search_fields = ['order__oid', 'product__title']
-    readonly_fields = ['order', 'product', 'vendor']
+    readonly_fields = ['order', 'product']
     
     def order_link(self, obj):
         url = reverse('admin:store_cartorder_change', args=[obj.order.pk])
         return format_html('<a href="{}">{}</a>', url, obj.order.oid)
     order_link.short_description = "Order"
 
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'rating_stars', 'active', 'date']
-    list_filter = ['rating', 'active', 'date']
-    search_fields = ['user__username', 'product__title', 'review']
-    list_editable = ['active']
-    readonly_fields = ['date']
-    
-    def rating_stars(self, obj):
-        stars = '⭐' * obj.rating + '☆' * (5 - obj.rating)
-        return f"{stars} ({obj.rating}/5)"
-    rating_stars.short_description = "Rating"
-
 @admin.register(Color)
 class ColorAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['name', 'product', 'color_preview', 'stock_qty', 'stock_status']
-    list_filter = ['in_stock', 'product__vendor']
+    list_filter = ['in_stock']
     search_fields = ['name', 'product__title']
     readonly_fields = ['in_stock']
     
@@ -281,7 +268,7 @@ class ColorAdmin(VendedorPermissionMixin, admin.ModelAdmin):
 @admin.register(Size)
 class SizeAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['name', 'product', 'price', 'stock_qty', 'stock_status']
-    list_filter = ['in_stock', 'product__vendor']
+    list_filter = ['in_stock']
     search_fields = ['name', 'product__title']
     readonly_fields = ['in_stock']
     
@@ -297,7 +284,7 @@ class SizeAdmin(VendedorPermissionMixin, admin.ModelAdmin):
 @admin.register(Gallery)
 class GalleryAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = ['product', 'color', 'image_preview', 'active']
-    list_filter = ['active', 'product__vendor']
+    list_filter = ['active']
     search_fields = ['product__title', 'color__name']
     list_editable = ['active']
     
@@ -309,120 +296,6 @@ class GalleryAdmin(VendedorPermissionMixin, admin.ModelAdmin):
 
 @admin.register(CarouselImage)
 class CarouselImageAdmin(admin.ModelAdmin):
-    list_display = ['caption', 'image_preview', 'is_active']
-    list_editable = ['is_active']
-    
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: 100px; height: 50px; object-fit: cover;" />', obj.image.url)
-        return "No Image"
-    image_preview.short_description = "Preview"
-
-@admin.register(OffersCarousel)
-class OffersCarouselAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image_preview', 'products_count', 'is_active']
-    list_editable = ['is_active']
-    filter_horizontal = ['products']
-    
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: 100px; height: 50px; object-fit: cover;" />', obj.image.url)
-        return "No Image"
-    image_preview.short_description = "Preview"
-    
-    def products_count(self, obj):
-        return obj.products.count()
-    products_count.short_description = "Products"
-
-@admin.register(Banner)
-class BannerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image_preview', 'link', 'is_active', 'date']
-    list_filter = ['is_active', 'date']
-    search_fields = ['title', 'link']
-    list_editable = ['is_active']
-    
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: 100px; height: 50px; object-fit: cover;" />', obj.image.url)
-        return "No Image"
-    image_preview.short_description = "Preview"
-
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ['product', 'user', 'qty', 'total', 'date']
-    list_filter = ['date', 'product__vendor']
-    search_fields = ['product__title', 'user__username', 'cart_id']
-    readonly_fields = ['date']
-
-@admin.register(Tax)
-class TaxAdmin(admin.ModelAdmin):
-    list_display = ['country', 'rate', 'active']
-    list_filter = ['active']
-    search_fields = ['country']
-    list_editable = ['rate', 'active']
-
-@admin.register(Coupon)
-class CouponAdmin(admin.ModelAdmin):
-    list_display = ['code', 'discount', 'active', 'date']
-    list_filter = ['active', 'date']
-    search_fields = ['code']
-    list_editable = ['active']
-
-@admin.register(Notification)
-class NotificationAdmin(admin.ModelAdmin):
-    list_display = ['user', 'vendor', 'order', 'seen', 'date']
-    list_filter = ['seen', 'date']
-    search_fields = ['user__username', 'vendor__name']
-    list_editable = ['seen']
-
-@admin.register(Wishlist)
-class WishlistAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'date']
-    list_filter = ['date']
-    search_fields = ['user__username', 'product__title']
-
-
-
-# Enhanced Carousel Management
-class CarouselAutomationAdmin(admin.ModelAdmin):
-    """
-    Custom admin for carousel automation management
-    """
-    change_list_template = 'admin/carousel_automation_changelist.html'
-    
-    def changelist_view(self, request, extra_context=None):
-        from store.carousel_automation import CarouselAutomation
-        from store.models import OffersCarousel, Banner, CarouselImage
-        
-        extra_context = extra_context or {}
-        
-        # Get automation statistics
-        automation = CarouselAutomation()
-        extra_context.update({
-            'active_offers_carousels': OffersCarousel.objects.filter(is_active=True).count(),
-            'active_banners': Banner.objects.filter(is_active=True).count(),
-            'active_carousel_images': CarouselImage.objects.filter(is_active=True).count(),
-            'recent_automated_banners': Banner.objects.filter(
-                title__startswith='Oferta Especial'
-            ).order_by('-date')[:5],
-            'trending_products_count': automation.get_trending_products().count(),
-            'discounted_products_count': automation.get_discounted_products().count(),
-        })
-        
-        return super().changelist_view(request, extra_context=extra_context)
-    
-    def has_add_permission(self, request):
-        return False
-    
-    def has_change_permission(self, request, obj=None):
-        return False
-    
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-
-# Update existing carousel admin classes
-class CarouselImageAdminEnhanced(admin.ModelAdmin):
     list_display = ['caption', 'image_preview', 'is_active']
     list_filter = ['is_active']
     search_fields = ['caption']
@@ -446,8 +319,8 @@ class CarouselImageAdminEnhanced(admin.ModelAdmin):
         self.message_user(request, f"{queryset.count()} carousel images deactivated.")
     deactivate_images.short_description = "Deactivate selected carousel images"
 
-
-class OffersCarouselAdminEnhanced(admin.ModelAdmin):
+@admin.register(OffersCarousel)
+class OffersCarouselAdmin(admin.ModelAdmin):
     list_display = ['title', 'products_count', 'is_active', 'is_automated']
     list_filter = ['is_active']
     search_fields = ['title']
@@ -486,8 +359,8 @@ class OffersCarouselAdminEnhanced(admin.ModelAdmin):
         self.message_user(request, f"{queryset.count()} carousels deactivated.")
     deactivate_carousels.short_description = "Deactivate selected carousels"
 
-
-class BannerAdminEnhanced(admin.ModelAdmin):
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
     list_display = ['title', 'image_preview', 'is_active', 'is_automated', 'date']
     list_filter = ['is_active', 'date']
     search_fields = ['title']
@@ -527,13 +400,37 @@ class BannerAdminEnhanced(admin.ModelAdmin):
         self.message_user(request, f"{queryset.count()} banners deactivated.")
     deactivate_banners.short_description = "Deactivate selected banners"
 
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['product', 'user', 'qty', 'total', 'date']
+    list_filter = ['date']
+    search_fields = ['product__title', 'user__username', 'cart_id']
+    readonly_fields = ['date']
 
-# Register the carousel automation admin (creates a menu item for automation)
-class CarouselAutomationProxy(OffersCarousel):
-    class Meta:
-        proxy = True
-        verbose_name = "Carousel Automation"
-        verbose_name_plural = "Carousel Automation"
+@admin.register(Tax)
+class TaxAdmin(admin.ModelAdmin):
+    list_display = ['country', 'rate', 'active']
+    list_filter = ['active']
+    search_fields = ['country']
+    list_editable = ['rate', 'active']
 
-admin.site.register(CarouselAutomationProxy, CarouselAutomationAdmin)
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ['code', 'discount', 'active', 'date']
+    list_filter = ['active', 'date']
+    search_fields = ['code']
+    list_editable = ['active']
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ['user', 'order', 'seen', 'date']
+    list_filter = ['seen', 'date']
+    search_fields = ['user__username']
+    list_editable = ['seen']
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'date']
+    list_filter = ['date']
+    search_fields = ['user__username', 'product__title']
 

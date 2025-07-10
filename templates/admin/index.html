@@ -1,0 +1,20 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<!-- Sales Dashboard Section -->
+<div class="module" style="margin-bottom: 20px;">
+    <h2>{% trans "Sales Dashboard" %}</h2>
+    <div class="dashboard-shortcuts" style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <a href="{% url 'admin:sales_dashboard' %}" class="button" style="background: #417690; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">
+            📊 {% trans "View Sales Dashboard" %}
+        </a>
+        <a href="{% url 'admin:sales_analytics' %}" class="button" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">
+            📈 {% trans "Sales Analytics" %}
+        </a>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}
+
