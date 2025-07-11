@@ -1848,3 +1848,92 @@ INFO 2025-07-11 10:52:38,226 basehttp 13712 38848 "GET /media/products/cintopret
 INFO 2025-07-11 10:52:38,228 basehttp 13712 14736 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 200 127085
 INFO 2025-07-11 10:52:38,233 basehttp 13712 33780 "GET /media/products/luvakhaki.jpg HTTP/1.1" 200 474055
 INFO 2025-07-11 10:52:38,376 basehttp 13712 27692 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:19,847 autoreload 38416 12096 Watching for file changes with StatReloader
+INFO 2025-07-11 15:28:23,460 basehttp 38416 5416 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 2
+INFO 2025-07-11 15:28:23,460 basehttp 38416 32900 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-11 15:28:23,478 basehttp 38416 38492 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-11 15:28:23,481 basehttp 38416 38164 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-11 15:28:23,492 basehttp 38416 5416 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-11 15:28:23,501 basehttp 38416 32900 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-11 15:28:23,517 basehttp 38416 38492 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 2
+INFO 2025-07-11 15:28:23,541 basehttp 38416 32900 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-11 15:28:23,555 basehttp 38416 38492 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-11 15:28:23,556 basehttp 38416 25188 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-11 15:28:23,944 basehttp 38416 38164 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 6298
+INFO 2025-07-11 15:28:23,951 basehttp 38416 32900 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 6298
+INFO 2025-07-11 15:28:24,002 basehttp 38416 39712 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 200 70983
+INFO 2025-07-11 15:28:24,009 basehttp 38416 15884 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 200 126710
+INFO 2025-07-11 15:28:24,040 basehttp 38416 39712 "GET /media/category/camo1.jpg HTTP/1.1" 200 31593
+INFO 2025-07-11 15:28:24,052 basehttp 38416 16664 "GET /media/category/cintos.jpg HTTP/1.1" 200 82160
+INFO 2025-07-11 15:28:24,083 basehttp 38416 39712 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+INFO 2025-07-11 15:28:24,106 basehttp 38416 16664 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+INFO 2025-07-11 15:28:24,120 basehttp 38416 37228 "GET /media/category/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-11 15:28:24,157 basehttp 38416 5416 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+WARNING 2025-07-11 15:28:24,169 log 38416 15884 Not Found: /media/category.jpg
+WARNING 2025-07-11 15:28:24,175 basehttp 38416 15884 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-11 15:28:24,180 basehttp 38416 39712 "GET /media/products/faca.png HTTP/1.1" 200 13415
+INFO 2025-07-11 15:28:24,181 basehttp 38416 16664 "GET /media/products/cintopreto.png HTTP/1.1" 200 37200
+INFO 2025-07-11 15:28:24,191 basehttp 38416 37228 "GET /media/products/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-11 15:28:24,192 basehttp 38416 39712 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 200 31593
+INFO 2025-07-11 15:28:24,192 basehttp 38416 19368 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+INFO 2025-07-11 15:28:24,197 basehttp 38416 18104 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 200 74561
+INFO 2025-07-11 15:28:24,200 basehttp 38416 39440 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 200 127085
+INFO 2025-07-11 15:28:32,141 basehttp 38416 32900 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,143 basehttp 38416 5416 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,146 basehttp 38416 38492 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,152 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,156 basehttp 38416 32900 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,163 basehttp 38416 38492 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,165 basehttp 38416 5416 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,171 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,185 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,197 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,209 basehttp 38416 25188 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+WARNING 2025-07-11 15:28:32,242 log 38416 39440 Not Found: /media/category.jpg
+WARNING 2025-07-11 15:28:32,249 basehttp 38416 39440 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-11 15:28:32,250 basehttp 38416 39440 - Broken pipe from ('127.0.0.1', 50217)
+INFO 2025-07-11 15:28:32,365 basehttp 38416 25188 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,407 basehttp 38416 38164 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:32,601 basehttp 38416 38164 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:34,802 basehttp 38416 18104 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:36,088 basehttp 38416 25188 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:36,104 basehttp 38416 25188 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:36,196 basehttp 38416 38164 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:36,379 basehttp 38416 38164 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,219 basehttp 38416 38164 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,221 basehttp 38416 5416 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,221 basehttp 38416 25188 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,223 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,229 basehttp 38416 38164 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,233 basehttp 38416 5416 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,233 basehttp 38416 25188 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,238 basehttp 38416 19368 "GET /api/v1/category/ HTTP/1.1" 304 0
+WARNING 2025-07-11 15:28:38,269 log 38416 18104 Not Found: /media/category.jpg
+WARNING 2025-07-11 15:28:38,273 basehttp 38416 18104 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-11 15:28:38,371 basehttp 38416 38492 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:38,642 basehttp 38416 38492 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:40,382 basehttp 38416 19368 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:40,394 basehttp 38416 19368 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:40,403 basehttp 38416 38492 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:28:40,480 basehttp 38416 38492 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-11 15:46:43,858 middleware 38416 22972 Admin access by hussein from 127.0.0.1
+WARNING 2025-07-11 15:46:43,883 log 38416 22972 Not Found: /admin/store/mostviewedcarousel/
+WARNING 2025-07-11 15:46:43,884 basehttp 38416 22972 "GET /admin/store/mostviewedcarousel/ HTTP/1.1" 404 7766
+WARNING 2025-07-11 15:46:44,338 log 38416 22972 Not Found: /favicon.ico
+WARNING 2025-07-11 15:46:44,338 basehttp 38416 22972 "GET /favicon.ico HTTP/1.1" 404 2824
+INFO 2025-07-11 15:46:45,720 middleware 38416 22972 Admin access by hussein from 127.0.0.1
+WARNING 2025-07-11 15:46:45,727 log 38416 22972 Not Found: /admin/store/mostviewedcarousel/1/change/
+WARNING 2025-07-11 15:46:45,728 basehttp 38416 22972 "GET /admin/store/mostviewedcarousel/1/change/ HTTP/1.1" 404 7793
+INFO 2025-07-11 15:46:50,018 middleware 38416 22972 Admin access by hussein from 127.0.0.1
+INFO 2025-07-11 15:46:50,116 basehttp 38416 22972 "GET /admin/ HTTP/1.1" 200 68970
+INFO 2025-07-11 15:46:50,149 basehttp 38416 22972 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 59344
+INFO 2025-07-11 15:46:50,160 basehttp 38416 28552 "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+INFO 2025-07-11 15:46:50,161 basehttp 38416 18000 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+INFO 2025-07-11 15:46:50,190 basehttp 38416 37972 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+INFO 2025-07-11 15:46:50,256 basehttp 38416 22972 "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+INFO 2025-07-11 15:46:50,257 basehttp 38416 28552 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-07-11 15:46:50,259 basehttp 38416 18000 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-07-11 15:46:50,259 basehttp 38416 21900 "GET /static/jazzmin/js/ui-builder.js HTTP/1.1" 200 13873
+INFO 2025-07-11 15:46:50,260 basehttp 38416 37972 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-07-11 15:46:50,265 basehttp 38416 37972 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 78196
+INFO 2025-07-11 15:46:50,267 basehttp 38416 21900 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 13276
