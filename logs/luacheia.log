@@ -3566,3 +3566,1776 @@ INFO 2025-07-10 12:46:00,671 basehttp 31432 26436 - Broken pipe from ('192.168.3
 INFO 2025-07-10 12:46:00,673 basehttp 31432 21076 - Broken pipe from ('192.168.3.11', 35848)
 INFO 2025-07-10 12:46:00,676 basehttp 31432 34060 - Broken pipe from ('192.168.3.11', 35864)
 INFO 2025-07-10 12:46:00,677 basehttp 31432 26460 - Broken pipe from ('192.168.3.11', 35878)
+INFO 2025-07-10 14:26:58,039 autoreload 31296 14720 Watching for file changes with StatReloader
+INFO 2025-07-10 14:27:04,775 basehttp 31296 11900 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,781 basehttp 31296 22532 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,785 basehttp 31296 24240 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,814 basehttp 31296 11900 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,822 basehttp 31296 22532 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,823 basehttp 31296 24240 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,840 basehttp 31296 26772 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,859 basehttp 31296 24240 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,886 basehttp 31296 24240 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,886 basehttp 31296 26772 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:04,972 basehttp 31296 18444 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+WARNING 2025-07-10 14:27:05,151 log 31296 36292 Not Found: /media/category.jpg
+INFO 2025-07-10 14:27:05,162 basehttp 31296 28400 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+WARNING 2025-07-10 14:27:05,164 basehttp 31296 36292 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 14:27:05,181 basehttp 31296 29500 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+INFO 2025-07-10 14:27:05,194 basehttp 31296 28400 "GET /media/category/cintos.jpg HTTP/1.1" 200 82160
+INFO 2025-07-10 14:27:05,210 basehttp 31296 30984 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 200 126710
+INFO 2025-07-10 14:27:05,233 basehttp 31296 18444 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:05,236 basehttp 31296 28400 "GET /media/category/camo1.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 14:27:05,237 basehttp 31296 30984 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 200 70983
+INFO 2025-07-10 14:27:05,244 basehttp 31296 25612 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:05,274 basehttp 31296 29500 "GET /media/category/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 14:27:05,342 basehttp 31296 29500 "GET /media/products/faca.png HTTP/1.1" 200 13415
+INFO 2025-07-10 14:27:05,342 basehttp 31296 30984 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 200 74561
+INFO 2025-07-10 14:27:05,343 basehttp 31296 28400 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 200 127085
+INFO 2025-07-10 14:27:05,359 basehttp 31296 34792 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 14:27:05,363 basehttp 31296 28400 "GET /media/products/cintopreto.png HTTP/1.1" 200 37200
+INFO 2025-07-10 14:27:05,435 basehttp 31296 25612 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:05,437 basehttp 31296 26860 "GET /media/products/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 14:27:10,880 basehttp 31296 25612 "GET /api/v1/products/?category=3 HTTP/1.1" 200 13469
+INFO 2025-07-10 14:27:17,882 basehttp 31296 25612 "GET /api/v1/products/?category=5 HTTP/1.1" 200 13469
+INFO 2025-07-10 14:27:18,137 basehttp 31296 25612 "GET /api/v1/products/?category=2 HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:18,348 basehttp 31296 25612 "GET /api/v1/products/?category=4 HTTP/1.1" 200 13469
+INFO 2025-07-10 14:27:18,597 basehttp 31296 25612 "GET /api/v1/products/?category=1 HTTP/1.1" 200 13469
+INFO 2025-07-10 14:27:44,473 basehttp 31296 18444 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:44,478 basehttp 31296 18444 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:44,506 basehttp 31296 25612 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:44,659 basehttp 31296 25612 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,283 basehttp 31296 18444 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,283 basehttp 31296 25612 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,285 basehttp 31296 26772 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,285 basehttp 31296 22532 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,297 basehttp 31296 18444 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,297 basehttp 31296 26772 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,299 basehttp 31296 22532 "GET /api/v1/banners/ HTTP/1.1" 304 0
+WARNING 2025-07-10 14:27:50,306 log 31296 26860 Not Found: /media/category.jpg
+WARNING 2025-07-10 14:27:50,307 basehttp 31296 26860 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 14:27:50,309 basehttp 31296 25612 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,358 basehttp 31296 24240 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,391 basehttp 31296 30984 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,391 basehttp 31296 29500 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,391 basehttp 31296 28400 "GET /media/products/faca.png HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,391 basehttp 31296 34792 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,393 basehttp 31296 6688 "GET /media/products/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,398 basehttp 31296 28400 "GET /media/products/cintopreto.png HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:50,546 basehttp 31296 24240 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:54,586 basehttp 31296 24240 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:54,607 basehttp 31296 24240 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:54,610 basehttp 31296 28400 "GET /media/default/default-user.jpg HTTP/1.1" 200 41342
+ERROR 2025-07-10 14:27:54,641 log 31296 22532 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 14:27:54,661 basehttp 31296 22532 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+ERROR 2025-07-10 14:27:54,691 log 31296 24240 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 14:27:54,697 basehttp 31296 24240 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+INFO 2025-07-10 14:27:54,906 basehttp 31296 25612 "GET /api/v1/customer/orders/1/ HTTP/1.1" 200 37967
+INFO 2025-07-10 14:27:54,915 basehttp 31296 24240 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:54,936 basehttp 31296 24240 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:55,356 basehttp 31296 25612 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:55,375 basehttp 31296 25612 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:55,399 basehttp 31296 25612 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:56,563 basehttp 31296 25612 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:56,581 basehttp 31296 25612 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:56,965 basehttp 31296 24240 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:56,971 basehttp 31296 25612 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:56,979 basehttp 31296 25612 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:57,579 basehttp 31296 24240 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:58,131 basehttp 31296 24240 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:58,139 basehttp 31296 25612 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:58,152 basehttp 31296 25612 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:58,629 basehttp 31296 24240 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,237 basehttp 31296 24240 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,258 basehttp 31296 24240 "GET /api/v1/user/profile/1/ HTTP/1.1" 304 0
+ERROR 2025-07-10 14:27:59,281 log 31296 22532 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 14:27:59,291 basehttp 31296 22532 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+ERROR 2025-07-10 14:27:59,349 log 31296 24240 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 14:27:59,357 basehttp 31296 24240 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+INFO 2025-07-10 14:27:59,473 basehttp 31296 25612 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,483 basehttp 31296 24240 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,501 basehttp 31296 24240 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,900 basehttp 31296 25612 "GET /api/v1/customer/orders/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,913 basehttp 31296 25612 "GET /api/v1/customer/wishlist/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:27:59,931 basehttp 31296 25612 "GET /api/v1/customer/notification/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,012 basehttp 31296 25612 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,015 basehttp 31296 24240 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,015 basehttp 31296 22532 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,015 basehttp 31296 26772 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,028 basehttp 31296 24240 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,028 basehttp 31296 25612 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,029 basehttp 31296 22532 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,035 basehttp 31296 26772 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,036 basehttp 31296 6688 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,037 basehttp 31296 28400 "GET /media/carousel/banner1.webp HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,041 basehttp 31296 6688 "GET /media/category/cintos.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,042 basehttp 31296 28400 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,043 basehttp 31296 29500 "GET /media/category/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,044 basehttp 31296 6688 "GET /media/category/camo1.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,045 basehttp 31296 28400 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 304 0
+WARNING 2025-07-10 14:28:00,047 log 31296 34792 Not Found: /media/category.jpg
+WARNING 2025-07-10 14:28:00,048 basehttp 31296 34792 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 14:28:00,049 basehttp 31296 34792 - Broken pipe from ('127.0.0.1', 63327)
+INFO 2025-07-10 14:28:00,114 basehttp 31296 18444 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:28:00,424 basehttp 31296 18444 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:43:59,258 basehttp 31296 36028 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:00,404 basehttp 31296 15992 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:00,428 basehttp 31296 15992 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:00,461 basehttp 31296 29428 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:00,472 basehttp 31296 36028 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:00,530 basehttp 31296 29428 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 14:44:04,041 basehttp 31296 29428 "OPTIONS /api/v1/cart-view/ HTTP/1.1" 200 0
+WARNING 2025-07-10 14:44:04,046 log 31296 29428 Bad Request: /api/v1/cart-view/
+WARNING 2025-07-10 14:44:04,046 basehttp 31296 29428 "PUT /api/v1/cart-view/ HTTP/1.1" 400 60
+INFO 2025-07-10 14:44:06,339 basehttp 31296 29428 "PUT /api/v1/cart-view/ HTTP/1.1" 200 77
+INFO 2025-07-10 14:44:06,348 basehttp 31296 29428 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 79
+INFO 2025-07-10 14:44:07,403 basehttp 31296 29428 "PUT /api/v1/cart-view/ HTTP/1.1" 200 77
+INFO 2025-07-10 14:44:07,411 basehttp 31296 29428 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 78
+INFO 2025-07-10 15:36:39,498 middleware 31296 31652 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 15:36:39,820 basehttp 31296 31652 "GET /admin/ HTTP/1.1" 200 68985
+INFO 2025-07-10 15:36:39,850 basehttp 31296 34332 "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+INFO 2025-07-10 15:36:39,851 basehttp 31296 19228 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+INFO 2025-07-10 15:36:39,854 basehttp 31296 31652 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 59344
+INFO 2025-07-10 15:36:39,881 basehttp 31296 34880 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+INFO 2025-07-10 15:36:40,151 basehttp 31296 34332 "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+INFO 2025-07-10 15:36:40,152 basehttp 31296 19228 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-07-10 15:36:40,152 basehttp 31296 31652 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-07-10 15:36:40,154 basehttp 31296 34880 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-07-10 15:36:40,154 basehttp 31296 31952 "GET /static/jazzmin/js/ui-builder.js HTTP/1.1" 200 13873
+INFO 2025-07-10 15:36:40,188 basehttp 31296 34880 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 13276
+INFO 2025-07-10 15:36:40,188 basehttp 31296 31952 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 78196
+INFO 2025-07-10 15:36:44,835 middleware 31296 34880 Admin access by hussein from 127.0.0.1
+ERROR 2025-07-10 15:36:45,054 log 31296 34880 Internal Server Error: /admin/sales-dashboard/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\store\admin_views.py", line 102, in sales_dashboard
+    return render(request, 'admin/sales_dashboard.html', context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'sales_dashboard' not found. 'sales_dashboard' is not a valid view function or pattern name.
+ERROR 2025-07-10 15:36:45,080 basehttp 31296 34880 "GET /admin/sales-dashboard/ HTTP/1.1" 500 317655
+WARNING 2025-07-10 15:36:45,254 log 31296 34880 Not Found: /favicon.ico
+WARNING 2025-07-10 15:36:45,255 basehttp 31296 34880 "GET /favicon.ico HTTP/1.1" 404 2824
+INFO 2025-07-10 15:36:46,602 middleware 31296 34880 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 15:36:46,613 basehttp 31296 34880 "GET /admin/ HTTP/1.1" 200 68985
+INFO 2025-07-10 16:09:09,489 basehttp 31296 1192 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 17:01:50,690 basehttp 31296 26704 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,692 basehttp 31296 37548 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,697 basehttp 31296 29796 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,700 basehttp 31296 36416 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,726 basehttp 31296 37548 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,738 basehttp 31296 26704 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,745 basehttp 31296 29796 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,762 basehttp 31296 36416 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,795 basehttp 31296 32788 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+INFO 2025-07-10 17:01:50,797 basehttp 31296 3136 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+INFO 2025-07-10 17:01:50,810 basehttp 31296 28476 "GET /media/category/cintos.jpg HTTP/1.1" 200 82160
+WARNING 2025-07-10 17:01:50,815 log 31296 33344 Not Found: /media/category.jpg
+WARNING 2025-07-10 17:01:50,826 basehttp 31296 33344 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 17:01:50,829 basehttp 31296 33344 - Broken pipe from ('127.0.0.1', 50245)
+INFO 2025-07-10 17:01:50,842 basehttp 31296 28476 "GET /media/category/camo1.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 17:01:50,850 basehttp 31296 3136 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 200 126710
+INFO 2025-07-10 17:01:50,860 basehttp 31296 37732 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 200 70983
+INFO 2025-07-10 17:01:50,877 basehttp 31296 32788 "GET /media/category/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 17:01:50,935 basehttp 31296 26496 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:50,968 basehttp 31296 32788 "GET /media/products/faca.png HTTP/1.1" 200 13415
+INFO 2025-07-10 17:01:50,969 basehttp 31296 37732 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 200 74561
+INFO 2025-07-10 17:01:50,976 basehttp 31296 3136 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 200 127085
+INFO 2025-07-10 17:01:50,981 basehttp 31296 37072 "GET /media/products/cintopreto.png HTTP/1.1" 200 37200
+INFO 2025-07-10 17:01:50,984 basehttp 31296 28476 "GET /media/products/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 17:01:51,052 basehttp 31296 26496 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:54,311 basehttp 31296 36416 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:54,316 basehttp 31296 36416 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:54,365 basehttp 31296 26496 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:54,561 basehttp 31296 26496 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,087 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,097 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,121 basehttp 31296 29796 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 6301
+INFO 2025-07-10 17:01:56,148 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,154 basehttp 31296 26704 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,172 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,188 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,211 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,220 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,234 basehttp 31296 28476 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,349 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,510 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:56,660 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:58,593 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:58,599 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:58,641 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:58,874 basehttp 31296 36416 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,612 basehttp 31296 36416 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,614 basehttp 31296 37548 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,614 basehttp 31296 26496 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,617 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,625 basehttp 31296 37548 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,626 basehttp 31296 36416 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,627 basehttp 31296 26496 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,629 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+WARNING 2025-07-10 17:01:59,631 log 31296 28476 Not Found: /media/category.jpg
+WARNING 2025-07-10 17:01:59,633 basehttp 31296 28476 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 17:01:59,634 basehttp 31296 28476 - Broken pipe from ('127.0.0.1', 50246)
+INFO 2025-07-10 17:01:59,679 basehttp 31296 29796 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:01:59,849 basehttp 31296 29796 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,662 basehttp 31296 37548 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,663 basehttp 31296 26704 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,664 basehttp 31296 29796 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,664 basehttp 31296 26496 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,670 basehttp 31296 37548 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,671 basehttp 31296 26704 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,671 basehttp 31296 29796 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,676 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,688 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,706 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 304 0
+WARNING 2025-07-10 17:02:00,730 log 31296 37072 Not Found: /media/category.jpg
+WARNING 2025-07-10 17:02:00,731 basehttp 31296 37072 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 17:02:00,780 basehttp 31296 29780 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,890 basehttp 31296 36416 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:00,924 basehttp 31296 29780 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:01,062 basehttp 31296 36416 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:02,363 basehttp 31296 29796 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 2
+INFO 2025-07-10 17:02:02,363 basehttp 31296 37548 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-10 17:02:02,367 basehttp 31296 26496 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:02,370 basehttp 31296 36416 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:02,377 basehttp 31296 37548 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:02,377 basehttp 31296 29780 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-10 17:02:02,381 basehttp 31296 26496 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-10 17:02:02,383 basehttp 31296 36416 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 2
+INFO 2025-07-10 17:02:02,392 basehttp 31296 37548 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-10 17:02:02,400 basehttp 31296 36416 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:02,421 basehttp 31296 3136 "GET /media/category/cintos.jpg HTTP/1.1" 200 82160
+INFO 2025-07-10 17:02:02,423 basehttp 31296 37732 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 200 126710
+INFO 2025-07-10 17:02:02,437 basehttp 31296 3136 "GET /media/category/camo1.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 17:02:02,442 basehttp 31296 32788 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+INFO 2025-07-10 17:02:02,447 basehttp 31296 29796 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 6301
+INFO 2025-07-10 17:02:02,457 basehttp 31296 32788 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 200 70983
+INFO 2025-07-10 17:02:02,463 basehttp 31296 1192 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+WARNING 2025-07-10 17:02:02,478 log 31296 32788 Not Found: /media/category.jpg
+WARNING 2025-07-10 17:02:02,481 basehttp 31296 32788 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 17:02:02,483 basehttp 31296 37732 "GET /media/category/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 17:02:02,489 basehttp 31296 26496 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 6301
+INFO 2025-07-10 17:02:02,645 basehttp 31296 26704 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13469
+INFO 2025-07-10 17:02:02,667 basehttp 31296 29780 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13469
+INFO 2025-07-10 17:02:05,861 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:05,870 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:05,905 basehttp 31296 29780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:06,089 basehttp 31296 29780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:07,093 basehttp 31296 29780 "OPTIONS /api/v1/cart-view/ HTTP/1.1" 200 0
+INFO 2025-07-10 17:02:07,107 basehttp 31296 29780 "POST /api/v1/cart-view/ HTTP/1.1" 201 59
+INFO 2025-07-10 17:02:07,182 basehttp 31296 29780 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 7974
+INFO 2025-07-10 17:02:07,195 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:07,345 basehttp 31296 29780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:10,623 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:10,632 basehttp 31296 26704 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:10,677 basehttp 31296 29780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:10,880 basehttp 31296 29780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:25,045 autoreload 14152 27376 Watching for file changes with StatReloader
+INFO 2025-07-10 17:02:26,287 basehttp 14152 25864 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:26,292 basehttp 14152 6472 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:26,335 basehttp 14152 21344 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 7974
+INFO 2025-07-10 17:02:26,348 basehttp 14152 6472 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 17:02:26,362 basehttp 14152 24420 "GET /api/v1/products/ HTTP/1.1" 200 13469
+INFO 2025-07-10 17:02:26,391 basehttp 14152 21344 "GET /api/v1/products/ HTTP/1.1" 200 13469
+INFO 2025-07-10 17:02:41,729 middleware 14152 13516 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:42,355 basehttp 14152 13516 "GET /admin/store/cart/ HTTP/1.1" 200 44582
+INFO 2025-07-10 17:02:42,376 basehttp 14152 13516 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:42,379 basehttp 14152 14916 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:42,380 basehttp 14152 13516 "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:42,389 basehttp 14152 6356 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:42,395 middleware 14152 27736 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:42,410 basehttp 14152 27736 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:42,911 basehttp 14152 13516 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+INFO 2025-07-10 17:02:42,940 basehttp 14152 13516 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-07-10 17:02:43,126 basehttp 14152 13516 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-07-10 17:02:43,130 basehttp 14152 13516 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,135 basehttp 14152 13516 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,138 basehttp 14152 13516 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,140 basehttp 14152 13516 "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,145 basehttp 14152 13516 "GET /static/jazzmin/js/ui-builder.js HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,149 basehttp 14152 32884 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-07-10 17:02:43,180 basehttp 14152 26904 "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+INFO 2025-07-10 17:02:43,186 basehttp 14152 27736 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-07-10 17:02:43,201 basehttp 14152 32884 "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+INFO 2025-07-10 17:02:43,208 basehttp 14152 14916 "GET /static/admin/js/core.js HTTP/1.1" 200 5682
+INFO 2025-07-10 17:02:43,221 basehttp 14152 6356 "GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-07-10 17:02:43,237 basehttp 14152 13516 "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+INFO 2025-07-10 17:02:43,246 basehttp 14152 6356 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:43,246 basehttp 14152 13516 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 17:02:51,326 middleware 14152 13516 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:51,351 basehttp 14152 13516 "POST /admin/store/cart/ HTTP/1.1" 200 38451
+INFO 2025-07-10 17:02:51,374 basehttp 14152 13516 "GET /static/admin/js/cancel.js HTTP/1.1" 200 564
+INFO 2025-07-10 17:02:52,492 middleware 14152 13516 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:52,533 basehttp 14152 13516 "POST /admin/store/cart/ HTTP/1.1" 302 0
+INFO 2025-07-10 17:02:52,537 middleware 14152 13516 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:52,546 basehttp 14152 13516 "GET /admin/store/cart/ HTTP/1.1" 200 39571
+INFO 2025-07-10 17:02:52,558 middleware 14152 13516 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 17:02:52,560 basehttp 14152 13516 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:24,949 basehttp 14152 7096 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:24,984 basehttp 14152 7096 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,160 basehttp 14152 32788 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,171 basehttp 14152 23240 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,173 basehttp 14152 32004 "GET /media/products/faca.png HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,175 basehttp 14152 23240 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,184 basehttp 14152 33072 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,197 basehttp 14152 34964 "GET /media/products/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,200 basehttp 14152 35364 "GET /media/products/cintopreto.png HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:25,341 basehttp 14152 32788 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,008 basehttp 14152 32788 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,008 basehttp 14152 7096 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 2
+INFO 2025-07-10 18:03:29,012 basehttp 14152 32788 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,012 basehttp 14152 7096 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,227 basehttp 14152 7096 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,227 basehttp 14152 32788 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,232 basehttp 14152 7096 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:29,232 basehttp 14152 32788 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,503 basehttp 14152 32788 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,503 basehttp 14152 7096 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,510 basehttp 14152 32788 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,513 basehttp 14152 7096 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,514 basehttp 14152 35364 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,514 basehttp 14152 34964 "GET /media/carousel/banner1.webp HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,523 basehttp 14152 17024 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,523 basehttp 14152 11012 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,533 basehttp 14152 35364 "GET /media/category/cintos.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,538 basehttp 14152 35364 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,541 basehttp 14152 35364 "GET /media/category/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,544 basehttp 14152 35364 "GET /media/category/camo1.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,550 basehttp 14152 11012 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,551 basehttp 14152 35364 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,552 basehttp 14152 17024 "GET /api/v1/category/ HTTP/1.1" 304 0
+WARNING 2025-07-10 18:03:30,658 log 14152 34964 Not Found: /media/category.jpg
+WARNING 2025-07-10 18:03:30,659 basehttp 14152 34964 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 18:03:30,688 basehttp 14152 11732 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:03:30,865 basehttp 14152 11732 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:27,494 basehttp 14152 8060 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:27,511 basehttp 14152 8060 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:27,635 basehttp 14152 34060 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:27,812 basehttp 14152 34060 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,334 basehttp 14152 34060 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,334 basehttp 14152 8060 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,340 basehttp 14152 34060 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,344 basehttp 14152 8060 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,361 basehttp 14152 36444 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,367 basehttp 14152 30936 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,397 basehttp 14152 36444 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,402 basehttp 14152 30936 "GET /api/v1/banners/ HTTP/1.1" 304 0
+WARNING 2025-07-10 18:18:29,425 log 14152 36076 Not Found: /media/category.jpg
+WARNING 2025-07-10 18:18:29,430 basehttp 14152 36076 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 18:18:29,547 basehttp 14152 18216 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:29,689 basehttp 14152 18216 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:30,925 basehttp 14152 30936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:30,931 basehttp 14152 30936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:30,966 basehttp 14152 18216 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:31,136 basehttp 14152 18216 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:34,997 basehttp 14152 18216 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:34,997 basehttp 14152 34060 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:34,998 basehttp 14152 30936 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:34,999 basehttp 14152 36444 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:35,007 basehttp 14152 18216 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:35,010 basehttp 14152 34060 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:35,017 basehttp 14152 30936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:18:35,020 basehttp 14152 36444 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+WARNING 2025-07-10 18:18:35,073 log 14152 24996 Not Found: /media/category.jpg
+INFO 2025-07-10 18:18:35,077 basehttp 14152 8060 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+WARNING 2025-07-10 18:18:35,078 basehttp 14152 24996 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 18:18:35,242 basehttp 14152 8060 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:36,424 basehttp 14152 14824 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:36,455 basehttp 14152 14824 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:36,584 basehttp 14152 24200 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:36,713 basehttp 14152 24200 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,046 basehttp 14152 24200 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,046 basehttp 14152 14824 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,052 basehttp 14152 24200 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,053 basehttp 14152 14824 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,071 basehttp 14152 26960 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,093 basehttp 14152 19708 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,103 basehttp 14152 26960 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,128 basehttp 14152 19708 "GET /api/v1/banners/ HTTP/1.1" 304 0
+WARNING 2025-07-10 18:23:38,143 log 14152 29240 Not Found: /media/category.jpg
+WARNING 2025-07-10 18:23:38,145 basehttp 14152 29240 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 18:23:38,244 basehttp 14152 36532 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:38,424 basehttp 14152 36532 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:45,949 basehttp 14152 19708 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:45,954 basehttp 14152 19708 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:45,983 basehttp 14152 36532 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:46,032 basehttp 14152 36532 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:47,210 basehttp 14152 36532 "POST /api/v1/cart-view/ HTTP/1.1" 201 59
+INFO 2025-07-10 18:23:47,230 basehttp 14152 36532 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 1674
+INFO 2025-07-10 18:23:47,245 basehttp 14152 19708 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 18:23:47,319 basehttp 14152 36532 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:40,190 basehttp 14152 33256 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:40,206 basehttp 14152 33256 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:40,208 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:40,239 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:46,999 basehttp 14152 33256 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:09:46,999 basehttp 14152 512 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:09:47,048 basehttp 14152 25908 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 1674
+INFO 2025-07-10 19:09:47,048 basehttp 14152 37172 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/ HTTP/1.1" 200 1674
+ERROR 2025-07-10 19:09:50,008 log 14152 37172 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 19:09:50,014 basehttp 14152 37172 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+ERROR 2025-07-10 19:09:50,028 log 14152 25908 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 19:09:50,030 basehttp 14152 25908 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+ERROR 2025-07-10 19:09:50,050 log 14152 37172 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 19:09:50,058 basehttp 14152 37172 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+ERROR 2025-07-10 19:09:50,119 log 14152 37172 Internal Server Error: /api/v1/user/profile/undefined/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'undefined'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 252, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\userauths\views.py", line 102, in get_object
+    user = User.objects.get(id=user_id)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1498, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1529, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1444, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\sql\query.py", line 1271, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2057, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got 'undefined'.
+ERROR 2025-07-10 19:09:50,128 basehttp 14152 37172 "GET /api/v1/user/profile/undefined/ HTTP/1.1" 500 26484
+INFO 2025-07-10 19:09:56,126 basehttp 14152 37172 "OPTIONS /api/v1/user/token/ HTTP/1.1" 200 0
+INFO 2025-07-10 19:09:57,011 basehttp 14152 37172 "POST /api/v1/user/token/ HTTP/1.1" 200 753
+INFO 2025-07-10 19:09:57,047 basehttp 14152 512 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,047 basehttp 14152 37172 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,048 basehttp 14152 25908 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,051 basehttp 14152 25908 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,055 basehttp 14152 37172 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,055 basehttp 14152 6656 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,058 basehttp 14152 512 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,068 basehttp 14152 30892 "GET /media/carousel/banner1.webp HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,082 basehttp 14152 6656 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,087 basehttp 14152 30892 "GET /media/category/cintos.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,100 basehttp 14152 10676 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,106 basehttp 14152 30892 "GET /media/category/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,116 basehttp 14152 13208 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,121 basehttp 14152 10676 "GET /media/category/camo1.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,123 basehttp 14152 30892 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 304 0
+WARNING 2025-07-10 19:09:57,131 log 14152 37076 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:09:57,136 basehttp 14152 37076 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:09:57,180 basehttp 14152 33256 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,208 basehttp 14152 10676 "GET /media/products/faca.png HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,209 basehttp 14152 30892 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,209 basehttp 14152 13208 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,218 basehttp 14152 13208 "GET /media/products/cintopreto.png HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,225 basehttp 14152 21172 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,225 basehttp 14152 32620 "GET /media/products/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,338 basehttp 14152 33256 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,870 basehttp 14152 33256 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:09:57,871 basehttp 14152 6656 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 72
+INFO 2025-07-10 19:09:57,874 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,875 basehttp 14152 6656 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:09:57,880 basehttp 14152 6656 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,059 basehttp 14152 6656 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,061 basehttp 14152 33256 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,062 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,065 basehttp 14152 6656 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,067 basehttp 14152 33256 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,068 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,071 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:01,074 basehttp 14152 512 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:10:03,676 basehttp 14152 512 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:10:03,691 basehttp 14152 6656 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:10:03,694 basehttp 14152 25908 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:10:03,695 basehttp 14152 33256 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:10:03,697 basehttp 14152 37172 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 72
+INFO 2025-07-10 19:10:03,698 basehttp 14152 512 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 72
+INFO 2025-07-10 19:10:03,700 basehttp 14152 6656 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:10:03,705 basehttp 14152 28968 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:20:33,860 basehttp 14152 7500 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,862 basehttp 14152 34564 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,874 basehttp 14152 7500 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,874 basehttp 14152 30768 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,882 basehttp 14152 34564 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,893 basehttp 14152 34564 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,899 basehttp 14152 30768 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:33,902 basehttp 14152 34564 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,349 basehttp 14152 34564 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,350 basehttp 14152 30768 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,350 basehttp 14152 7500 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,359 basehttp 14152 30768 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,360 basehttp 14152 34564 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,362 basehttp 14152 7500 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,371 basehttp 14152 31128 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,408 basehttp 14152 31128 "GET /api/v1/banners/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:20:45,448 log 14152 720 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:20:45,455 basehttp 14152 720 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:20:45,458 basehttp 14152 720 - Broken pipe from ('127.0.0.1', 52684)
+INFO 2025-07-10 19:20:45,523 basehttp 14152 25552 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:45,736 basehttp 14152 25552 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,953 basehttp 14152 31128 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,953 basehttp 14152 7500 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,954 basehttp 14152 30768 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,955 basehttp 14152 25552 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,962 basehttp 14152 7500 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,966 basehttp 14152 30768 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,966 basehttp 14152 25552 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,974 basehttp 14152 30768 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,979 basehttp 14152 31128 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,979 basehttp 14152 5172 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:46,981 basehttp 14152 30768 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:47,002 basehttp 14152 5172 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:20:47,026 log 14152 36848 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:20:47,029 basehttp 14152 36848 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:20:47,078 basehttp 14152 34564 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:47,331 basehttp 14152 34564 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:49,402 basehttp 14152 34564 "GET /api/v1/products/muchilaapk30l/ HTTP/1.1" 200 4316
+INFO 2025-07-10 19:20:49,422 basehttp 14152 34564 "GET /api/v1/reviews/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:49,431 basehttp 14152 5172 "GET /api/v1/products/muchilaapk30l/ HTTP/1.1" 200 4316
+INFO 2025-07-10 19:20:49,464 basehttp 14152 5172 "GET /api/v1/reviews/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:49,483 basehttp 14152 30768 "GET /api/v1/products/?category=1 HTTP/1.1" 200 13469
+INFO 2025-07-10 19:20:49,637 basehttp 14152 30768 "GET /api/v1/products/?category=1 HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:51,523 basehttp 14152 30768 "OPTIONS /api/v1/cart-view/ HTTP/1.1" 200 0
+INFO 2025-07-10 19:20:51,546 basehttp 14152 30768 "POST /api/v1/cart-view/ HTTP/1.1" 201 59
+INFO 2025-07-10 19:20:51,559 basehttp 14152 30768 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2100
+INFO 2025-07-10 19:20:52,898 basehttp 14152 28696 "GET /media/colors/verde_30l.webp HTTP/1.1" 200 36524
+INFO 2025-07-10 19:20:52,900 basehttp 14152 16680 "GET /media/products/verde_30l_lOlxf79.webp HTTP/1.1" 200 36524
+INFO 2025-07-10 19:20:52,907 basehttp 14152 17504 "GET /media/products/verde_30l_02_DLeOE8j.png HTTP/1.1" 200 353737
+INFO 2025-07-10 19:20:52,908 basehttp 14152 4400 "GET /media/products/verde_30l_03_JMrJKjM.png HTTP/1.1" 200 404300
+INFO 2025-07-10 19:20:53,429 basehttp 14152 30768 "POST /api/v1/cart-view/ HTTP/1.1" 201 59
+INFO 2025-07-10 19:20:53,449 basehttp 14152 30768 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 4199
+INFO 2025-07-10 19:20:54,132 basehttp 14152 4400 "GET /media/colors/preto30l_Ubnl6El.jpg HTTP/1.1" 200 53391
+INFO 2025-07-10 19:20:54,133 basehttp 14152 17504 "GET /media/products/preto30l_02_i36zxcS.png HTTP/1.1" 200 88462
+INFO 2025-07-10 19:20:54,133 basehttp 14152 16680 "GET /media/products/preto30l_03_3mEnIPb.jpg HTTP/1.1" 200 98816
+INFO 2025-07-10 19:20:54,457 basehttp 14152 30768 "POST /api/v1/cart-view/ HTTP/1.1" 201 59
+INFO 2025-07-10 19:20:54,478 basehttp 14152 30768 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 6298
+INFO 2025-07-10 19:20:55,330 basehttp 14152 5172 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 105
+INFO 2025-07-10 19:20:55,338 basehttp 14152 5172 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:55,344 basehttp 14152 30768 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:20:55,370 basehttp 14152 30768 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:22:01,266 basehttp 14152 30768 "GET /api/v1/products/muchilaapk30l/ HTTP/1.1" 200 4316
+INFO 2025-07-10 19:22:01,290 basehttp 14152 30768 "GET /api/v1/products/muchilaapk30l/ HTTP/1.1" 200 4316
+INFO 2025-07-10 19:22:01,312 basehttp 14152 30768 "GET /api/v1/products/muchilaapk30l/ HTTP/1.1" 200 4316
+INFO 2025-07-10 19:22:01,316 basehttp 14152 30768 "OPTIONS /api/v1/create-order/ HTTP/1.1" 200 0
+INFO 2025-07-10 19:22:01,343 basehttp 14152 30768 "POST /api/v1/create-order/ HTTP/1.1" 201 65
+ERROR 2025-07-10 19:22:01,386 log 14152 30768 Internal Server Error: /api/v1/checkout/ibiafk5hcp/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 208, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\store\views.py", line 653, in get_object
+    oid = self.kwargs['oid']
+          ~~~~~~~~~~~^^^^^^^
+KeyError: 'oid'
+ERROR 2025-07-10 19:22:01,387 basehttp 14152 30768 "GET /api/v1/checkout/ibiafk5hcp/ HTTP/1.1" 500 22893
+ERROR 2025-07-10 19:22:01,396 log 14152 5172 Internal Server Error: /api/v1/checkout/ibiafk5hcp/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\generics.py", line 208, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\rest_framework\mixins.py", line 54, in retrieve
+    instance = self.get_object()
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\store\views.py", line 653, in get_object
+    oid = self.kwargs['oid']
+          ~~~~~~~~~~~^^^^^^^
+KeyError: 'oid'
+ERROR 2025-07-10 19:22:01,398 basehttp 14152 5172 "GET /api/v1/checkout/ibiafk5hcp/ HTTP/1.1" 500 22893
+INFO 2025-07-10 19:36:50,705 basehttp 14152 22936 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,706 basehttp 14152 21168 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,714 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,720 basehttp 14152 34780 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,727 basehttp 14152 21168 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,727 basehttp 14152 22936 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,738 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:50,749 basehttp 14152 34780 "GET /api/v1/banners/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:36:50,771 log 14152 35640 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:36:50,777 basehttp 14152 35640 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:36:50,857 basehttp 14152 27832 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:36:51,019 basehttp 14152 27832 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:54,098 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:54,105 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:36:54,143 basehttp 14152 27832 "GET /api/v1/products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:36:54,208 basehttp 14152 34780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:38,896 middleware 14152 18164 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:38,979 basehttp 14152 18164 "GET /admin/store/category/ HTTP/1.1" 200 44356
+INFO 2025-07-10 19:37:38,994 basehttp 14152 30716 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:38,998 basehttp 14152 30716 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:38,998 basehttp 14152 35016 "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:38,998 basehttp 14152 18164 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,000 basehttp 14152 33912 "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,005 basehttp 14152 35016 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,005 basehttp 14152 18164 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,008 basehttp 14152 6600 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,017 basehttp 14152 30716 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,017 basehttp 14152 33912 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,019 basehttp 14152 35016 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,021 basehttp 14152 18164 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,025 basehttp 14152 6600 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,029 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:39,039 basehttp 14152 14748 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,047 basehttp 14152 33912 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-07-10 19:37:39,274 basehttp 14152 14748 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,274 basehttp 14152 33912 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,317 basehttp 14152 33912 "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,317 basehttp 14152 14748 "GET /static/jazzmin/js/ui-builder.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,317 basehttp 14152 6600 "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,317 basehttp 14152 18164 "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,329 basehttp 14152 18164 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,330 basehttp 14152 6600 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:39,963 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:39,976 basehttp 14152 6600 "GET /admin/store/color/ HTTP/1.1" 200 49369
+INFO 2025-07-10 19:37:39,988 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:39,990 basehttp 14152 6600 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:40,573 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:40,602 basehttp 14152 6600 "GET /admin/store/coupon/ HTTP/1.1" 200 40074
+INFO 2025-07-10 19:37:40,613 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:40,614 basehttp 14152 6600 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:41,381 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:41,418 basehttp 14152 6600 "GET /admin/store/gallery/ HTTP/1.1" 200 52846
+INFO 2025-07-10 19:37:41,435 middleware 14152 6600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:41,438 basehttp 14152 6600 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:41,441 basehttp 14152 14748 "GET /media/products/preta80muchilagallery.jpg HTTP/1.1" 200 40583
+INFO 2025-07-10 19:37:41,442 basehttp 14152 18164 "GET /media/products/greenmuchila80.jpg HTTP/1.1" 200 48312
+INFO 2025-07-10 19:37:41,494 basehttp 14152 18164 "GET /media/products/faca2.png HTTP/1.1" 200 10367
+INFO 2025-07-10 19:37:41,495 basehttp 14152 14748 "GET /media/products/cintostodos.png HTTP/1.1" 200 130908
+INFO 2025-07-10 19:37:41,495 basehttp 14152 30716 "GET /media/products/verde_30l_02_DLeOE8j.png HTTP/1.1" 200 353737
+INFO 2025-07-10 19:37:41,495 basehttp 14152 35016 "GET /media/products/verde_30l_03_JMrJKjM.png HTTP/1.1" 200 404300
+INFO 2025-07-10 19:37:41,498 basehttp 14152 35016 "GET /media/products/verde_30l_lOlxf79.webp HTTP/1.1" 200 36524
+INFO 2025-07-10 19:37:41,501 basehttp 14152 30716 "GET /media/products/preto30l_02_i36zxcS.png HTTP/1.1" 200 88462
+INFO 2025-07-10 19:37:41,502 basehttp 14152 14748 "GET /media/products/preto30l_03_3mEnIPb.jpg HTTP/1.1" 200 98816
+INFO 2025-07-10 19:37:41,507 basehttp 14152 18164 "GET /media/products/preto30l_OXAmCHj.jpg HTTP/1.1" 200 53391
+INFO 2025-07-10 19:37:41,509 basehttp 14152 35016 "GET /media/products/camo3_ZCjwkWr.jpg HTTP/1.1" 200 180379
+INFO 2025-07-10 19:37:41,511 basehttp 14152 14748 "GET /media/products/camo2_AWWE9Cl.jpg HTTP/1.1" 200 184106
+INFO 2025-07-10 19:37:41,511 basehttp 14152 30716 "GET /media/products/camo1_yEO0Bqu.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 19:37:41,730 basehttp 14152 6600 - Broken pipe from ('127.0.0.1', 53405)
+INFO 2025-07-10 19:37:41,731 basehttp 14152 33912 - Broken pipe from ('127.0.0.1', 53403)
+INFO 2025-07-10 19:37:42,455 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:42,563 basehttp 14152 14748 "GET /admin/store/gallery/15/change/ HTTP/1.1" 200 45851
+INFO 2025-07-10 19:37:42,584 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:42,587 basehttp 14152 30716 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-07-10 19:37:42,593 basehttp 14152 14748 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:42,644 basehttp 14152 30716 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-07-10 19:37:42,644 basehttp 14152 14748 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-07-10 19:37:42,658 basehttp 14152 30716 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-07-10 19:37:42,659 basehttp 14152 14748 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-07-10 19:37:42,669 basehttp 14152 35016 "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+INFO 2025-07-10 19:37:43,870 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:43,914 basehttp 14152 35016 "GET /admin/store/notification/ HTTP/1.1" 200 49895
+INFO 2025-07-10 19:37:43,936 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:43,944 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:44,429 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:44,438 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 39175
+INFO 2025-07-10 19:37:44,453 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:44,455 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:44,986 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:45,013 basehttp 14152 35016 "GET /admin/store/product/ HTTP/1.1" 200 52902
+INFO 2025-07-10 19:37:45,026 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:45,027 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:45,923 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:45,938 basehttp 14152 35016 "GET /admin/store/size/ HTTP/1.1" 200 38688
+INFO 2025-07-10 19:37:45,954 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:45,955 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:46,585 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:46,595 basehttp 14152 35016 "GET /admin/store/tax/ HTTP/1.1" 200 39084
+INFO 2025-07-10 19:37:46,610 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:46,612 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:47,379 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:47,395 basehttp 14152 35016 "GET /admin/store/wishlist/ HTTP/1.1" 200 39102
+INFO 2025-07-10 19:37:47,408 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:47,410 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:48,029 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:48,038 basehttp 14152 35016 "GET /admin/store/tax/ HTTP/1.1" 200 39084
+INFO 2025-07-10 19:37:48,057 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:48,060 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:48,526 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:48,535 basehttp 14152 35016 "GET /admin/store/size/ HTTP/1.1" 200 38688
+INFO 2025-07-10 19:37:48,550 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:48,553 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:37:48,995 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:49,008 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 39175
+INFO 2025-07-10 19:37:49,022 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:37:49,024 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:01,611 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:01,620 basehttp 14152 35016 "GET /admin/store/offerscarousel/add/ HTTP/1.1" 200 41445
+INFO 2025-07-10 19:38:01,642 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:01,644 basehttp 14152 14748 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:01,652 basehttp 14152 35016 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-07-10 19:38:01,653 basehttp 14152 30716 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15292
+INFO 2025-07-10 19:38:01,860 basehttp 14152 30716 "GET /static/jazzmin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-07-10 19:38:05,885 middleware 14152 30716 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:06,010 basehttp 14152 30716 "GET /admin/store/product/add/?_to_field=id&_popup=1 HTTP/1.1" 200 66160
+INFO 2025-07-10 19:38:06,023 middleware 14152 30716 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:06,027 basehttp 14152 18164 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-07-10 19:38:06,029 basehttp 14152 30716 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:06,031 basehttp 14152 35016 "GET /static/admin/js/collapse.js HTTP/1.1" 200 1803
+INFO 2025-07-10 19:38:06,035 basehttp 14152 14748 "GET /static/admin/js/inlines.js HTTP/1.1" 200 15526
+INFO 2025-07-10 19:38:26,499 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:26,513 basehttp 14152 14748 "POST /admin/store/offerscarousel/add/ HTTP/1.1" 302 0
+INFO 2025-07-10 19:38:26,518 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:26,528 basehttp 14152 14748 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 43874
+INFO 2025-07-10 19:38:26,546 middleware 14152 14748 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:26,548 basehttp 14152 14748 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:26,554 basehttp 14152 35016 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-07-10 19:38:30,244 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:30,258 basehttp 14152 35016 "GET /admin/store/offerscarousel/1/change/ HTTP/1.1" 200 42166
+INFO 2025-07-10 19:38:30,270 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:30,272 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:34,398 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:34,412 basehttp 14152 35016 "POST /admin/store/offerscarousel/1/change/ HTTP/1.1" 302 0
+INFO 2025-07-10 19:38:34,417 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:34,427 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 43876
+INFO 2025-07-10 19:38:34,444 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:38:34,446 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,078 basehttp 14152 21168 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,079 basehttp 14152 34780 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,080 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,088 basehttp 14152 21168 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,092 basehttp 14152 34780 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,094 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,123 basehttp 14152 31636 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,125 basehttp 14152 36836 "GET /media/carousel/banner1.webp HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,142 basehttp 14152 31636 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,151 basehttp 14152 27832 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 7753
+INFO 2025-07-10 19:38:41,152 basehttp 14152 31636 "GET /media/category/cintos.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,166 basehttp 14152 23308 "GET /media/category/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,169 basehttp 14152 31636 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,172 basehttp 14152 23308 "GET /media/category/camo1.jpg HTTP/1.1" 304 0
+WARNING 2025-07-10 19:38:41,189 log 14152 36836 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:38:41,191 basehttp 14152 36836 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:38:41,211 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,217 basehttp 14152 12744 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,218 basehttp 14152 23308 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,219 basehttp 14152 31636 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,219 basehttp 14152 37068 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,238 basehttp 14152 31636 "GET /media/products/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,244 basehttp 14152 37068 "GET /media/products/faca.png HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:41,363 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,341 basehttp 14152 22936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,343 basehttp 14152 21168 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,344 basehttp 14152 12744 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,352 basehttp 14152 22936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,359 basehttp 14152 12744 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,360 basehttp 14152 21168 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,365 basehttp 14152 22936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,373 basehttp 14152 22936 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,394 basehttp 14152 12452 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+WARNING 2025-07-10 19:38:43,412 log 14152 37068 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:38:43,415 basehttp 14152 37068 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:38:43,418 basehttp 14152 37068 - Broken pipe from ('127.0.0.1', 53445)
+INFO 2025-07-10 19:38:43,432 basehttp 14152 12452 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,434 basehttp 14152 27832 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,518 basehttp 14152 34780 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,546 basehttp 14152 31636 "GET /media/products/cintopreto.png HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,633 basehttp 14152 27832 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:38:43,764 basehttp 14152 34780 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:39:14,798 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:39:14,820 basehttp 14152 35016 "GET /admin/store/product/ HTTP/1.1" 200 52902
+INFO 2025-07-10 19:39:14,833 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:39:14,835 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:39:16,842 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:39:17,388 basehttp 14152 35016 "GET /admin/store/product/1/change/ HTTP/1.1" 200 157098
+INFO 2025-07-10 19:39:17,405 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:39:17,412 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:14,600 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:14,630 basehttp 14152 35016 "POST /admin/store/product/1/change/ HTTP/1.1" 302 0
+INFO 2025-07-10 19:40:14,635 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:14,657 basehttp 14152 35016 "GET /admin/store/product/ HTTP/1.1" 200 53477
+INFO 2025-07-10 19:40:14,674 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:14,680 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:17,011 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:17,022 basehttp 14152 35016 "GET /admin/store/size/ HTTP/1.1" 200 38688
+INFO 2025-07-10 19:40:17,040 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:17,042 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:17,721 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:17,730 basehttp 14152 35016 "GET /admin/store/tax/ HTTP/1.1" 200 39084
+INFO 2025-07-10 19:40:17,743 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:17,744 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:19,671 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:19,679 basehttp 14152 35016 "GET /admin/store/wishlist/ HTTP/1.1" 200 39102
+INFO 2025-07-10 19:40:19,693 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:19,695 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:22,345 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:22,374 basehttp 14152 35016 "GET /admin/store/cartorder/ HTTP/1.1" 200 56598
+INFO 2025-07-10 19:40:22,388 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:22,394 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:25,090 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:25,101 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 43290
+INFO 2025-07-10 19:40:25,120 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:25,122 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:30,617 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:30,626 basehttp 14152 35016 "GET /admin/store/offerscarousel/add/ HTTP/1.1" 200 41445
+INFO 2025-07-10 19:40:30,641 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:30,643 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:45,585 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:45,609 basehttp 14152 35016 "POST /admin/store/offerscarousel/add/ HTTP/1.1" 302 0
+INFO 2025-07-10 19:40:45,614 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:45,626 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 44499
+INFO 2025-07-10 19:40:45,641 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:40:45,642 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,836 basehttp 14152 27832 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,836 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,837 basehttp 14152 21168 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,847 basehttp 14152 12744 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,856 basehttp 14152 27832 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,856 basehttp 14152 34780 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,856 basehttp 14152 21168 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,868 basehttp 14152 21168 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,868 basehttp 14152 12744 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:49,875 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:40:49,904 log 14152 31636 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:40:49,908 basehttp 14152 31636 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:40:50,026 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:40:50,207 basehttp 14152 12452 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 21281
+INFO 2025-07-10 19:40:50,322 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:40:50,478 basehttp 14152 12452 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:41:20,645 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:20,656 basehttp 14152 35016 "POST /admin/store/offerscarousel/ HTTP/1.1" 302 0
+INFO 2025-07-10 19:41:20,663 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:20,673 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 44398
+INFO 2025-07-10 19:41:20,693 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:20,696 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:41:25,937 basehttp 14152 12452 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:41:25,938 basehttp 14152 22936 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-10 19:41:25,938 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:41:25,944 basehttp 14152 34780 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-10 19:41:25,952 basehttp 14152 12744 "GET /api/v1/carousel/ HTTP/1.1" 200 238
+INFO 2025-07-10 19:41:25,953 basehttp 14152 12452 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:41:25,959 basehttp 14152 22936 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:41:25,974 basehttp 14152 12452 "GET /api/v1/category/ HTTP/1.1" 200 614
+INFO 2025-07-10 19:41:25,976 basehttp 14152 22936 "GET /api/v1/banners/ HTTP/1.1" 200 158
+INFO 2025-07-10 19:41:25,990 basehttp 14152 12452 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 2
+INFO 2025-07-10 19:41:25,997 basehttp 14152 23308 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+INFO 2025-07-10 19:41:26,061 basehttp 14152 21168 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 7753
+WARNING 2025-07-10 19:41:26,076 log 14152 30576 Not Found: /media/category.jpg
+INFO 2025-07-10 19:41:26,088 basehttp 14152 13116 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+WARNING 2025-07-10 19:41:26,090 basehttp 14152 30576 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:41:26,092 basehttp 14152 30576 - Broken pipe from ('127.0.0.1', 53571)
+INFO 2025-07-10 19:41:26,103 basehttp 14152 20016 "GET /media/category/cintos.jpg HTTP/1.1" 200 82160
+INFO 2025-07-10 19:41:26,106 basehttp 14152 34780 "GET /api/v1/offers-carousel/ HTTP/1.1" 200 7753
+INFO 2025-07-10 19:41:26,107 basehttp 14152 26688 "GET /media/category/WhatsApp_Image_2025-04-05_at_09.45.37_a154afcd.jpg HTTP/1.1" 200 126710
+INFO 2025-07-10 19:41:26,121 basehttp 14152 23308 "GET /media/products/camo1_KzVVWGj.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 19:41:26,138 basehttp 14152 23308 "GET /media/category/camo1.jpg HTTP/1.1" 200 31593
+INFO 2025-07-10 19:41:26,156 basehttp 14152 23308 "GET /media/banners/banner_iuWxft3.jpg HTTP/1.1" 200 70983
+INFO 2025-07-10 19:41:26,158 basehttp 14152 20016 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 200 74561
+INFO 2025-07-10 19:41:26,167 basehttp 14152 20116 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 200 127085
+INFO 2025-07-10 19:41:26,242 basehttp 14152 13116 "GET /media/category/luvakhaki.jpg HTTP/1.1" 200 474055
+INFO 2025-07-10 19:41:26,255 basehttp 14152 27832 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:41:26,273 basehttp 14152 12744 "GET /api/v1/most-viewed-products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:41:32,831 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:32,847 basehttp 14152 35016 "GET /admin/store/carouselimage/ HTTP/1.1" 200 43494
+INFO 2025-07-10 19:41:32,863 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:32,864 basehttp 14152 30716 "GET /media/carousel/banner1.webp HTTP/1.1" 200 86852
+INFO 2025-07-10 19:41:32,864 basehttp 14152 14748 "GET /media/carousel/catousel_banner_2.jpg HTTP/1.1" 200 95026
+INFO 2025-07-10 19:41:32,866 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:41:34,648 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:34,660 basehttp 14152 35016 "GET /admin/store/category/ HTTP/1.1" 200 44356
+INFO 2025-07-10 19:41:34,675 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:34,679 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:41:37,801 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:37,815 basehttp 14152 35016 "GET /admin/store/offerscarousel/ HTTP/1.1" 200 43910
+INFO 2025-07-10 19:41:37,829 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:37,831 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:41:45,891 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:45,917 basehttp 14152 35016 "GET /admin/store/product/ HTTP/1.1" 200 52902
+INFO 2025-07-10 19:41:45,931 middleware 14152 35016 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 19:41:45,936 basehttp 14152 35016 "GET /admin/jsi18n/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,196 basehttp 14152 27832 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,198 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,199 basehttp 14152 12452 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,207 basehttp 14152 22936 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,210 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,210 basehttp 14152 27832 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,215 basehttp 14152 12452 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,223 basehttp 14152 22936 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,224 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,230 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,244 basehttp 14152 34780 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:42:05,273 log 14152 13116 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:42:05,274 basehttp 14152 13116 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:42:05,401 basehttp 14152 21168 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,417 basehttp 14152 34780 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:05,596 basehttp 14152 21168 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:09,186 basehttp 14152 21168 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:09,187 basehttp 14152 34780 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 200 72
+INFO 2025-07-10 19:42:09,191 basehttp 14152 21168 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:09,191 basehttp 14152 34780 "GET /api/v1/cart-detail/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:11,703 basehttp 14152 21168 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:11,714 basehttp 14152 21168 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:11,763 basehttp 14152 34780 "GET /api/v1/products/ HTTP/1.1" 200 13468
+INFO 2025-07-10 19:42:11,918 basehttp 14152 34780 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,138 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,139 basehttp 14152 12744 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,146 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,148 basehttp 14152 12744 "GET /api/v1/cart-list/RANRJLRGAJJKOMBOLRNOMDMQEBOGHB/1/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,155 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,159 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,165 basehttp 14152 34780 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,226 basehttp 14152 21168 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,405 basehttp 14152 21168 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:22,681 basehttp 14152 21168 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,863 basehttp 14152 12452 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,868 basehttp 14152 21168 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,870 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,877 basehttp 14152 12452 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,879 basehttp 14152 12744 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,882 basehttp 14152 21168 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+WARNING 2025-07-10 19:42:31,894 log 14152 20116 Not Found: /media/category.jpg
+WARNING 2025-07-10 19:42:31,895 basehttp 14152 20116 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 19:42:31,896 basehttp 14152 20116 - Broken pipe from ('127.0.0.1', 53573)
+INFO 2025-07-10 19:42:31,940 basehttp 14152 34780 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:31,951 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:32,103 basehttp 14152 34780 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 19:42:32,191 basehttp 14152 22936 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:11:59,893 basehttp 14152 30452 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:11:59,915 basehttp 14152 30452 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:00,067 basehttp 14152 3424 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:00,093 basehttp 14152 5728 "GET /media/products/faca.png HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:00,103 basehttp 14152 33692 "GET /media/products/cintopreto.png HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:00,104 basehttp 14152 14504 "GET /media/products/luvakhaki.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:00,253 basehttp 14152 3424 "GET /api/v1/products/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,782 basehttp 14152 3424 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,788 basehttp 14152 3424 "GET /api/v1/carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,802 basehttp 14152 30956 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,802 basehttp 14152 37272 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,830 basehttp 14152 30956 "GET /api/v1/category/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,832 basehttp 14152 37272 "GET /api/v1/banners/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:51,837 basehttp 14152 30452 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+WARNING 2025-07-10 20:12:51,848 log 14152 14504 Not Found: /media/category.jpg
+WARNING 2025-07-10 20:12:51,853 basehttp 14152 14504 "GET /media/category.jpg HTTP/1.1" 404 2940
+INFO 2025-07-10 20:12:51,980 basehttp 14152 30452 "GET /api/v1/offers-carousel/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:52,061 basehttp 14152 28968 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:12:52,233 basehttp 14152 28968 "GET /api/v1/most-viewed-products/ HTTP/1.1" 304 0
+INFO 2025-07-10 20:15:11,430 basehttp 14152 33692 "GET /media/products/muchilapreto80.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 20:15:13,066 basehttp 14152 33692 "GET /media/products/WhatsApp_Image_2025-04-05_at_18.14.52_f42cd013.jpg HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:29,695 middleware 14152 39600 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 23:06:29,886 basehttp 14152 39600 "GET /admin/ HTTP/1.1" 200 68825
+INFO 2025-07-10 23:06:29,940 basehttp 14152 39600 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:29,947 basehttp 14152 35456 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:29,947 basehttp 14152 6040 "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:29,949 basehttp 14152 33896 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,568 basehttp 14152 33896 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,569 basehttp 14152 39600 "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,571 basehttp 14152 35456 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,574 basehttp 14152 6040 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,575 basehttp 14152 36736 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,576 basehttp 14152 34880 "GET /static/jazzmin/js/ui-builder.js HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:30,577 basehttp 14152 33896 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-07-10 23:06:32,267 middleware 14152 33896 Admin access by hussein from 127.0.0.1
+ERROR 2025-07-10 23:06:33,662 log 14152 33896 Internal Server Error: /admin/sales-dashboard/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\store\admin_views.py", line 102, in sales_dashboard
+    return render(request, 'admin/sales_dashboard.html', context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'sales_dashboard' not found. 'sales_dashboard' is not a valid view function or pattern name.
+ERROR 2025-07-10 23:06:33,689 basehttp 14152 33896 "GET /admin/sales-dashboard/ HTTP/1.1" 500 317655
+WARNING 2025-07-10 23:06:34,064 log 14152 33896 Not Found: /favicon.ico
+WARNING 2025-07-10 23:06:34,065 basehttp 14152 33896 "GET /favicon.ico HTTP/1.1" 404 2824
+INFO 2025-07-10 23:06:54,859 middleware 14152 33896 Admin access by hussein from 127.0.0.1
+INFO 2025-07-10 23:06:54,883 basehttp 14152 33896 "GET /admin/ HTTP/1.1" 200 68825
+INFO 2025-07-10 23:06:57,347 middleware 14152 33896 Admin access by hussein from 127.0.0.1
+ERROR 2025-07-10 23:06:57,420 log 14152 33896 Internal Server Error: /admin/sales-dashboard/analytics/
+Traceback (most recent call last):
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\store\admin_views.py", line 151, in sales_analytics
+    return render(request, 'admin/sales_analytics.html', context)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\gazou\OneDrive\Desktop\LuaCheiaStore\backend\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/sales_analytics.html
+ERROR 2025-07-10 23:06:57,428 basehttp 14152 33896 "GET /admin/sales-dashboard/analytics/ HTTP/1.1" 500 100666
