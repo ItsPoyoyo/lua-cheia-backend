@@ -6,7 +6,7 @@ from store import views as store_views
 from customer import views as customer_views
 from store.views import (
     CarouselImageList, OffersCarouselList, BannerListAPIView, MostViewedProductsAPIView,
-    CarouselAutomationAPIView, CarouselAutomationStatusAPIView, TriggerCarouselTaskAPIView
+    MostBoughtProductsAPIView, CarouselAutomationAPIView, CarouselAutomationStatusAPIView, TriggerCarouselTaskAPIView
 ) 
 
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -23,6 +23,7 @@ urlpatterns = [
     # Store Endpoint
     path('category/', store_views.CategoryListAPIView.as_view()),
     path('products/', store_views.ProductListAPIView.as_view()),
+    path('products/<int:id>/', store_views.ProductDetailByIdAPIView.as_view()),
     path('products/<slug>/', store_views.ProductDetailAPIView.as_view()),
     path('cart-view/', store_views.CartAPIView.as_view()),
     path('cart-list/<str:cart_id>/<int:user_id>/', store_views.CartListView.as_view()),
@@ -42,6 +43,7 @@ urlpatterns = [
     path('offers-carousel/', OffersCarouselList.as_view(), name='product-carousel'),
     path('banners/', BannerListAPIView.as_view(), name='banner-list'),
     path('most-viewed-products/', MostViewedProductsAPIView.as_view(), name='most-viewed-products'),
+    path('most-bought-products/', MostBoughtProductsAPIView.as_view(), name='most-bought-products'),
     
     # Carousel Automation Endpoints
     path('carousel-automation/', CarouselAutomationAPIView.as_view(), name='carousel-automation'),

@@ -43,6 +43,7 @@ class Product(models.Model):
     status = models.CharField(max_length=100, choices=STATUS, default="published")
     views = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
+    show_in_most_viewed = models.BooleanField(default=True, help_text="Show this product in the Most Viewed carousel")
     rating = models.PositiveIntegerField(default=0, null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     pid = ShortUUIDField(unique=True, length=10, alphabet="abcdefghijklmnp12345")

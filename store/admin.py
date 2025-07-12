@@ -73,11 +73,11 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(VendedorPermissionMixin, admin.ModelAdmin):
     list_display = [
         'title', 'category', 'price', 'stock_status', 'total_stock', 
-        'featured', 'status', 'views'
+        'featured', 'show_in_most_viewed', 'status', 'views'
     ]
     list_filter = ['category', 'featured', 'status', 'in_stock']
     search_fields = ['title', 'description']
-    list_editable = ['featured', 'status']
+    list_editable = ['featured', 'status', 'show_in_most_viewed']
     readonly_fields = ['pid', 'rating', 'views', 'date', 'stock_summary']
     prepopulated_fields = {'slug': ('title',)}
     
@@ -95,7 +95,7 @@ class ProductAdmin(VendedorPermissionMixin, admin.ModelAdmin):
             'classes': ('wide',)
         }),
         ('Status & Visibility', {
-            'fields': ('status', 'featured', 'in_stock'),
+            'fields': ('status', 'featured', 'show_in_most_viewed', 'in_stock'),
             'classes': ('wide',)
         }),
         ('Analytics', {

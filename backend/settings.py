@@ -20,18 +20,22 @@ ALLOWED_HOSTS = [
     "lua-cheia-backend-production.up.app",
     "127.0.0.1",
     "localhost",
-    "http://192.168.0.171:8081",
+    "192.168.0.171",
     "192.168.3.8",
+    "10.0.2.2",  # Android emulator
+    "*"  # only for testing — remove in prod
 ]
 
 FRONTEND_URL = 'http://localhost:5173'
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://lua-cheia.netlify.app",  # Your Netlify frontend
-    "https://lua-cheia-backend-production.up.railway.app",  # Your Railway backend
+    "https://lua-cheia.netlify.app",
+    "https://lua-cheia-backend-production.up.railway.app",
     "http://127.0.0.1",
     "http://localhost",
     "http://192.168.3.8:8000",
+    "http://192.168.0.171:8081",
+    "http://10.0.2.2:8000",
 ]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
@@ -61,24 +65,52 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://lua-cheia.netlify.app",  # Your Netlify frontend
-    "http://localhost:3000",         # For local development
+    "https://lua-cheia.netlify.app",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
     "http://192.168.0.171:8081",
     "http://192.168.0.171:8000",
+    "http://192.168.3.8:8000",
+    "http://10.0.2.2:8000",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.middleware.http.ConditionalGetMiddleware',  # Add this line
+    'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # Add this for language switching
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'store.middleware.SecurityMiddleware',  # Custom security middleware
-    'store.middleware.VendedorAdminRedirectMiddleware',  # Vendedor redirect middleware
+    'store.middleware.SecurityMiddleware',
+    'store.middleware.VendedorAdminRedirectMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -88,7 +120,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates" )],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,18 +136,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
-# Default to SQLite for development
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Override with PostgreSQL if DATABASE_URL is set
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# if db_from_env:
-#     DATABASES['default'].update(db_from_env)
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -161,8 +187,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'userauths.User'
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -182,7 +206,7 @@ EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 # Proxy settings
 USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )
 
 # JWT settings
 SIMPLE_JWT = {
@@ -253,26 +277,38 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 
-# Enhanced Security Settings
+# Enhanced Security Settings (Modified for mobile app compatibility)
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+
+# Development-friendly security settings
+if DEBUG:
+    # Allow HTTP connections for mobile app development
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
+    SECURE_HSTS_SECONDS = 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_HSTS_PRELOAD = False
+else:
+    # Production security settings
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Session Security
-SESSION_COOKIE_SECURE = True  # Set to False for development
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_COOKIE_AGE = 3600
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # CSRF Protection
-CSRF_COOKIE_SECURE = True  # Set to False for development
 CSRF_COOKIE_HTTPONLY = True
 
 # Admin Security
-ADMIN_URL = 'admin/'  # Change this in production
+ADMIN_URL = 'admin/'
 LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_REDIRECT_URL = '/admin/login/'
@@ -322,4 +358,3 @@ LOGGING = {
 import os
 if not os.path.exists('logs'):
     os.makedirs('logs')
-

@@ -189,6 +189,21 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
         product.save()
         return product
 
+class ProductDetailByIdAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'id'
+
+    def get_object(self):
+        product_id = self.kwargs['id']
+        try:
+            product = Product.objects.get(id=product_id)
+            return product
+        except Product.DoesNotExist:
+            from rest_framework.exceptions import NotFound
+            raise NotFound("Product not found")
+
 class CartAPIView(generics.ListCreateAPIView):
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
@@ -650,9 +665,13 @@ class CheckoutView(generics.RetrieveAPIView):
     lookup_field = "oid"
 
     def get_object(self):
-        oid = self.kwargs['oid']
-        order = CartOrder.objects.get(oid=oid)
-        return order
+        order_oid = self.kwargs['order_oid']
+        try:
+            order = CartOrder.objects.get(oid=order_oid)
+            return order
+        except CartOrder.DoesNotExist:
+            from rest_framework.exceptions import NotFound
+            raise NotFound("Order not found")
 
 class CouponAPIView(generics.CreateAPIView):
     serializer_class = CouponSerializer
@@ -687,13 +706,19 @@ class StripeCheckoutView(generics.CreateAPIView):
     serializer_class = CartOrderSerializer
     permission_classes = [AllowAny]
 
-    def create(self, request):
-        order_oid = self.request.data['order_oid']
-        order = CartOrder.objects.get(oid=order_oid)
-
-        if not order:
+    def create(self, request, *args, **kwargs):
+        order_oid = kwargs.get('order_oid')
+        if not order_oid:
             return Response(
-                {"message": "Order Not Found"},
+                {"error": "Order ID is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            order = CartOrder.objects.get(oid=order_oid)
+        except CartOrder.DoesNotExist:
+            return Response(
+                {"error": "Order Not Found"},
                 status=status.HTTP_404_NOT_FOUND
             )
 
@@ -718,10 +743,10 @@ class StripeCheckoutView(generics.CreateAPIView):
                 cancel_url=settings.FRONTEND_URL + '/payment-failed/?session_id={CHECKOUT_SESSION_ID}',
             )
 
-            order.stripe_payment_intent = checkout_session['id']
+            order.stripe_sesion_id = checkout_session['id']
             order.save()
 
-            return Response({"checkout_url": checkout_session.url})
+            return Response({"url": checkout_session.url})
 
         except Exception as e:
             return Response(
@@ -859,7 +884,25 @@ class MostViewedProductsAPIView(generics.ListAPIView):
     permission_classes = [AllowAny]
     
     def get_queryset(self):
-        return Product.objects.filter(status="published").order_by('-views')[:10]
+        return Product.objects.filter(
+            status="published", 
+            show_in_most_viewed=True
+        ).order_by('-views')[:10]
+
+class MostBoughtProductsAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        # Get products ordered by total quantity sold
+        from django.db.models import Sum
+        return Product.objects.filter(
+            status="published"
+        ).annotate(
+            total_sold=Sum('order_item__qty')
+        ).filter(
+            total_sold__isnull=False
+        ).order_by('-total_sold')[:10]
 
 # Carousel Automation API Views
 from store.carousel_automation import CarouselAutomation
