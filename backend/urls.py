@@ -7,7 +7,6 @@ from django.conf.urls.i18n import i18n_patterns
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import health_check
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -23,18 +22,13 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # Health Check Endpoints - Multiple paths for Railway
-    path('health/', health_check, name='health'),
-    path('health', health_check, name='health_no_slash'),
-    path('', health_check, name='health_root'),
-    
     path('admin/sales-dashboard/', include('store.admin_urls')),  # Sales dashboard
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
     path('i18n/', include('django.conf.urls.i18n')),  # Language switching
 
     #Documentation
-    path("docs/", schema_view.with_ui('swagger', cache_timeout=0), name="schema-swagger-ui"),
+    path("", schema_view.with_ui('swagger', cache_timeout=0), name="schema-swagger-ui"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
