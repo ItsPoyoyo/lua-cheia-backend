@@ -35,3 +35,10 @@ whitenoise==6.6.0
 # Environment
 python-decouple==3.8
 dj-database-url==2.1.0
+
+# Additional Dependencies Your App Needs
+shortuuid==1.0.11
+django-filter==23.5
+django-extensions==3.2.3
+django-cleanup==8.1.0
+cryptography==45.0.6
