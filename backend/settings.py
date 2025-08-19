@@ -15,6 +15,7 @@ DEBUG = True  # Set to False in production
 
 ALLOWED_HOSTS = [
     "lua-cheia-backend-production.up.app",
+    "lua-cheia-backend-production.up.railway.app",  # Your specific Railway domain
     "127.0.0.1",
     "localhost",
     "192.168.0.171",
