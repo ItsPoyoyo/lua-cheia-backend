@@ -5,7 +5,8 @@ from django.views.decorators.http import require_http_methods
 @csrf_exempt
 @require_http_methods(["GET"])
 def health_check(request):
-    """Simple health check endpoint for Railway"""
+    """Simple health check endpoint for Railway - Always returns 200"""
+    # Always return HTTP 200 for Railway health checks
     return JsonResponse({
         'status': 'healthy',
         'message': 'Django app is running',
