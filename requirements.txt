@@ -1,14 +1,15 @@
 # Railway Deployment Requirements for SuperParaguai E-commerce Platform
-# Simplified for Railway hosting
+# Security-hardened versions - Updated to fix critical vulnerabilities
 
-# Core Django
-Django==4.2.7
-djangorestframework==3.14.0
+# Core Django - Updated to latest secure version
+Django==5.2.5
+djangorestframework==3.15.0
 django-cors-headers==4.3.1
 django-import-export==3.3.4
 
-# Database (Railway provides PostgreSQL)
-psycopg2-binary==2.9.9
+# Database (Windows-compatible)
+psycopg2-binary==2.9.9; sys_platform != "win32"
+psycopg2==2.9.9; sys_platform == "win32"
 
 # Security & Authentication
 django-oauth-toolkit==2.2.0
@@ -25,7 +26,7 @@ django-filter==23.5
 django-jazzmin==2.6.0
 
 # File Handling & Media - Cloudinary Integration
-Pillow==10.1.0
+Pillow==10.2.0
 django-storages==1.14.2
 cloudinary==1.36.0
 django-cloudinary-storage==0.3.0
@@ -44,9 +45,12 @@ django-cleanup==8.1.0
 python-decouple==3.8
 dj-database-url==2.1.0
 
-# Production Server
-gunicorn==21.2.0
+# Production Server - Updated to secure version
+gunicorn==23.0.0
 whitenoise==6.6.0
 
 # SSL & Security
 cryptography==41.0.8
+
+# Additional security packages
+django-secure==1.0.2

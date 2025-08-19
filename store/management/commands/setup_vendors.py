@@ -35,3 +35,4 @@ class Command(BaseCommand):
             self.stdout.write(
                 self.style.ERROR(f'Error setting up vendor group: {e}')
             )
+
