@@ -42,3 +42,16 @@ django-filter==23.5
 django-extensions==3.2.3
 django-cleanup==8.1.0
 cryptography==45.0.6
+
+# Payment & External Services
+stripe==7.8.0
+
+# Additional Django Packages
+django-axes==6.1.0
+django-password-validators==1.7.3
+django-secure==1.0.2
+django-health-check==3.17.0
+
+# Utilities
+requests==2.32.5
+urllib3==2.5.0
