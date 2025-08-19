@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-jz9p87)4@vfvo2x=jqm)#ha%q)@)e518=0%pf8^)^07+bb&_n^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to False in production
+DEBUG = config('DEBUG', default='False').lower() == 'true'
 
 ALLOWED_HOSTS = [
     "lua-cheia-backend-production.up.app",
@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'anymail',
     'corsheaders',
     'storages',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -101,6 +103,7 @@ CORS_ALLOW_METHODS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add whitenoise for static files
     'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -146,6 +149,27 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+# Static and Media files for production
+if not DEBUG:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+    
+    # Cloudinary configuration
+    CLOUDINARY = {
+        'cloud_name': config('CLOUDINARY_CLOUD_NAME', default=''),
+        'api_key': config('CLOUDINARY_API_KEY', default=''),
+        'api_secret': config('CLOUDINARY_API_SECRET', default=''),
+    }
+    
+    # Use Cloudinary for media storage
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    
+    # Static files with whitenoise
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -208,9 +232,11 @@ ANYMAIL = {
 FROM_EMAIL = 'gazouinihussein@gmail.com'
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
-# Proxy settings
+# Proxy settings - Railway compatible
 USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False
+SECURE_PROXY_SSL_HEADER = None  # Disable for Railway
 
 # JWT settings
 SIMPLE_JWT = {
@@ -296,12 +322,13 @@ if DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = False
     SECURE_HSTS_PRELOAD = False
 else:
-    # Production security settings
+    # Production security settings - Railway compatible
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False  # Changed for Railway compatibility
+    CSRF_COOKIE_SECURE = False     # Changed for Railway compatibility
+    SECURE_SSL_REDIRECT = False    # Added for Railway compatibility
 
 # Session Security
 SESSION_COOKIE_HTTPONLY = True
@@ -362,3 +389,9 @@ LOGGING = {
 import os
 if not os.path.exists('logs'):
     os.makedirs('logs')
+
+# Import Railway-specific settings if available
+try:
+    from .railway_settings import *
+except ImportError:
+    pass
