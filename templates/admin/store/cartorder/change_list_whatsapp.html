@@ -1,0 +1,39 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block content_title %}
+    <div style="background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h1 style="margin: 0; text-align: center;">📱 WhatsApp Orders Dashboard</h1>
+        <p style="text-align: center; margin: 10px 0 0 0; font-size: 16px;">
+            Manage and track all WhatsApp orders from your store
+        </p>
+    </div>
+    
+    {% if whatsapp_stats %}
+    <div class="whatsapp-stats" style="margin-bottom: 20px;">
+        <h3>📊 WhatsApp Orders Statistics</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">{{ whatsapp_stats.total }}</div>
+                <div>Total WhatsApp Orders</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ whatsapp_stats.pending }}</div>
+                <div>Pending WhatsApp Orders</div>
+            </div>
+        </div>
+        <div style="margin-top: 15px; text-align: center;">
+            <a href="{% url 'admin:store_cartorder_changelist' %}" class="button" style="background: #6c757d; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+                🔙 Back to All Orders
+            </a>
+            <a href="?payment_method=whatsapp&payment_status=pending" class="button" style="background: #ff9800; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px;">
+                ⏳ View Pending Only
+            </a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}

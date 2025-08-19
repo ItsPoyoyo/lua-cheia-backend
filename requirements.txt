@@ -1,42 +1,52 @@
-asgiref==3.8.1
-boto3==1.20.26
-botocore==1.23.54
-certifi==2024.12.14
-charset-normalizer==3.4.0
-dj-database-url==2.3.0
-Django==4.2
-django-anymail==12.0
-django-cors-headers==3.14.0
-django-jazzmin==3.0.1
-django-storages==1.12.3
+# Railway Deployment Requirements for SuperParaguai E-commerce Platform
+# Simplified for Railway hosting
+
+# Core Django
+Django==4.2.7
 djangorestframework==3.14.0
-djangorestframework-simplejwt==5.2.2
-drf-yasg==1.21.8
-environs==11.2.1
+django-cors-headers==4.3.1
+django-import-export==3.3.4
+
+# Database (Railway provides PostgreSQL)
+psycopg2-binary==2.9.9
+
+# Security & Authentication
+django-oauth-toolkit==2.2.0
+django-ratelimit==4.1.0
+django-security==0.15.0
+django-axes==6.1.0
+django-password-validators==0.4.3
+
+# API Documentation
+drf-yasg==1.21.7
+django-filter==23.5
+
+# Admin Interface
+django-jazzmin==2.6.0
+
+# File Handling & Media - Cloudinary Integration
+Pillow==10.1.0
+django-storages==1.14.2
+cloudinary==1.36.0
+django-cloudinary-storage==0.3.0
+
+# Email & Notifications
+django-anymail==10.2
+
+# Monitoring & Logging
+sentry-sdk==1.38.0
+
+# Performance & Optimization
+django-extensions==3.2.3
+django-cleanup==8.1.0
+
+# Environment & Configuration
+python-decouple==3.8
+dj-database-url==2.1.0
+
+# Production Server
 gunicorn==21.2.0
-idna==3.10
-inflection==0.5.1
-jmespath==0.10.0
-marshmallow==3.23.2
-packaging==24.2
-pillow==11.1.0
-psycopg2-binary==2.9.10
-PyJWT==2.6.0
-python-dateutil==2.9.0.post0
-python-dotenv==1.0.1
-pytz==2024.2
-PyYAML==6.0.2
-requests==2.32.3
-s3transfer==0.5.2
-setuptools==75.5.0
-shortuuid==1.0.13
-simplejwt==2.0.1
-six==1.17.0
-sqlparse==0.5.1
-stripe==11.4.1
-typing==3.7.4.3
-typing_extensions==4.12.2
-tzdata==2024.2
-uritemplate==4.1.1
-urllib3==1.26.20
-waitress==3.0.2
+whitenoise==6.6.0
+
+# SSL & Security
+cryptography==41.0.8

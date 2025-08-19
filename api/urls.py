@@ -55,6 +55,8 @@ urlpatterns = [
     path('payment-success/<order_oid>/', store_views.PaymentSuccessView.as_view()),
     path('stripe-webhook/', store_views.StripeWebhookView.as_view()),
     
+    # WhatsApp Checkout Endpoint
+    path('whatsapp-checkout/', store_views.whatsapp_checkout, name='whatsapp_checkout'),
 
     #Customer Endpoint
     path('customer/orders/<user_id>/', customer_views.OrderAPIView.as_view()),

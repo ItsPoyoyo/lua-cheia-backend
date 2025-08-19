@@ -8,6 +8,9 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# Import custom admin site
+from store.admin import custom_admin_site
+
 schema_view = get_schema_view(
     openapi.Info(
         title="SuperParaguai API",
@@ -22,8 +25,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/sales-dashboard/', include('store.admin_urls')),  # Sales dashboard
-    path('admin/', admin.site.urls),
+    path('admin/', custom_admin_site.urls),  # Custom admin with CartOrders widget
+    path('store/', include('store.urls')),  # Store app URLs including live orders feed
     path('api/v1/', include('api.urls')),
     path('i18n/', include('django.conf.urls.i18n')),  # Language switching
 

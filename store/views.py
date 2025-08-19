@@ -10,6 +10,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Models
 from userauths.models import User
+from vendor.models import Vendor
 from store.models import (
     Coupon, Product, Tax, Category, Review, Cart, Size, Color, 
     CartOrder, CartOrderItem, Notification, OffersCarousel, Banner, CarouselImage
@@ -31,8 +32,19 @@ from rest_framework.permissions import AllowAny
 from django.utils import translation
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils import timezone
+from datetime import timedelta, datetime
+from .models import CartOrder
+import json
+from django.db import models
+
+# Django DB functions
+from django.db.models import Avg, Count, Sum
 
 def validate_product_stock(product, quantity, color_name=None, size_name=None):
     """
@@ -177,11 +189,54 @@ class CategoryListAPIView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        """Get all active categories"""
+        queryset = Category.objects.filter(active=True)
+        print(f"CategoryListAPIView - Returning {queryset.count()} categories")
+        for cat in queryset:
+            print(f"  - {cat.id}: {cat.title}")
+        return queryset
 
 class ProductListAPIView(generics.ListAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        """Get only published products with optional filtering"""
+        queryset = Product.objects.filter(status="published").select_related('category', 'vendor').prefetch_related('colors', 'sizes')
+        
+        # Get query parameters for filtering
+        category_id = self.request.query_params.get('category', None)
+        min_price = self.request.query_params.get('min_price', None)
+        max_price = self.request.query_params.get('max_price', None)
+        promotions_only = self.request.query_params.get('promotions', None)
+        
+        print(f"ProductListAPIView - Query params: category={category_id}, min_price={min_price}, max_price={max_price}, promotions={promotions_only}")
+        print(f"Initial queryset count: {queryset.count()}")
+        
+        # Apply category filter
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+            print(f"After category filter: {queryset.count()}")
+        
+        # Apply price range filter
+        if min_price:
+            queryset = queryset.filter(price__gte=min_price)
+            print(f"After min price filter: {queryset.count()}")
+        if max_price:
+            queryset = queryset.filter(price__lte=max_price)
+            print(f"After max price filter: {queryset.count()}")
+        
+        # Apply promotions filter
+        if promotions_only == 'true':
+            queryset = queryset.filter(old_price__gt=0, price__lt=models.F('old_price'))
+            print(f"After promotions filter: {queryset.count()}")
+        
+        final_queryset = queryset.order_by('-date')
+        print(f"Final queryset count: {final_queryset.count()}")
+        
+        return final_queryset
     
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
@@ -1230,4 +1285,703 @@ class AdminLanguageSwitchView(View):
             response.set_cookie('django_language', language, max_age=31536000)
             return response
         return JsonResponse({'status': 'error', 'message': 'Invalid language'}, status=400)
+
+@staff_member_required
+def live_orders_feed(request):
+    """
+    AJAX endpoint for live orders feed with comprehensive dashboard data
+    """
+    try:
+        # Get filter parameters
+        time_period = request.GET.get('time_period', 'week')
+        payment_status = request.GET.get('payment_status')
+        order_status = request.GET.get('order_status')
+        payment_method = request.GET.get('payment_method')
+        
+        # Determine date range based on filter
+        now = timezone.now()
+        
+        if time_period == 'today':
+            start_date = now - timedelta(hours=24)
+        elif time_period == 'yesterday':
+            start_date = now - timedelta(hours=48)
+        elif time_period == 'week':
+            start_date = now - timedelta(days=7)
+        elif time_period == 'month':
+            start_date = now - timedelta(days=30)
+        else:
+            start_date = now - timedelta(days=7)
+        
+        # Get filtered orders with error handling
+        try:
+            recent_orders = CartOrder.objects.filter(
+                date__gte=start_date
+            ).order_by('-date')[:50]
+        except Exception as e:
+            print(f"Error querying orders: {e}")
+            recent_orders = CartOrder.objects.none()
+        
+        # Apply additional filters if provided
+        if payment_status and payment_status != 'all':
+            recent_orders = recent_orders.filter(payment_status=payment_status)
+            
+        if order_status and order_status != 'all':
+            recent_orders = recent_orders.filter(order_status=order_status)
+            
+        if payment_method and payment_method != 'all':
+            recent_orders = recent_orders.filter(payment_method=payment_method)
+        
+        print(f"DEBUG LIVE ORDERS: Found {recent_orders.count()} recent orders (last 7 days)")
+        print(f"DEBUG LIVE ORDERS: Start date: {start_date}")
+        
+        orders_data = []
+        for order in recent_orders:
+            try:
+                # Get the first order item for linking to cartorderitem
+                first_item = order.orderitem.first()
+                item_id = first_item.id if first_item else None
+                
+                orders_data.append({
+                    'id': order.id,  # Use primary key for admin URLs
+                    'oid': order.oid,  # Keep oid for display
+                    'item_id': item_id,  # ID of first CartOrderItem for linking
+                    'customer_name': order.full_name or (order.buyer.username if order.buyer else 'Unknown'),
+                    'total': float(order.total),
+                    'payment_status': order.payment_status,
+                    'order_status': order.order_status,
+                    'payment_method': order.payment_method,  # Add payment method for WhatsApp detection
+                    'date': order.date.isoformat(),
+                    'time_ago': order.date.strftime('%H:%M'),
+                    'items_count': order.orderitem.count(),
+                    'email': order.email,
+                    'phone': order.phone,
+                    'city': order.city,
+                    'country': order.country,
+                })
+                print(f"DEBUG LIVE ORDERS: Added order {order.oid} - ${order.total} - {order.payment_status} - {order.date}")
+            except Exception as e:
+                print(f"Error processing order {order.id}: {e}")
+                continue
+        
+        # Calculate stats based on the filtered period
+        try:
+            filtered_orders = CartOrder.objects.filter(date__gte=start_date)
+            
+            # Apply additional filters to stats calculation
+            if payment_status and payment_status != 'all':
+                filtered_orders = filtered_orders.filter(payment_status=payment_status)
+            if order_status and order_status != 'all':
+                filtered_orders = filtered_orders.filter(order_status=order_status)
+            if payment_method and payment_method != 'all':
+                filtered_orders = filtered_orders.filter(payment_method=payment_method)
+            
+            filtered_sales = sum(order.total for order in filtered_orders)
+            filtered_count = filtered_orders.count()
+            filtered_avg = filtered_sales / filtered_count if filtered_count > 0 else 0
+            
+            print(f"DEBUG LIVE ORDERS: Filtered period stats - Orders: {filtered_count}, Sales: ${filtered_sales}")
+        except Exception as e:
+            print(f"Error calculating filtered period stats: {e}")
+            filtered_sales = 0
+            filtered_count = 0
+            filtered_avg = 0
+        
+        # Also keep today's stats for backward compatibility
+        now = timezone.now()
+        yesterday = now - timedelta(hours=24)
+        try:
+            today_orders = CartOrder.objects.filter(date__gte=yesterday)
+            today_sales = sum(order.total for order in today_orders)
+            today_count = today_orders.count()
+        except Exception as e:
+            print(f"Error calculating today stats: {e}")
+            today_sales = 0
+            today_count = 0
+        
+        # Calculate today's average order value
+        today_avg = today_sales / today_count if today_count > 0 else 0
+        
+        # Get WhatsApp orders count
+        try:
+            whatsapp_orders_count = CartOrder.objects.filter(
+                payment_method='whatsapp',
+                date__gte=start_date
+            ).count()
+        except Exception as e:
+            print(f"Error counting WhatsApp orders: {e}")
+            whatsapp_orders_count = 0
+        
+        # Get previous period for comparison
+        prev_yesterday = yesterday - timedelta(hours=24)
+        try:
+            prev_today_orders = CartOrder.objects.filter(date__gte=prev_yesterday, date__lt=yesterday)
+            prev_today_sales = sum(order.total for order in prev_today_orders)
+            prev_today_count = prev_today_orders.count()
+        except Exception as e:
+            print(f"Error calculating previous period stats: {e}")
+            prev_today_sales = 0
+            prev_today_count = 0
+            
+        prev_today_avg = prev_today_sales / prev_today_count if prev_today_count > 0 else 0
+        
+        # Calculate percentage changes
+        sales_change = ((today_sales - prev_today_sales) / prev_today_sales * 100) if prev_today_sales > 0 else 0
+        orders_change = ((today_count - prev_today_count) / prev_today_count * 100) if prev_today_count > 0 else 0
+        avg_change = ((today_avg - prev_today_avg) / prev_today_avg * 100) if prev_today_avg > 0 else 0
+        
+        print(f"DEBUG LIVE ORDERS: Today stats - Orders: {today_count}, Sales: ${today_sales}")
+        
+        week_start = now - timedelta(days=7)
+        try:
+            week_orders = CartOrder.objects.filter(date__gte=week_start)
+            week_sales = sum(order.total for order in week_orders)
+        except Exception as e:
+            print(f"Error calculating week stats: {e}")
+            week_sales = 0
+        
+        print(f"DEBUG LIVE ORDERS: Week stats - Orders: {week_orders.count()}, Sales: ${week_sales}")
+        
+        month_start = now - timedelta(days=30)
+        try:
+            month_orders = CartOrder.objects.filter(date__gte=month_start)
+            month_sales = sum(order.total for order in month_orders)
+        except Exception as e:
+            print(f"Error calculating month stats: {e}")
+            month_sales = 0
+        
+        print(f"DEBUG LIVE ORDERS: Month stats - Orders: {month_orders.count()}, Sales: ${month_sales}")
+        
+        # Enhanced stats with change indicators
+        stats = {
+            'today_sales': today_sales,
+            'today_orders': today_count,
+            'today_avg': today_avg,
+            'filtered_sales': filtered_sales,
+            'filtered_orders': filtered_count,
+            'filtered_avg': filtered_avg,
+            'whatsapp_orders_count': whatsapp_orders_count,
+            'week_sales': week_sales,
+            'month_sales': month_sales,
+            'changes': {
+                'sales_change': round(sales_change, 1),
+                'orders_change': round(orders_change, 1),
+                'avg_change': round(avg_change, 1),
+            }
+        }
+        
+        return JsonResponse({
+            'success': True,
+            'orders': orders_data,
+            'stats': stats,
+            'total_count': len(orders_data),
+            'last_updated': timezone.now().isoformat()
+        })
+        
+    except Exception as e:
+        print(f"Error in live_orders_feed: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+@staff_member_required
+def dashboard_stats(request):
+    """
+    AJAX endpoint for dashboard statistics with filtering
+    """
+    try:
+        # Get filter parameters
+        time_period = request.GET.get('time_period', 'week')
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+        
+        # Determine date range based on filter
+        now = timezone.now()
+        
+        if time_period == 'today':
+            start_date = now - timedelta(hours=24)
+            end_date = now
+        elif time_period == 'yesterday':
+            start_date = now - timedelta(hours=48)
+            end_date = now - timedelta(hours=24)
+        elif time_period == 'week':
+            start_date = now - timedelta(days=7)
+            end_date = now
+        elif time_period == 'month':
+            start_date = now - timedelta(days=30)
+            end_date = now
+        elif time_period == 'custom' and start_date and end_date:
+            try:
+                start_date = timezone.make_aware(datetime.strptime(start_date, '%Y-%m-%d'))
+                end_date = timezone.make_aware(datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1))
+            except ValueError:
+                start_date = now - timedelta(days=7)
+                end_date = now
+        else:
+            start_date = now - timedelta(days=7)
+            end_date = now
+        
+        # Get filtered orders with error handling
+        try:
+            filtered_orders = CartOrder.objects.filter(
+                date__gte=start_date,
+                date__lte=end_date
+            )
+        except Exception as e:
+            print(f"Error filtering orders: {e}")
+            filtered_orders = CartOrder.objects.none()
+        
+        # Apply additional filters if provided
+        payment_status = request.GET.get('payment_status')
+        if payment_status and payment_status != 'all':
+            filtered_orders = filtered_orders.filter(payment_status=payment_status)
+            
+        order_status = request.GET.get('order_status')
+        if order_status and order_status != 'all':
+            filtered_orders = filtered_orders.filter(order_status=order_status)
+            
+        payment_method = request.GET.get('payment_method')
+        if payment_method and payment_method != 'all':
+            filtered_orders = filtered_orders.filter(payment_method=payment_method)
+        
+        # Calculate comprehensive stats with error handling
+        try:
+            total_orders = filtered_orders.count()
+            total_sales = sum(order.total for order in filtered_orders)
+            avg_order_value = total_sales / total_orders if total_orders > 0 else 0
+        except Exception as e:
+            print(f"Error calculating basic stats: {e}")
+            total_orders = 0
+            total_sales = 0
+            avg_order_value = 0
+        
+        # Payment method breakdown with error handling
+        try:
+            payment_methods = filtered_orders.values('payment_method').annotate(
+                count=Count('id'),
+                total=Sum('total')
+            )
+        except Exception as e:
+            print(f"Error calculating payment methods: {e}")
+            payment_methods = []
+        
+        # Payment status breakdown with error handling
+        try:
+            payment_statuses = filtered_orders.values('payment_status').annotate(
+                count=Count('id'),
+                total=Sum('total')
+            )
+        except Exception as e:
+            print(f"Error calculating payment statuses: {e}")
+            payment_statuses = []
+        
+        # Order status breakdown with error handling
+        try:
+            order_statuses = filtered_orders.values('order_status').annotate(
+                count=Count('id'),
+                total=Sum('total')
+            )
+        except Exception as e:
+            print(f"Error calculating order statuses: {e}")
+            order_statuses = []
+        
+        # Daily breakdown for charts with error handling
+        try:
+            daily_breakdown = filtered_orders.extra(
+                select={'day': 'date(date)'}
+            ).values('day').annotate(
+                orders=Count('id'),
+                sales=Sum('total')
+            ).order_by('day')
+        except Exception as e:
+            print(f"Error calculating daily breakdown: {e}")
+            daily_breakdown = []
+        
+        # Performance metrics with error handling
+        try:
+            whatsapp_orders = filtered_orders.filter(payment_method='whatsapp').count()
+        except Exception as e:
+            print(f"Error counting WhatsApp orders: {e}")
+            whatsapp_orders = 0
+        
+        # Calculate realistic metrics based on available data
+        
+        # New customers this period (unique emails not seen before)
+        try:
+            previous_start = start_date - (end_date - start_date)
+            previous_customers = set(CartOrder.objects.filter(
+                date__gte=previous_start,
+                date__lt=start_date
+            ).values_list('email', flat=True))
+            
+            # Get actual registered users count instead of order emails
+            from userauths.models import User
+            total_unique_customers = User.objects.count()
+            
+            # For new customers calculation, still use order emails
+            current_customers = set(filtered_orders.values_list('email', flat=True))
+            previous_customers = set(CartOrder.objects.filter(
+                date__gte=previous_start,
+                date__lt=start_date
+            ).values_list('email', flat=True))
+            new_customers = len(current_customers - previous_customers)
+            
+            # Calculate new customer percentage
+            new_customer_rate = (new_customers / max(1, total_unique_customers)) * 100 if total_unique_customers > 0 else 0
+            
+            # Average order value trend (compare current period with previous)
+            current_avg = filtered_orders.aggregate(avg=Avg('total'))['avg'] or 0
+            previous_orders = CartOrder.objects.filter(
+                date__gte=previous_start,
+                date__lt=start_date
+            )
+            previous_avg = previous_orders.aggregate(avg=Avg('total'))['avg'] or 0
+            
+            # Calculate percentage change in average order value
+            if previous_avg > 0:
+                avg_order_change = ((current_avg - previous_avg) / previous_avg) * 100
+            else:
+                avg_order_change = 0.0
+            
+            # Order frequency (how many orders per customer on average)
+            if total_unique_customers > 0:
+                orders_per_customer = total_orders / total_unique_customers
+            else:
+                orders_per_customer = 0.0
+                
+        except Exception as e:
+            print(f"Error calculating performance metrics: {e}")
+            new_customer_rate = 0
+            avg_order_change = 0
+            orders_per_customer = 0
+        
+        stats = {
+            'summary': {
+                'total_orders': total_orders,
+                'total_sales': float(total_sales),
+                'avg_order_value': float(avg_order_value),
+                'whatsapp_orders': whatsapp_orders,
+            },
+            'breakdowns': {
+                'payment_methods': list(payment_methods),
+                'payment_statuses': list(payment_statuses),
+                'order_statuses': list(order_statuses),
+            },
+            'daily_data': list(daily_breakdown),
+            'performance': {
+                'total_users': total_unique_customers,
+                'avg_order_change': round(avg_order_change, 1),
+                'orders_per_customer': round(orders_per_customer, 1),
+            },
+            'filters': {
+                'time_period': time_period,
+                'start_date': start_date.isoformat() if hasattr(start_date, 'isoformat') else str(start_date),
+                'end_date': end_date.isoformat() if hasattr(end_date, 'isoformat') else str(end_date),
+                'payment_status': payment_status,
+                'order_status': order_status,
+                'payment_method': payment_method,
+            }
+        }
+        
+        return JsonResponse({
+            'success': True,
+            'stats': stats,
+            'last_updated': timezone.now().isoformat()
+        })
+        
+    except Exception as e:
+        print(f"Error in dashboard_stats: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+@staff_member_required
+def performance_metrics(request):
+    """
+    AJAX endpoint for real-time performance metrics
+    """
+    try:
+        now = timezone.now()
+        
+        # Get real-time metrics with error handling
+        today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        try:
+            today_orders = CartOrder.objects.filter(date__gte=today_start).count()
+            today_sales = sum(order.total for order in CartOrder.objects.filter(date__gte=today_start))
+        except Exception as e:
+            print(f"Error calculating today metrics: {e}")
+            today_orders = 0
+            today_sales = 0
+        
+        # Calculate hourly trends with error handling
+        hourly_orders = []
+        try:
+            for hour in range(24):
+                hour_start = today_start.replace(hour=hour)
+                hour_end = hour_start + timedelta(hours=1)
+                hour_orders = CartOrder.objects.filter(
+                    date__gte=hour_start,
+                    date__lt=hour_end
+                ).count()
+                hourly_orders.append({
+                    'hour': hour,
+                    'orders': hour_orders
+                })
+        except Exception as e:
+            print(f"Error calculating hourly trends: {e}")
+            hourly_orders = []
+        
+        # Get top performing products with error handling
+        try:
+            top_products = CartOrderItem.objects.filter(
+                order__date__gte=today_start
+            ).values('product__title').annotate(
+                total_quantity=Sum('qty'),
+                total_revenue=Sum('total')
+            ).order_by('-total_revenue')[:5]
+        except Exception as e:
+            print(f"Error getting top products: {e}")
+            top_products = []
+        
+        # Get recent activity with error handling
+        try:
+            recent_activity = CartOrder.objects.filter(
+                date__gte=now - timedelta(hours=6)
+            ).order_by('-date')[:10]
+        except Exception as e:
+            print(f"Error getting recent activity: {e}")
+            recent_activity = []
+        
+        activity_data = []
+        for order in recent_activity:
+            try:
+                activity_data.append({
+                    'id': order.id,
+                    'oid': order.oid,
+                    'customer': order.full_name or (order.buyer.username if order.buyer else 'Guest'),
+                    'amount': float(order.total),
+                    'status': order.payment_status,
+                    'method': order.payment_method,
+                    'time_ago': order.date.strftime('%H:%M'),
+                    'type': 'order'
+                })
+            except Exception as e:
+                print(f"Error processing activity item {order.id}: {e}")
+                continue
+        
+        # Calculate realistic performance metrics based on available data
+        
+        # New customers this period (unique emails not seen before)
+        period_start = today_start
+        previous_period_start = period_start - timedelta(days=7)  # 7 days before current period
+        
+        try:
+            # Get all customers from previous period
+            previous_customers = set(CartOrder.objects.filter(
+                date__gte=previous_period_start,
+                date__lt=period_start
+            ).values_list('email', flat=True))
+            
+            # Get actual registered users count instead of order emails
+            from userauths.models import User
+            total_unique_customers = User.objects.count()
+            
+            # For new customers calculation, still use order emails
+            current_customers = set(CartOrder.objects.filter(
+                date__gte=period_start
+            ).values_list('email', flat=True))
+            
+            # New customers = current customers not in previous period
+            new_customers = len(current_customers - previous_customers)
+            
+            # Calculate new customer percentage
+            new_customer_rate = (new_customers / max(1, total_unique_customers)) * 100 if total_unique_customers > 0 else 0
+            
+            # Average order value trend (compare current period with previous)
+            current_orders = CartOrder.objects.filter(date__gte=period_start)
+            current_avg = current_orders.aggregate(avg=Avg('total'))['avg'] or 0
+            previous_orders = CartOrder.objects.filter(
+                date__gte=previous_period_start,
+                date__lt=period_start
+            )
+            previous_avg = previous_orders.aggregate(avg=Avg('total'))['avg'] or 0
+            
+            # Calculate percentage change in average order value
+            if previous_avg > 0:
+                avg_order_change = ((current_avg - previous_avg) / previous_avg) * 100
+            else:
+                avg_order_change = 0.0
+            
+            # Order frequency (how many orders per customer on average)
+            if total_unique_customers > 0:
+                orders_per_customer = today_orders / total_unique_customers
+            else:
+                orders_per_customer = 0.0
+                
+        except Exception as e:
+            print(f"Error calculating performance metrics: {e}")
+            new_customer_rate = 0
+            avg_order_change = 0
+            orders_per_customer = 0
+        
+        metrics = {
+            'today_summary': {
+                'orders': today_orders,
+                'sales': float(today_sales),
+                'avg_order': float(today_sales / today_orders) if today_orders > 0 else 0
+            },
+            'performance': {
+                'total_users': total_unique_customers,
+                'avg_order_change': round(avg_order_change, 1),
+                'orders_per_customer': round(orders_per_customer, 1),
+            },
+            'hourly_trends': hourly_orders,
+            'top_products': list(top_products),
+            'recent_activity': activity_data,
+            'last_updated': now.isoformat()
+        }
+        
+        return JsonResponse({
+            'success': True,
+            'metrics': metrics
+        })
+        
+    except Exception as e:
+        print(f"Error in performance_metrics: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+@require_POST
+def whatsapp_checkout(request):
+    """
+    Create a CartOrder for WhatsApp checkout
+    """
+    print("=" * 50)
+    print("WHATSAPP CHECKOUT FUNCTION CALLED")
+    print("=" * 50)
+    try:
+        print(f"WhatsApp checkout request received: {request.body}")
+        
+        # Parse JSON data
+        try:
+            data = json.loads(request.body)
+            print(f"Parsed data: {data}")
+        except json.JSONDecodeError as e:
+            print(f"JSON decode error: {e}")
+            return JsonResponse({
+                'success': False,
+                'error': f'Invalid JSON: {str(e)}'
+            }, status=400)
+        
+        cart_items = data.get('cart_items', [])
+        customer_info = data.get('customer_info', {})
+        
+        print(f"Cart items: {cart_items}")
+        print(f"Customer info: {customer_info}")
+        
+        # Basic validation
+        if not cart_items:
+            return JsonResponse({
+                'success': False,
+                'error': 'No cart items provided'
+            }, status=400)
+        
+        if not customer_info.get('full_name') or not customer_info.get('email'):
+            return JsonResponse({
+                'success': False,
+                'error': 'Full name and email are required'
+            }, status=400)
+        
+        # Calculate totals
+        sub_total = Decimal('0.00')
+        shipping_amount = Decimal('0.00')
+        tax_fee = Decimal('0.00')
+        service_fee = Decimal('0.00')
+        
+        print("Creating order...")
+        
+        with transaction.atomic():
+            # Create the order first
+            order = CartOrder.objects.create(
+                payment_method='whatsapp',
+                payment_status='pending',
+                order_status='pending',
+                sub_total=sub_total,
+                shipping_ammount=shipping_amount,
+                tax_fee=tax_fee,
+                service_fee=service_fee,
+                total=sub_total,
+                full_name=customer_info.get('full_name', ''),
+                email=customer_info.get('email', ''),
+                phone=customer_info.get('phone', ''),
+                address=customer_info.get('address', ''),
+                city=customer_info.get('city', ''),
+                state=customer_info.get('state', ''),
+                country=customer_info.get('country', ''),
+                buyer=None,
+            )
+            
+            print(f"Order created: {order.oid}")
+            
+            # Create order items
+            for item in cart_items:
+                try:
+                    product = Product.objects.get(id=item['product_id'])
+                    price = Decimal(str(item['price']))
+                    qty = int(item['qty'])
+                    item_subtotal = price * qty
+                    sub_total += item_subtotal
+                    
+                    CartOrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        qty=qty,
+                        color=item.get('color'),
+                        size=item.get('size'),
+                        price=price,
+                        sub_total=item_subtotal,
+                        total=item_subtotal,
+                        vendor=product.vendor
+                    )
+                    
+                    print(f"Created order item for {product.title}")
+                    
+                except Exception as e:
+                    print(f"Error creating order item: {e}")
+                    raise e
+            
+            # Update order totals
+            order.sub_total = sub_total
+            order.total = sub_total + shipping_amount + tax_fee + service_fee
+            order.save()
+            
+            print(f"Order {order.oid} completed with total: ${order.total}")
+        
+        print(f"SUCCESS: Order {order.oid} created successfully!")
+        print("=" * 50)
+        return JsonResponse({
+            'success': True,
+            'order_id': order.oid,
+            'message': 'WhatsApp order created successfully'
+        })
+        
+    except Exception as e:
+        print(f"Error in WhatsApp checkout: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
 

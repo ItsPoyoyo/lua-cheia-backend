@@ -260,6 +260,7 @@ class CartOrder(models.Model):
     state = models.CharField(max_length=1000, null=True, blank=True)
     country = models.CharField(max_length=1000, null=True, blank=True)
     stripe_sesion_id = models.CharField(max_length=1000, blank=True, null=True)
+    payment_method = models.CharField(max_length=100, default="stripe", blank=True, null=True)
     oid = ShortUUIDField(unique=True, length=10, alphabet="abcdefghijklmnp12345")
     date = models.DateTimeField(auto_now_add=True)
 

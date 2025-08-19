@@ -42,7 +42,7 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 # Application definition
 INSTALLED_APPS = [
-    'admin_interface',
+    'jazzmin',  # Must come before django.contrib.admin
     'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -212,8 +212,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )
 
 # JWT settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),  # Access token lasts 2 weeks
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=60),  # Refresh token lasts 2 months
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
@@ -233,8 +233,8 @@ SIMPLE_JWT = {
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
     'JTI_CLAIM': 'jti',
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=14),  # Sliding token lasts 2 weeks
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),  # Sliding refresh token lasts 1 month
 }
 
 # Jazzmin settings
@@ -244,31 +244,56 @@ JAZZMIN_SETTINGS = {
     'welcome_sign': "Bienvenido a SuperParaguai",
     'copyright': "SuperParaguai 2024",
     'show_sidebar': True,
-    'show_ui_builder': True,
+    'show_ui_builder': False,
     'navigation_expanded': True,
     'icons': {
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.Group': 'fas fa-users',
         'store.CartOrder': 'fas fa-shopping-cart',
+        'store.CartOrderItem': 'fas fa-list',
         'store.Product': 'fas fa-box',
         'store.Category': 'fas fa-tags',
-        'store.CartOrderItem': 'fas fa-list',
+        'store.Cart': 'fas fa-cart-plus',
+        'store.Wishlist': 'fas fa-heart',
+        'store.Review': 'fas fa-star',
+        'store.Gallery': 'fas fa-images',
+        'store.Specification': 'fas fa-info-circle',
+        'store.Size': 'fas fa-ruler',
+        'store.Color': 'fas fa-palette',
+        'store.Tax': 'fas fa-percentage',
+        'store.Coupon': 'fas fa-ticket-alt',
+        'store.Notification': 'fas fa-bell',
+        'store.CarouselImage': 'fas fa-images',
+        'store.OffersCarousel': 'fas fa-ad',
+        'store.Banner': 'fas fa-flag',
         'userauths.User': 'fas fa-user-circle',
+        'userauths.Profile': 'fas fa-id-card',
         'vendor.Vendor': 'fas fa-store',
         'customer.Customer': 'fas fa-user-tie',
+        'api': 'fas fa-code',
     },
-    'order_with_respect_to': ['store', 'userauths', 'vendor', 'customer'],
+    'order_with_respect_to': ['store', 'userauths', 'vendor', 'customer', 'api'],
     'custom_css': None,
     'custom_js': None,
     'changeform_format': 'horizontal_tabs',
     'changeform_format_overrides': {
         'store.product': 'horizontal_tabs',
         'store.cartorder': 'horizontal_tabs',
+        'userauths.user': 'horizontal_tabs',
+        'vendor.vendor': 'horizontal_tabs',
     },
     'hide_models': ['auth.Group'],
     'show_full_result_count': False,
     'show_ui_builder': False,
+    'related_modal_active': True,
+    'custom_links': {
+        'store': [{
+            'name': 'Sales Analytics', 
+            'url': 'admin:sales_analytics', 
+            'icon': 'fas fa-chart-line',
+        }],
+    },
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -276,22 +301,22 @@ JAZZMIN_UI_TWEAKS = {
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
-    "brand_colour": "navbar-light",
+    "brand_colour": "navbar-dark",
     "accent": "accent-primary",
-    "navbar": "navbar-light",
+    "navbar": "navbar-dark",
     "no_navbar_border": True,
     "navbar_fixed": True,
     "layout_boxed": False,
     "footer_fixed": False,
     "sidebar_fixed": True,
-    "sidebar": "sidebar-light-primary",
+    "sidebar": "sidebar-dark-primary",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": True,
     "sidebar_nav_compact_style": False,
     "sidebar_nav_legacy_style": False,
     "sidebar_nav_flat_style": False,
-    "theme": "cosmo",
+    "theme": "darkly",
     "dark_mode_theme": "darkly",
     "button_classes": {
         "primary": "btn-primary",

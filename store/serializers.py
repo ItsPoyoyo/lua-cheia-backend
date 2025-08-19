@@ -51,6 +51,9 @@ class ProductSerializer(serializers.ModelSerializer):
     color = ColorSerializer(many=True, read_only=True)
     specification = SpecificationSerializer(many=True, read_only=True)
     size = SizeSerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True)  # Include category details
+    rating_count = serializers.SerializerMethodField()
+    product_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -82,6 +85,14 @@ class ProductSerializer(serializers.ModelSerializer):
             'date',
         ]
         read_only_fields = ['in_stock', 'rating']
+
+    def get_rating_count(self, obj):
+        """Get the count of ratings for this product"""
+        return obj.rating_count()
+
+    def get_product_rating(self, obj):
+        """Get the average rating for this product"""
+        return obj.product_rating()
 
     def __init__(self, *args, **kwargs):
         super(ProductSerializer, self).__init__(*args, **kwargs)

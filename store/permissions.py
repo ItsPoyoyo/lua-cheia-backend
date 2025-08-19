@@ -1,190 +1,174 @@
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from django.core.management.base import BaseCommand
-from store.models import Product, Category, Color, Size, Gallery, Specification
-from vendor.models import Vendor
+from django.contrib.auth.models import Permission
+from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
+from django.contrib import messages
+from functools import wraps
 
+def is_vendor(user):
+    """Check if user is a vendor"""
+    return user.is_authenticated and user.groups.filter(name='Vendors').exists()
 
-def create_vendedores_group():
-    """
-    Create vendedores (staff) group with limited permissions
-    """
-    # Create or get the vendedores group
-    vendedores_group, created = Group.objects.get_or_create(name='vendedores')
-    
-    if created:
-        print("Created vendedores group")
-    else:
-        print("Vendedores group already exists")
-    
-    # Clear existing permissions
-    vendedores_group.permissions.clear()
-    
-    # Define allowed models and permissions for vendedores
-    allowed_permissions = [
-        # Product management
-        ('store', 'product', ['view', 'add', 'change']),
-        ('store', 'category', ['view']),
-        ('store', 'color', ['view', 'add', 'change', 'delete']),
-        ('store', 'size', ['view', 'add', 'change', 'delete']),
-        ('store', 'gallery', ['view', 'add', 'change', 'delete']),
-        ('store', 'specification', ['view', 'add', 'change', 'delete']),
-        
-        # Vendor management (limited)
-        ('vendor', 'vendor', ['view', 'change']),
-        
-        # Order viewing (limited - no customer data)
-        ('store', 'cartorder', ['view']),
-        ('store', 'cartorderitem', ['view']),
-    ]
-    
-    # Add permissions to the group
-    for app_label, model_name, permission_types in allowed_permissions:
-        try:
-            content_type = ContentType.objects.get(app_label=app_label, model=model_name)
-            for perm_type in permission_types:
-                permission_codename = f"{perm_type}_{model_name}"
-                permission = Permission.objects.get(
-                    codename=permission_codename,
-                    content_type=content_type
-                )
-                vendedores_group.permissions.add(permission)
-                print(f"Added permission: {permission_codename}")
-        except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
-            print(f"Permission not found: {app_label}.{model_name}.{perm_type} - {e}")
-    
-    print(f"Vendedores group configured with {vendedores_group.permissions.count()} permissions")
-    return vendedores_group
+def is_owner(user):
+    """Check if user is the owner (superuser or staff)"""
+    return user.is_authenticated and (user.is_superuser or user.is_staff)
 
+def vendor_required(view_func):
+    """Decorator to restrict access to vendors only"""
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not is_vendor(request.user):
+            messages.error(request, "Access denied. Vendor permissions required.")
+            return redirect('admin:login')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
-def setup_vendor_user_permissions(user, vendor):
-    """
-    Setup permissions for a vendor user
-    """
-    # Add user to vendedores group
-    vendedores_group = Group.objects.get(name='vendedores')
-    user.groups.add(vendedores_group)
-    
-    # Set user as staff but not superuser
-    user.is_staff = True
-    user.is_superuser = False
-    user.save()
-    
-    print(f"User {user.username} added to vendedores group and set as staff")
+def owner_required(view_func):
+    """Decorator to restrict access to owners only"""
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not is_owner(request.user):
+            messages.error(request, "Access denied. Owner permissions required.")
+            return redirect('admin:login')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
-
-class VendedorPermissionMixin:
-    """
-    Mixin to restrict vendedor access to only their own vendor's data
-    """
+class VendorPermissionMixin:
+    """Mixin to restrict admin access for vendors"""
     
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        
-        # If user is superuser, return all objects
-        if request.user.is_superuser:
-            return qs
-        
-        # If user is in vendedores group, filter by their vendor
-        if request.user.groups.filter(name='vendedores').exists():
-            try:
-                vendor = Vendor.objects.get(user=request.user)
-                # Filter products by vendor
-                if hasattr(qs.model, 'vendor'):
-                    return qs.filter(vendor=vendor)
-                # For related models, filter by product vendor
-                elif hasattr(qs.model, 'product'):
-                    return qs.filter(product__vendor=vendor)
-            except Vendor.DoesNotExist:
-                # If no vendor associated, return empty queryset
-                return qs.none()
-        
-        return qs
-    
-    def has_change_permission(self, request, obj=None):
-        # Superuser can change anything
-        if request.user.is_superuser:
+    def has_module_permission(self, request):
+        """Vendors can only see allowed modules"""
+        if is_owner(request.user):
             return True
         
-        # Vendedores can only change their own vendor's objects
-        if request.user.groups.filter(name='vendedores').exists():
-            if obj is None:
-                return True  # Allow access to change list
-            
-            try:
-                vendor = Vendor.objects.get(user=request.user)
-                # Check if object belongs to vendor
-                if hasattr(obj, 'vendor'):
-                    return obj.vendor == vendor
-                elif hasattr(obj, 'product'):
-                    return obj.product.vendor == vendor
-            except Vendor.DoesNotExist:
-                return False
+        if is_vendor(request.user):
+            allowed_modules = [
+                'store',  # Products, Categories, Orders
+                'vendor',  # Vendor profile
+            ]
+            return self.model._meta.app_label in allowed_modules
         
-        return super().has_change_permission(request, obj)
+        return False
+    
+    def has_view_permission(self, request, obj=None):
+        """Vendors can view their own objects"""
+        if is_owner(request.user):
+            return True
+        
+        if is_vendor(request.user):
+            # Vendors can view their own products and orders
+            if hasattr(obj, 'vendor') and obj.vendor:
+                return obj.vendor.user == request.user
+            return True
+        
+        return False
+    
+    def has_add_permission(self, request):
+        """Vendors can add products"""
+        if is_owner(request.user):
+            return True
+        
+        if is_vendor(request.user):
+            # Vendors can add products
+            return self.model._meta.model_name in ['product', 'category']
+        
+        return False
+    
+    def has_change_permission(self, request, obj=None):
+        """Vendors can edit their own objects"""
+        if is_owner(request.user):
+            return True
+        
+        if is_vendor(request.user):
+            # Vendors can edit their own products
+            if hasattr(obj, 'vendor') and obj.vendor:
+                return obj.vendor.user == request.user
+            return True
+        
+        return False
     
     def has_delete_permission(self, request, obj=None):
-        # Only allow delete for specific models
-        allowed_delete_models = ['Color', 'Size', 'Gallery', 'Specification']
+        """Vendors can delete their own objects"""
+        if is_owner(request.user):
+            return True
         
-        if obj and obj.__class__.__name__ not in allowed_delete_models:
-            return False
+        if is_vendor(request.user):
+            # Vendors can delete their own products
+            if hasattr(obj, 'vendor') and obj.vendor:
+                return obj.vendor.user == request.user
+            return True
         
-        return self.has_change_permission(request, obj)
-
-
-def create_security_middleware():
-    """
-    Create middleware to enhance security
-    """
-    middleware_content = '''
-from django.http import HttpResponseForbidden
-from django.contrib.auth.models import AnonymousUser
-import logging
-
-logger = logging.getLogger(__name__)
-
-class SecurityMiddleware:
-    """
-    Enhanced security middleware for LuaCheia admin
-    """
+        return False
     
-    def __init__(self, get_response):
-        self.get_response = get_response
-    
-    def __call__(self, request):
-        # Log admin access attempts
-        if request.path.startswith('/admin/'):
-            if isinstance(request.user, AnonymousUser):
-                logger.warning(f"Anonymous admin access attempt from {request.META.get('REMOTE_ADDR')}")
-            else:
-                logger.info(f"Admin access by {request.user.username} from {request.META.get('REMOTE_ADDR')}")
+    def get_queryset(self, request):
+        """Filter queryset for vendors to see only their data"""
+        qs = super().get_queryset(request)
         
-        # Restrict sensitive admin sections for vendedores
-        if (request.path.startswith('/admin/') and 
-            request.user.is_authenticated and 
-            request.user.groups.filter(name='vendedores').exists() and
-            not request.user.is_superuser):
-            
-            # Forbidden paths for vendedores
-            forbidden_paths = [
-                '/admin/auth/',  # User management
-                '/admin/userauths/',  # User authentication
-                '/admin/customer/',  # Customer data
-                '/admin/store/cartorder/',  # Order details with customer info
-                '/admin/store/notification/',  # Notifications
-                '/admin/store/coupon/',  # Coupons
-                '/admin/store/tax/',  # Tax settings
-            ]
-            
-            for forbidden_path in forbidden_paths:
-                if request.path.startswith(forbidden_path):
-                    logger.warning(f"Vendedor {request.user.username} attempted to access forbidden path: {request.path}")
-                    return HttpResponseForbidden("Access denied: Insufficient permissions")
+        if is_owner(request.user):
+            return qs
         
-        response = self.get_response(request)
-        return response
-'''
+        if is_vendor(request.user):
+            # Vendors see only their own products and orders
+            if hasattr(self.model, 'vendor'):
+                return qs.filter(vendor__user=request.user)
+            elif hasattr(self.model, 'user'):
+                return qs.filter(user=request.user)
+        
+        return qs
+
+def setup_vendor_permissions():
+    """Create vendor group and set up permissions"""
+    vendor_group, created = Group.objects.get_or_create(name='Vendors')
     
-    return middleware_content
+    # Get content types for models vendors should access
+    from store.models import Product, Category, CartOrder, CartOrderItem
+    from vendor.models import Vendor
+    
+    # Permissions for vendors
+    vendor_permissions = [
+        # Product management
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Product), codename='add_product'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Product), codename='change_product'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Product), codename='view_product'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Product), codename='delete_product'),
+        
+        # Category management
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Category), codename='add_category'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Category), codename='change_category'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Category), codename='view_category'),
+        
+        # Order viewing (vendors can see orders but not modify them)
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(CartOrder), codename='view_cartorder'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(CartOrderItem), codename='view_cartorderitem'),
+        
+        # Vendor profile management
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Vendor), codename='change_vendor'),
+        Permission.objects.get(content_type=ContentType.objects.get_for_model(Vendor), codename='view_vendor'),
+    ]
+    
+    # Add permissions to vendor group
+    vendor_group.permissions.set(vendor_permissions)
+    
+    return vendor_group
+
+def restrict_vendor_access(request):
+    """Middleware function to restrict vendor access"""
+    if request.user.is_authenticated and is_vendor(request.user):
+        # Block access to sensitive admin areas
+        sensitive_paths = [
+            '/admin/userauths/',
+            '/admin/auth/',
+            '/admin/sessions/',
+            '/admin/admin/',
+            '/admin/sites/',
+        ]
+        
+        for path in sensitive_paths:
+            if request.path.startswith(path):
+                messages.error(request, "Access denied. Vendors cannot access user management.")
+                return redirect('admin:index')
+    
+    return None
 

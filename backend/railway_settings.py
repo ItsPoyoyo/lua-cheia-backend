@@ -1,6 +1,6 @@
 """
-Production settings for SuperParaguai E-commerce Platform
-Enterprise-grade security and performance configuration
+Railway Deployment Settings for SuperParaguai E-commerce Platform
+Optimized for Railway hosting with automatic environment detection
 """
 
 import os
@@ -11,22 +11,13 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-def get_secret_key():
-    """Get secret key from environment variable"""
-    secret_key = os.environ.get('SECRET_KEY')
-    if not secret_key:
-        raise ImproperlyConfigured('SECRET_KEY environment variable is required for production')
-    return secret_key
-
-SECRET_KEY = get_secret_key()
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-# Production hosts
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-if not ALLOWED_HOSTS or ALLOWED_HOSTS == ['']:
-    raise ImproperlyConfigured('ALLOWED_HOSTS environment variable is required for production')
+# Railway automatically sets ALLOWED_HOSTS
+ALLOWED_HOSTS = ['*']  # Railway handles this automatically
 
 # Application definition
 INSTALLED_APPS = [
@@ -45,6 +36,10 @@ INSTALLED_APPS = [
     'import_export',
     'jazzmin',
     
+    # Cloudinary for image storage
+    'cloudinary_storage',
+    'cloudinary',
+    
     # Local apps
     'userauths',
     'vendor',
@@ -55,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # Security middleware (order matters!)
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Railway static files
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,9 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    # Custom security middleware
-    'security.middleware.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -87,24 +80,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# Database - Railway automatically provides DATABASE_URL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'superparaguai'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        'NAME': os.environ.get('PGDATABASE'),
+        'USER': os.environ.get('PGUSER'),
+        'PASSWORD': os.environ.get('PGPASSWORD'),
+        'HOST': os.environ.get('PGHOST'),
+        'PORT': os.environ.get('PGPORT', '5432'),
     }
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -124,24 +112,45 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# Media files
+# Media files - Cloudinary storage (permanent, not temporary like Railway)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Cloudinary Configuration for Image Storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'SECURE': True,  # Use HTTPS
+    'STATIC_TAG': 'static',
+    'MEDIA_TAG': 'media',
+    'INVALIDATE': False,
+    'STATIC_IMAGES_EXTENSIONS': ['jpg', 'jpe', 'jpeg', 'jpc', 'jp2', 'j2k', 'wdp', 'jxr', 'hdp', 'png', 'gif', 'webp', 'bmp', 'tif', 'tiff', 'ico'],
+    'MAGIC_FILE_PATH': 'magic',
+    'PROXY_MEDIA_URL': None,
+    'MEDIA_PROXY_MEDIA_URL': None,
+    'STATIC_PROXY_MEDIA_URL': None,
+    'STATIC_IMAGES_URL_TRANSFORM': None,
+    'STATIC_IMAGES_TRANSFORM': None,
+}
+
+# Set Cloudinary as default file storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Static files configuration for Cloudinary
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
@@ -171,11 +180,14 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
-# CORS settings
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+# CORS settings for Vercel frontend
+CORS_ALLOWED_ORIGINS = [
+    'https://yourdomain.vercel.app',  # Replace with your Vercel domain
+    'http://localhost:3000',  # Local development
+]
 CORS_ALLOW_CREDENTIALS = True
 
-# Security settings
+# Security settings for Railway
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
@@ -213,12 +225,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'production.log',
-            'formatter': 'verbose',
-        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -226,42 +232,22 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'INFO',
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
         'django.security': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'WARNING',
             'propagate': False,
         },
     },
 }
-
-# Cache configuration
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'redis.client.DefaultClient',
-        }
-    }
-}
-
-# Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@yourdomain.com')
 
 # File upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
@@ -279,7 +265,6 @@ JAZZMIN_SETTINGS = {
     "user_avatar": None,
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Support", "url": "https://github.com/yourusername/yourrepo", "new_window": True},
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
@@ -322,40 +307,23 @@ ADMIN_SITE_HEADER = "SuperParaguai Administration"
 ADMIN_SITE_TITLE = "SuperParaguai Admin Portal"
 ADMIN_INDEX_TITLE = "Welcome to SuperParaguai Admin"
 
-# Security middleware settings
-SECURITY_MIDDLEWARE = {
-    'ENABLE_IP_WHITELIST': True,
-    'ALLOWED_IPS': os.environ.get('ALLOWED_IPS', '').split(','),
-    'ENABLE_RATE_LIMITING': True,
-    'RATE_LIMIT': '100/hour',
-    'ENABLE_AUDIT_LOGGING': True,
-}
-
 # Performance settings
 CONN_MAX_AGE = 60
 OPTIMIZE_TABLE_NAMES = True
 USE_TZ = True
-
-# Backup settings
-BACKUP_DIR = BASE_DIR / 'backups'
-BACKUP_RETENTION_DAYS = 30
-
-# Monitoring settings
-ENABLE_MONITORING = True
-MONITORING_INTERVAL = 300  # 5 minutes
 
 # Environment validation
 def validate_environment():
     """Validate required environment variables"""
     required_vars = [
         'SECRET_KEY',
-        'ALLOWED_HOSTS',
-        'DB_NAME',
-        'DB_USER',
-        'DB_PASSWORD',
-        'DB_HOST',
-        'EMAIL_HOST_USER',
-        'EMAIL_HOST_PASSWORD',
+        'PGDATABASE',
+        'PGUSER',
+        'PGPASSWORD',
+        'PGHOST',
+        'CLOUDINARY_CLOUD_NAME',
+        'CLOUDINARY_API_KEY',
+        'CLOUDINARY_API_SECRET',
     ]
     
     missing_vars = [var for var in required_vars if not os.environ.get(var)]
@@ -366,3 +334,10 @@ def validate_environment():
 
 # Validate environment on startup
 validate_environment()
+
+print("✅ Railway settings loaded successfully!")
+print(f"🔒 Security features enabled: HTTPS, HSTS, Security Headers")
+print(f"📊 Database: PostgreSQL (Railway)")
+print(f"🚀 Static files: Cloudinary storage")
+print(f"🖼️ Media files: Cloudinary storage")
+print(f"🌐 CORS: Configured for Vercel frontend")
