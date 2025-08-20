@@ -1,15 +1,11 @@
-# Railway Deployment Requirements for SuperParaguai E-commerce Platform
-# Security-hardened versions - Updated to fix critical vulnerabilities
-
-# Core Django - Updated to latest secure version
+# Core Django
 Django==5.2.5
 djangorestframework==3.15.0
 django-cors-headers==4.3.1
 django-import-export==3.3.4
 
-# Database (Windows-compatible)
-psycopg2-binary==2.9.9; sys_platform != "win32"
-psycopg2==2.9.9; sys_platform == "win32"
+# Database
+psycopg2-binary==2.9.9
 
 # Security & Authentication
 django-oauth-toolkit==2.2.0
@@ -24,32 +20,29 @@ django-filter==23.5
 # Admin Interface
 django-jazzmin==2.6.0
 
-# File Handling & Media - Cloudinary Integration
-Pillow==10.2.0
+# File Handling & Media
+Pillow==11.3.0
 django-storages==1.14.2
 cloudinary==1.36.0
 django-cloudinary-storage==0.3.0
-
-# Email & Notifications
-django-anymail==10.2
-
-# Monitoring & Logging
-sentry-sdk==1.38.0
-
-# Performance & Optimization
-django-extensions==3.2.3
-django-cleanup==8.1.0
 
 # Environment & Configuration
 python-decouple==3.8
 dj-database-url==2.1.0
 
-# Production Server - Updated to secure version
+# Production Server
 gunicorn==23.0.0
 whitenoise==6.6.0
 
-# SSL & Security
-cryptography==45.0.6
-
-# Additional security packages
+# Additional packages
+djangorestframework-simplejwt==5.3.0
+django-anymail==10.2
+setuptools>=65.0.0
+shortuuid==1.0.11
+django-extensions==3.2.3
+django-cleanup==8.1.0
+stripe==7.8.0
 django-secure==1.0.2
+django-health-check==3.17.0
+requests==2.32.5
+urllib3==2.5.0
