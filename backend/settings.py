@@ -1,42 +1,23 @@
 from pathlib import Path
 from datetime import timedelta
-from environs import Env
+from decouple import config
 import os
 import dj_database_url
-
-env = Env()
-env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jz9p87)4@vfvo2x=jqm)#ha%q)@)e518=0%pf8^)^07+bb&_n^'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-jz9p87)4@vfvo2x=jqm)#ha%q)@)e518=0%pf8^)^07+bb&_n^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to False in production
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    "lua-cheia-backend-production.up.app",
-    "127.0.0.1",
-    "localhost",
-    "192.168.0.171",
-    "192.168.3.8",
-    "10.0.2.2",  # Android emulator
-    "*"  # only for testing — remove in prod
-]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.railway.app,localhost,127.0.0.1,0.0.0.0').split(',')
 
-FRONTEND_URL = 'http://localhost:5173'
+FRONTEND_URL = config('FRONTEND_URL', default='https://lua-cheia-frontend.vercel.app')
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://lua-cheia.netlify.app",
-    "https://lua-cheia-backend-production.up.railway.app",
-    "http://127.0.0.1",
-    "http://localhost",
-    "http://192.168.3.8:8000",
-    "http://192.168.0.171:8081",
-    "http://10.0.2.2:8000",
-]
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://lua-cheia-backend-production.up.railway.app').split(',')
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
@@ -63,22 +44,14 @@ INSTALLED_APPS = [
     'anymail',
     'corsheaders',
     'storages',
+    'cloudinary_storage',  # Add Cloudinary storage
+    'cloudinary',  # Add Cloudinary
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "https://lua-cheia.netlify.app",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    "http://192.168.0.171:8081",
-    "http://192.168.0.171:8000",
-    "http://192.168.3.8:8000",
-    "http://10.0.2.2:8000",
-]
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='https://lua-cheia-frontend.vercel.app,http://localhost:3000,http://127.0.0.1:3000').split(',')
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool)
+CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS', default=True, cast=bool)
 
 CORS_ALLOWED_HEADERS = [
     'accept',
@@ -103,6 +76,7 @@ CORS_ALLOW_METHODS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise for Railway
     'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,10 +112,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL', default='sqlite:///db.sqlite3'))
 }
 
 # Password validation
@@ -161,54 +132,79 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-
-LANGUAGES = [
-    ('en', 'English'),
-    ('es', 'Español'),
-    ('pt', 'Português'),
-]
-
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
-
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = config('LANGUAGE_CODE', default='es')
+TIME_ZONE = config('TIME_ZONE', default='America/Asuncion')
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+LANGUAGES = [
+    ('es', 'Español'),
+    ('pt', 'Português'),
+    ('en', 'English'),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Cloudinary Configuration
+CLOUDINARY = {
+    'cloud_name': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'api_key': config('CLOUDINARY_API_KEY', default=''),
+    'api_secret': config('CLOUDINARY_API_SECRET', default=''),
+}
+
+# File Storage Configuration
+if CLOUDINARY['cloud_name']:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+else:
+    # Fallback to local storage
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 AUTH_USER_MODEL = 'userauths.User'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
-STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="whsec_test_secret")
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="whsec_test_secret")
 
-MAILGUN_API_KEY = env("MAILGUN_API_KEY")
-MAILGUN_SENDER_DOMAIN = env("MAILGUN_SENDER_DOMAIN")
+# Email Configuration
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='test@example.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='testpassword')
 
-ANYMAIL = {
-    "MAILGUN_API_KEY": MAILGUN_API_KEY,
-    "MAILGUN_SENDER_DOMAIN": MAILGUN_SENDER_DOMAIN,
-}
+# Mailgun Configuration
+MAILGUN_API_KEY = config('MAILGUN_API_KEY', default='')
+MAILGUN_SENDER_DOMAIN = config('MAILGUN_SENDER_DOMAIN', default='')
 
-FROM_EMAIL = 'gazouinihussein@gmail.com'
-EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+# Use Mailgun if configured, otherwise use console backend
+if MAILGUN_API_KEY and MAILGUN_SENDER_DOMAIN:
+    ANYMAIL = {
+        "MAILGUN_API_KEY": MAILGUN_API_KEY,
+        "MAILGUN_SENDER_DOMAIN": MAILGUN_SENDER_DOMAIN,
+    }
+    FROM_EMAIL = config('FROM_EMAIL', default='gazouinihussein@gmail.com')
+else:
+    # Fallback to console backend for development
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Proxy settings
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )
+# Proxy settings - These are now configured via environment variables above
+# USE_X_FORWARDED_HOST = True  # REMOVED - now uses config()
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )  # REMOVED - now uses config()
 
 # JWT settings
 SIMPLE_JWT = {
@@ -328,27 +324,19 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 
-# Enhanced Security Settings (Modified for mobile app compatibility)
+# Enhanced Security Settings (Modified for Railway compatibility)
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Development-friendly security settings
-if DEBUG:
-    # Allow HTTP connections for mobile app development
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-    SECURE_SSL_REDIRECT = False
-    SECURE_HSTS_SECONDS = 0
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-    SECURE_HSTS_PRELOAD = False
-else:
-    # Production security settings
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+# Railway-compatible security settings
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
+USE_X_FORWARDED_HOST = config('USE_X_FORWARDED_HOST', default=True, cast=bool)
+USE_X_FORWARDED_PORT = config('USE_X_FORWARDED_PORT', default=True, cast=bool)
+SECURE_PROXY_SSL_HEADER = config('SECURE_PROXY_SSL_HEADER', default=None)
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)
 
 # Session Security
 SESSION_COOKIE_HTTPONLY = True
@@ -409,22 +397,6 @@ LOGGING = {
 import os
 if not os.path.exists('logs'):
     os.makedirs('logs')
-
-# Internationalization
-LANGUAGE_CODE = 'es'
-TIME_ZONE = 'America/Asuncion'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-LANGUAGES = [
-    ('es', 'Español'),
-    ('pt', 'Português'),
-    ('en', 'English'),
-]
-
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
-]
 
 # Admin template configuration
 TEMPLATES[0]['OPTIONS']['context_processors'].append('django.template.context_processors.i18n')
