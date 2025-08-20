@@ -22704,3 +22704,17 @@ INFO 2025-08-19 10:03:55,399 basehttp 12912 6072 "GET /store/admin/live-orders/?
 INFO 2025-08-19 10:04:55,398 basehttp 12912 6072 "GET /store/admin/live-orders/?time_period=yesterday HTTP/1.1" 200 1527
 INFO 2025-08-19 10:05:55,647 basehttp 12912 6072 "GET /store/admin/live-orders/?time_period=yesterday HTTP/1.1" 200 1527
 INFO 2025-08-19 10:07:55,638 basehttp 12912 6072 "GET /store/admin/live-orders/?time_period=yesterday HTTP/1.1" 200 1527
+INFO 2025-08-19 22:27:11,608 autoreload 41112 17276 Watching for file changes with StatReloader
+WARNING 2025-08-19 22:27:16,318 middleware 41112 35620 Anonymous admin access attempt from 127.0.0.1
+INFO 2025-08-19 22:27:16,413 basehttp 41112 35620 "GET /admin/ HTTP/1.1" 302 0
+WARNING 2025-08-19 22:27:16,417 middleware 41112 35620 Anonymous admin access attempt from 127.0.0.1
+INFO 2025-08-19 22:27:16,461 basehttp 41112 35620 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3358
+INFO 2025-08-19 22:27:17,090 basehttp 41112 35620 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 59344
+INFO 2025-08-19 22:27:17,098 basehttp 41112 35620 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-08-19 22:27:17,105 basehttp 41112 35620 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-08-19 22:27:17,184 basehttp 41112 51092 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+INFO 2025-08-19 22:27:17,193 basehttp 41112 50924 "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+INFO 2025-08-19 22:27:17,196 basehttp 41112 12372 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-08-19 22:27:17,201 basehttp 41112 27384 "GET /static/vendor/bootswatch/darkly/bootstrap.min.css HTTP/1.1" 200 164202
+INFO 2025-08-19 22:27:17,227 basehttp 41112 28412 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+INFO 2025-08-19 22:27:17,329 basehttp 41112 28412 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 78196
