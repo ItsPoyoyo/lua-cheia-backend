@@ -1,5 +1,8 @@
 from django.urls import path, include
 from . import views
+from .views import (
+    health_check,
+)
 
 app_name = 'store'
 
@@ -11,4 +14,6 @@ urlpatterns = [
     path('admin/', include('store.admin_urls')),  # Include admin URLs for sales analytics
     path('test-media/', views.test_media, name='test_media'),  # Test media serving
     path('media/<path:file_path>', views.serve_media_file, name='serve_media_file'),  # Custom media serving
+    # Health check for Railway
+    path('health/', health_check, name='health_check'),
 ]

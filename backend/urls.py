@@ -10,6 +10,7 @@ from drf_yasg import openapi
 
 # Import custom admin site
 from store.admin import custom_admin_site
+from store.views import health_check
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -34,6 +35,8 @@ urlpatterns = [
 
     path("", schema_view.with_ui('swagger', cache_timeout=0), name="schema-swagger-ui"),
 
+    # Root health check for Railway
+    path('health/', health_check, name='root_health_check'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

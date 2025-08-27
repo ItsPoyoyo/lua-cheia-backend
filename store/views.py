@@ -34,6 +34,7 @@ from store.serializers import (
 from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view
 
 def send_notification(user=None, vendor=None, order=None, order_item=None):
     Notification.objects.create(
@@ -1851,3 +1852,19 @@ def test_media(request):
         return HttpResponse("Products directory not found")
     
     return HttpResponse("Test view working")
+
+@api_view(['GET'])
+def health_check(request):
+    """
+    Health check endpoint for Railway monitoring
+    Returns 200 OK if the application is running
+    """
+    return Response(
+        {
+            'status': 'healthy',
+            'message': 'SuperParaguai E-commerce API is running',
+            'timestamp': timezone.now().isoformat(),
+            'version': '1.0.0'
+        },
+        status=status.HTTP_200_OK
+    )
