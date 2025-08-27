@@ -97,17 +97,15 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://lua-cheia-frontend.vercel.app,https://lua-cheia-frontend-git-main-gazou.vercel.app,https://lua-cheia-frontend-gazou.vercel.app,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173').split(',')
+CORS_ALLOWED_ORIGINS = [
+    'https://lua-cheia-frontend.vercel.app',
+    'https://lua-cheia-frontend-git-main-gazou.vercel.app',
+    'https://lua-cheia-frontend-gazou.vercel.app',
+]
 
-# Ensure localhost:5173 is always included for development
-if 'http://localhost:5173' not in CORS_ALLOWED_ORIGINS:
-    CORS_ALLOWED_ORIGINS.append('http://localhost:5173')
-if 'http://127.0.0.1:5173' not in CORS_ALLOWED_ORIGINS:
-    CORS_ALLOWED_ORIGINS.append('http://127.0.0.1:5173')
-
-# Allow all origins in development mode for easier debugging
-CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', 'True' if DEBUG else 'False').lower() == 'true'
-CORS_ALLOW_CREDENTIALS = os.environ.get('CORS_ALLOW_CREDENTIALS', 'True').lower() == 'true'
+# Remove localhost from production
+# CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_HEADERS = [
     'accept',
