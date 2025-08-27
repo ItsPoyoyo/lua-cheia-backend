@@ -6,20 +6,35 @@ Configured for Railway hosting with environment variables
 import os
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
-from decouple import config
 
-# Load environment variables from .env file
-load_dotenv()
+# Try to import environment handling packages with fallbacks
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # Fallback if python-dotenv is not available
+    def load_dotenv():
+        pass
+
+try:
+    from decouple import config
+except ImportError:
+    # Fallback if python-decouple is not available
+    def config(key, default=None):
+        return os.environ.get(key, default)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load production environment variables if available
-PRODUCTION_ENV_FILE = BASE_DIR / 'env.production'
-if PRODUCTION_ENV_FILE.exists():
-    from decouple import Config, RepositoryEnv
-    config = Config(RepositoryEnv(PRODUCTION_ENV_FILE))
+try:
+    PRODUCTION_ENV_FILE = BASE_DIR / 'env.production'
+    if PRODUCTION_ENV_FILE.exists():
+        from decouple import Config, RepositoryEnv
+        config = Config(RepositoryEnv(PRODUCTION_ENV_FILE))
+except ImportError:
+    # Continue with default config if decouple is not available
+    pass
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production')
@@ -172,12 +187,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database - Use PostgreSQL in production
-if config('DATABASE_URL'):
+try:
     import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
-    }
-else:
+    if config('DATABASE_URL', default=None):
+        DATABASES = {
+            'default': dj_database_url.parse(config('DATABASE_URL'))
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+except ImportError:
+    # Fallback to SQLite if dj-database-url is not available
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
