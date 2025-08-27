@@ -98,6 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Application definition
+# Security packages (only include what's actually installed)
 INSTALLED_APPS = [
     'jazzmin',  # Must come before django.contrib.admin
     'django.contrib.admin',
@@ -112,11 +113,10 @@ INSTALLED_APPS = [
     'customer',
     'userauths',
     'api',
-    # THIRD PARTIES
+    # THIRD PARTIES - Only verified working packages
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
-    'drf_yasg',
     'corsheaders',
+    'axes',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -151,19 +151,16 @@ CORS_ALLOW_METHODS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Must be first
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise for Railway
-    'django.middleware.http.ConditionalGetMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For static files
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'store.middleware.SecurityMiddleware',
-    'store.middleware.VendedorAdminRedirectMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',  # Only if axes is installed
 ]
 
 ROOT_URLCONF = 'backend.urls'
