@@ -1,30 +1,83 @@
+"""
+Production Settings for SuperParaguai E-commerce Platform
+Configured for Railway hosting with environment variables
+"""
+
+import os
 from pathlib import Path
 from datetime import timedelta
-from decouple import config
-import os
-import dj_database_url
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-jz9p87)4@vfvo2x=jqm)#ha%q)@)e518=0%pf8^)^07+bb&_n^')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.railway.app,localhost,127.0.0.1,0.0.0.0').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.railway.app,localhost,127.0.0.1,0.0.0.0').split(',')
 
-FRONTEND_URL = config('FRONTEND_URL', default='https://lua-cheia-frontend.vercel.app')
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:5173')
 
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://lua-cheia-backend-production.up.railway.app').split(',')
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'https://lua-cheia-backend-production.up.railway.app').split(',')
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+# ==================== BASIC SECURITY SETTINGS ====================
+# These settings work without external packages
+
+# HTTPS Settings (will be enabled in production)
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+# CSRF Protection
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'False').lower() == 'true'
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_USE_SESSIONS = True
+
+# Session Security
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False').lower() == 'true'
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_SAVE_EVERY_REQUEST = True
+
+# XSS Protection
+X_FRAME_OPTIONS = 'DENY'
+
+# Password Security
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 12,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # Application definition
 INSTALLED_APPS = [
     'jazzmin',  # Must come before django.contrib.admin
-    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,17 +94,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
-    'anymail',
     'corsheaders',
-    'storages',
-    'cloudinary_storage',  # Add Cloudinary storage
-    'cloudinary',  # Add Cloudinary
 ]
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='https://lua-cheia-frontend.vercel.app,http://localhost:3000,http://127.0.0.1:3000').split(',')
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://lua-cheia-frontend.vercel.app,https://lua-cheia-frontend-git-main-gazou.vercel.app,https://lua-cheia-frontend-gazou.vercel.app,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173').split(',')
 
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool)
-CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS', default=True, cast=bool)
+# Ensure localhost:5173 is always included for development
+if 'http://localhost:5173' not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append('http://localhost:5173')
+if 'http://127.0.0.1:5173' not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append('http://127.0.0.1:5173')
+
+# Allow all origins in development mode for easier debugging
+CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', 'True' if DEBUG else 'False').lower() == 'true'
+CORS_ALLOW_CREDENTIALS = os.environ.get('CORS_ALLOW_CREDENTIALS', 'True').lower() == 'true'
 
 CORS_ALLOWED_HEADERS = [
     'accept',
@@ -112,7 +168,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL', default='sqlite:///db.sqlite3'))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation
@@ -132,8 +191,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = config('LANGUAGE_CODE', default='es')
-TIME_ZONE = config('TIME_ZONE', default='America/Asuncion')
+LANGUAGE_CODE = 'es'
+TIME_ZONE = 'America/Asuncion'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -155,41 +214,29 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Cloudinary Configuration
-CLOUDINARY = {
-    'cloud_name': config('CLOUDINARY_CLOUD_NAME', default=''),
-    'api_key': config('CLOUDINARY_API_KEY', default=''),
-    'api_secret': config('CLOUDINARY_API_SECRET', default=''),
-}
-
 # File Storage Configuration
-if CLOUDINARY['cloud_name']:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-else:
-    # Fallback to local storage
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 AUTH_USER_MODEL = 'userauths.User'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
-STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="whsec_test_secret")
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "whsec_test_secret")
 
 # Email Configuration
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='test@example.com')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='testpassword')
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'test@example.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'testpassword')
 
 # Mailgun Configuration
-MAILGUN_API_KEY = config('MAILGUN_API_KEY', default='')
-MAILGUN_SENDER_DOMAIN = config('MAILGUN_SENDER_DOMAIN', default='')
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '')
+MAILGUN_SENDER_DOMAIN = os.environ.get('MAILGUN_SENDER_DOMAIN', '')
 
 # Use Mailgun if configured, otherwise use console backend
 if MAILGUN_API_KEY and MAILGUN_SENDER_DOMAIN:
@@ -197,22 +244,47 @@ if MAILGUN_API_KEY and MAILGUN_SENDER_DOMAIN:
         "MAILGUN_API_KEY": MAILGUN_API_KEY,
         "MAILGUN_SENDER_DOMAIN": MAILGUN_SENDER_DOMAIN,
     }
-    FROM_EMAIL = config('FROM_EMAIL', default='gazouinihussein@gmail.com')
+    FROM_EMAIL = os.environ.get('FROM_EMAIL', 'gazouinihussein@gmail.com')
 else:
     # Fallback to console backend for development
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Proxy settings - These are now configured via environment variables above
-# USE_X_FORWARDED_HOST = True  # REMOVED - now uses config()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' )  # REMOVED - now uses config()
+# REST Framework Security
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Allow public access to most endpoints
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1000/hour',  # Anonymous users: 1000 requests per hour (reasonable for browsing)
+        'user': '10000/hour',  # Authenticated users: 10000 requests per hour (normal usage)
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser',
+    ],
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+}
 
-# JWT settings
+# JWT Security Settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),  # Access token lasts 2 weeks
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=60),  # Refresh token lasts 2 months
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),  # 24 hours for better user experience
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # 30 days for better user experience
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
-    'UPDATE_LAST_LOGIN': False,
+    'UPDATE_LAST_LOGIN': True,
     'ALGORITHM': 'HS256',
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
@@ -229,11 +301,11 @@ SIMPLE_JWT = {
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
     'JTI_CLAIM': 'jti',
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(days=14),  # Sliding token lasts 2 weeks
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),  # Sliding refresh token lasts 1 month
+    'SLIDING_TOKEN_LIFETIME': timedelta(hours=2),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
 
-# Jazzmin settings
+# Jazzmin settings - BEAUTIFUL ADMIN INTERFACE! 🎨
 JAZZMIN_SETTINGS = {
     'site_title': "SuperParaguai Admin",
     'site_brand': "SuperParaguai",
@@ -272,13 +344,6 @@ JAZZMIN_SETTINGS = {
     'order_with_respect_to': ['store', 'userauths', 'vendor', 'customer', 'api'],
     'custom_css': None,
     'custom_js': None,
-    'changeform_format': 'horizontal_tabs',
-    'changeform_format_overrides': {
-        'store.product': 'horizontal_tabs',
-        'store.cartorder': 'horizontal_tabs',
-        'userauths.user': 'horizontal_tabs',
-        'vendor.vendor': 'horizontal_tabs',
-    },
     'hide_models': ['auth.Group'],
     'show_full_result_count': False,
     'show_ui_builder': False,
@@ -286,7 +351,7 @@ JAZZMIN_SETTINGS = {
     'custom_links': {
         'store': [{
             'name': 'Sales Analytics', 
-            'url': 'admin:sales_analytics', 
+            'url': '/store/admin/analytics/', 
             'icon': 'fas fa-chart-line',
         }],
     },
@@ -324,19 +389,19 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 
-# Enhanced Security Settings (Modified for Railway compatibility)
+# Enhanced Security Settings
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
 # Railway-compatible security settings
-SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
-CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
-USE_X_FORWARDED_HOST = config('USE_X_FORWARDED_HOST', default=True, cast=bool)
-USE_X_FORWARDED_PORT = config('USE_X_FORWARDED_PORT', default=True, cast=bool)
-SECURE_PROXY_SSL_HEADER = config('SECURE_PROXY_SSL_HEADER', default=None)
-SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False').lower() == 'true'
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'False').lower() == 'true'
+USE_X_FORWARDED_HOST = os.environ.get('USE_X_FORWARDED_HOST', 'True').lower() == 'true'
+USE_X_FORWARDED_PORT = os.environ.get('USE_X_FORWARDED_PORT', 'True').lower() == 'true'
+SECURE_PROXY_SSL_HEADER = os.environ.get('SECURE_PROXY_SSL_HEADER', None)
+SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '0'))
 
 # Session Security
 SESSION_COOKIE_HTTPONLY = True
@@ -394,10 +459,8 @@ LOGGING = {
 }
 
 # Create logs directory if it doesn't exist
-import os
 if not os.path.exists('logs'):
     os.makedirs('logs')
 
 # Admin template configuration
 TEMPLATES[0]['OPTIONS']['context_processors'].append('django.template.context_processors.i18n')
-

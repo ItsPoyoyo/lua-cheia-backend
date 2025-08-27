@@ -5,8 +5,7 @@ from store import views as store_views
 
 from customer import views as customer_views
 from store.views import (
-    CarouselImageList, OffersCarouselList, BannerListAPIView, MostViewedProductsAPIView,
-    MostBoughtProductsAPIView, CarouselAutomationAPIView, CarouselAutomationStatusAPIView, TriggerCarouselTaskAPIView
+    CarouselImageList, OffersCarouselList, BannerListAPIView, MostViewedProductsAPIView, MostBoughtProductsAPIView
 ) 
 
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -23,7 +22,6 @@ urlpatterns = [
     # Store Endpoint
     path('category/', store_views.CategoryListAPIView.as_view()),
     path('products/', store_views.ProductListAPIView.as_view()),
-    path('products/<int:id>/', store_views.ProductDetailByIdAPIView.as_view()),
     path('products/<slug>/', store_views.ProductDetailAPIView.as_view()),
     path('cart-view/', store_views.CartAPIView.as_view()),
     path('cart-list/<str:cart_id>/<int:user_id>/', store_views.CartListView.as_view()),
@@ -44,16 +42,10 @@ urlpatterns = [
     path('banners/', BannerListAPIView.as_view(), name='banner-list'),
     path('most-viewed-products/', MostViewedProductsAPIView.as_view(), name='most-viewed-products'),
     path('most-bought-products/', MostBoughtProductsAPIView.as_view(), name='most-bought-products'),
-    
-    # Carousel Automation Endpoints
-    path('carousel-automation/', CarouselAutomationAPIView.as_view(), name='carousel-automation'),
-    path('carousel-automation/status/', CarouselAutomationStatusAPIView.as_view(), name='carousel-automation-status'),
-    path('carousel-automation/task/', TriggerCarouselTaskAPIView.as_view(), name='carousel-automation-task'),
 
     #Payment Endpoints
     path('stripe-checkout/<order_oid>/', store_views.StripeCheckoutView.as_view()),
     path('payment-success/<order_oid>/', store_views.PaymentSuccessView.as_view()),
-    path('stripe-webhook/', store_views.StripeWebhookView.as_view()),
     
     # WhatsApp Checkout Endpoint
     path('whatsapp-checkout/', store_views.whatsapp_checkout, name='whatsapp_checkout'),
@@ -65,7 +57,4 @@ urlpatterns = [
     path('customer/notification/<user_id>/', customer_views.CustomerNotificationAPIView.as_view()),
     path('customer/notification/<user_id>/<notification_id>/', customer_views.MarkCustomerNotificationAsSeenAPIView.as_view()),
     path('customer/setting/<int:pk>/', customer_views.CustomerUpdateView.as_view(), name='customer-settings'),
-    
-    # Admin language switcher
-    path('admin/language-switch/', store_views.AdminLanguageSwitchView.as_view(), name='admin-language-switch'),
 ]

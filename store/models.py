@@ -6,6 +6,11 @@ from django.utils.text import slugify
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.exceptions import ValidationError
+from datetime import datetime
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
     
 class Category(models.Model):
@@ -278,6 +283,87 @@ class CartOrder(models.Model):
                 )
             except ValueError as e:
                 raise ValidationError(f"Error updating stock for {item.product.title}: {str(e)}")
+    
+    def reduce_stock_for_whatsapp_order(self):
+        """Reduce stock for WhatsApp orders when payment is confirmed by admin"""
+        print("=" * 50)
+        print(f"DEBUG: reduce_stock_for_whatsapp_order called for order {self.oid}")
+        print(f"DEBUG: payment_method: {self.payment_method}")
+        print(f"DEBUG: payment_status: {self.payment_status}")
+        print(f"DEBUG: Method called at: {datetime.now()}")
+        print("=" * 50)
+        
+        # Also log to file
+        logger.info(f"reduce_stock_for_whatsapp_order called for order {self.oid}")
+        logger.info(f"payment_method: {self.payment_method}, payment_status: {self.payment_status}")
+        
+        if self.payment_method == 'whatsapp' and self.payment_status == 'paid':
+            print(f"DEBUG: Conditions met, proceeding with stock reduction")
+            print(f"DEBUG: Order items count: {self.orderitem.count()}")
+            
+            for item in self.orderitem.all():
+                try:
+                    print(f"DEBUG: Processing item: {item.product.title}, qty: {item.qty}")
+                    print(f"DEBUG: Current product stock: {item.product.stock_qty}")
+                    print(f"DEBUG: Item color: '{item.color}' (type: {type(item.color)})")
+                    print(f"DEBUG: Item size: '{item.size}' (type: {type(item.size)})")
+                    print(f"DEBUG: Item ID: {item.id}")
+                    
+                    # Reduce product stock
+                    product = item.product
+                    old_stock = product.stock_qty
+                    product.stock_qty -= item.qty
+                    product.save()
+                    
+                    print(f"DEBUG: Product stock reduced from {old_stock} to {product.stock_qty}")
+                    print(f"DEBUG: Product saved successfully: {product.title}")
+                    
+                    # Verify the stock was actually reduced
+                    product.refresh_from_db()
+                    print(f"DEBUG: Product stock after refresh: {product.stock_qty}")
+                    
+                    # Reduce color stock if specified
+                    print(f"DEBUG: Checking color: '{item.color}' (type: {type(item.color)})")
+                    if item.color and item.color != "No Color" and item.color.strip():
+                        print(f"DEBUG: Looking for color with name: '{item.color}'")
+                        color = product.colors.filter(name=item.color).first()
+                        if color:
+                            old_color_stock = color.stock_qty
+                            color.stock_qty -= item.qty
+                            color.save()
+                            print(f"DEBUG: Color '{item.color}' stock reduced from {old_color_stock} to {color.stock_qty}")
+                        else:
+                            print(f"DEBUG: Color '{item.color}' not found for product {product.title}")
+                            print(f"DEBUG: Available colors for this product: {[c.name for c in product.colors.all()]}")
+                    else:
+                        print(f"DEBUG: No color specified or color is 'No Color'")
+                    
+                    # Reduce size stock if specified
+                    print(f"DEBUG: Checking size: '{item.size}' (type: {type(item.size)})")
+                    if item.size and item.size != "No Size" and item.size.strip():
+                        print(f"DEBUG: Looking for size with name: '{item.size}'")
+                        size = product.sizes.filter(name=item.size).first()
+                        if size:
+                            old_size_stock = size.stock_qty
+                            size.stock_qty -= item.qty
+                            size.save()
+                            print(f"DEBUG: Size '{item.size}' stock reduced from {old_size_stock} to {size.stock_qty}")
+                        else:
+                            print(f"DEBUG: Size '{item.size}' not found for product {product.title}")
+                            print(f"DEBUG: Available sizes for this product: {[s.name for s in product.sizes.all()]}")
+                    else:
+                        print(f"DEBUG: No size specified or size is 'No Size'")
+                            
+                except Exception as e:
+                    print(f"DEBUG: Error reducing stock for item {item.product.title}: {e}")
+                    raise ValidationError(f"Error reducing stock for {item.product.title}: {str(e)}")
+            
+            print(f"DEBUG: Stock reduction completed successfully for order {self.oid}")
+            return True
+        else:
+            error_msg = f"This method can only be used for paid WhatsApp orders. Current: method={self.payment_method}, status={self.payment_status}"
+            print(f"DEBUG: {error_msg}")
+            raise ValidationError(error_msg)
 
 
 class CartOrderItem(models.Model):

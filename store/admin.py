@@ -232,16 +232,81 @@ class CartOrderAdmin(admin.ModelAdmin):
     ]
     list_filter = ['payment_method', 'payment_status', 'order_status', 'date']
     search_fields = ['oid', 'buyer__username', 'full_name', 'email']
-    readonly_fields = ['oid', 'date', 'order_items_display']
+    readonly_fields = ['oid', 'date', 'order_items_display', 'stock_status_display', 'stock_levels_display']
     filter_horizontal = ['vendor']
     
-    actions = ['mark_as_whatsapp_order', 'show_whatsapp_orders', 'mark_whatsapp_orders_completed', 'whatsapp_orders_summary', 'highlight_whatsapp_orders']
+    actions = ['mark_as_whatsapp_order', 'show_whatsapp_orders', 'mark_whatsapp_orders_paid', 'mark_whatsapp_orders_completed', 'whatsapp_orders_summary', 'highlight_whatsapp_orders', 'test_stock_reduction', 'debug_whatsapp_order']
     
     def mark_as_whatsapp_order(self, request, queryset):
         """Mark selected orders as WhatsApp orders"""
         updated = queryset.update(payment_method='whatsapp')
         self.message_user(request, f'{updated} orders marked as WhatsApp orders.')
     mark_as_whatsapp_order.short_description = "📱 Mark as WhatsApp Order"
+    
+    def mark_whatsapp_orders_paid(self, request, queryset):
+        """Mark selected WhatsApp orders as paid and reduce stock"""
+        print("=" * 60)
+        print("DEBUG: mark_whatsapp_orders_paid action called")
+        print(f"DEBUG: Total orders selected: {queryset.count()}")
+        
+        # Filter only WhatsApp orders
+        whatsapp_orders = queryset.filter(payment_method='whatsapp')
+        print(f"DEBUG: WhatsApp orders found: {whatsapp_orders.count()}")
+        
+        updated = 0
+        stock_reduced = 0
+        
+        for order in whatsapp_orders:
+            try:
+                print(f"DEBUG: Processing order {order.oid}")
+                print(f"DEBUG: Current payment_status: {order.payment_status}")
+                print(f"DEBUG: Current payment_method: {order.payment_method}")
+                
+                # Only process if not already paid
+                if order.payment_status != 'paid':
+                    print(f"DEBUG: Updating order {order.oid} to paid status")
+                    
+                    # Update payment status
+                    order.payment_status = 'paid'
+                    order.save()
+                    
+                    print(f"DEBUG: Order {order.oid} saved with paid status")
+                    print(f"DEBUG: Order items count: {order.orderitem.count()}")
+                    
+                    # Reduce stock for this WhatsApp order
+                    try:
+                        print(f"DEBUG: Calling reduce_stock_for_whatsapp_order for order {order.oid}")
+                        print(f"DEBUG: About to call stock reduction method...")
+                        
+                        result = order.reduce_stock_for_whatsapp_order()
+                        print(f"DEBUG: Stock reduction method returned: {result}")
+                        
+                        stock_reduced += 1
+                        print(f"DEBUG: Stock reduced successfully for order {order.oid}")
+                        self.message_user(request, f'✅ Stock reduced successfully for order {order.oid}', level='SUCCESS')
+                    except Exception as stock_error:
+                        print(f"DEBUG: Stock reduction failed for order {order.oid}: {stock_error}")
+                        print(f"DEBUG: Error type: {type(stock_error)}")
+                        print(f"DEBUG: Error details: {str(stock_error)}")
+                        self.message_user(request, f'⚠️ Stock reduction failed for order {order.oid}: {str(stock_error)}', level='WARNING')
+                    
+                    updated += 1
+                else:
+                    print(f"DEBUG: Order {order.oid} is already paid, skipping")
+                    self.message_user(request, f'ℹ️ Order {order.oid} is already marked as paid.', level='WARNING')
+                    
+            except Exception as e:
+                print(f"DEBUG: Error processing order {order.oid}: {e}")
+                self.message_user(request, f'❌ Error processing order {order.oid}: {str(e)}', level='ERROR')
+        
+        print(f"DEBUG: Final results - updated: {updated}, stock_reduced: {stock_reduced}")
+        print("=" * 60)
+        
+        if updated > 0:
+            self.message_user(request, f'✅ {updated} WhatsApp orders marked as paid. 📦 Stock reduced for {stock_reduced} orders.')
+        else:
+            self.message_user(request, 'ℹ️ No WhatsApp orders were processed.')
+    mark_whatsapp_orders_paid.short_description = "💰 Mark WhatsApp Orders as Paid & Reduce Stock"
     
     def show_whatsapp_orders(self, request, queryset):
         """Filter to show only WhatsApp orders"""
@@ -252,15 +317,32 @@ class CartOrderAdmin(admin.ModelAdmin):
     show_whatsapp_orders.short_description = "🔍 Show WhatsApp Orders Only"
     
     def mark_whatsapp_orders_completed(self, request, queryset):
-        """Mark selected WhatsApp orders as completed"""
+        """Mark selected WhatsApp orders as completed and reduce stock"""
         # Filter only WhatsApp orders
         whatsapp_orders = queryset.filter(payment_method='whatsapp')
-        updated = whatsapp_orders.update(
-            payment_status='paid',
-            order_status='completed'
-        )
-        self.message_user(request, f'{updated} WhatsApp orders marked as completed.')
-    mark_whatsapp_orders_completed.short_description = "✅ Mark WhatsApp Orders as Completed"
+        updated = 0
+        stock_reduced = 0
+        
+        for order in whatsapp_orders:
+            try:
+                # Update payment and order status
+                order.payment_status = 'paid'
+                order.order_status = 'completed'
+                order.save()
+                
+                # Reduce stock for this WhatsApp order
+                order.reduce_stock_for_whatsapp_order()
+                stock_reduced += 1
+                updated += 1
+                
+            except Exception as e:
+                self.message_user(request, f'❌ Error processing order {order.oid}: {str(e)}', level='ERROR')
+        
+        if updated > 0:
+            self.message_user(request, f'✅ {updated} WhatsApp orders marked as completed. 📦 Stock reduced for {stock_reduced} orders.')
+        else:
+            self.message_user(request, 'ℹ️ No WhatsApp orders were processed.')
+    mark_whatsapp_orders_completed.short_description = "✅ Mark WhatsApp Orders as Completed & Reduce Stock"
     
     def whatsapp_orders_summary(self, request, queryset):
         """Show summary of WhatsApp orders"""
@@ -289,6 +371,86 @@ class CartOrderAdmin(admin.ModelAdmin):
             self.message_user(request, 'ℹ️ No WhatsApp orders in the current selection. Use the filter to see WhatsApp orders.')
     highlight_whatsapp_orders.short_description = "✨ Highlight WhatsApp Orders"
     
+    def test_stock_reduction(self, request, queryset):
+        """Test stock reduction for selected orders (for debugging)"""
+        if len(queryset) != 1:
+            self.message_user(request, '⚠️ Please select exactly one order to test stock reduction.', level='WARNING')
+            return
+            
+        order = queryset.first()
+        print(f"DEBUG: Testing stock reduction for order {order.oid}")
+        print(f"DEBUG: Order payment_method: {order.payment_method}")
+        print(f"DEBUG: Order payment_status: {order.payment_status}")
+        print(f"DEBUG: Order items count: {order.orderitem.count()}")
+        
+        try:
+            # Test the stock reduction method
+            order.reduce_stock_for_whatsapp_order()
+            self.message_user(request, f'✅ Stock reduction test successful for order {order.oid}!', level='SUCCESS')
+        except Exception as e:
+            self.message_user(request, f'❌ Stock reduction test failed for order {order.oid}: {str(e)}', level='ERROR')
+            print(f"DEBUG: Test failed with error: {e}")
+    
+    test_stock_reduction.short_description = "🧪 Test Stock Reduction (Debug)"
+    
+    def debug_whatsapp_order(self, request, queryset):
+        """Debug WhatsApp order details (for troubleshooting)"""
+        if len(queryset) != 1:
+            self.message_user(request, '⚠️ Please select exactly one order to debug.', level='WARNING')
+            return
+            
+        order = queryset.first()
+        
+        # Show order details
+        message = f"""
+        🔍 Order Debug Info:
+        • Order ID: {order.oid}
+        • Payment Method: {order.payment_method}
+        • Payment Status: {order.payment_status}
+        • Order Status: {order.order_status}
+        • Items Count: {order.orderitem.count()}
+        • Total: ${order.total:.2f}
+        """
+        
+        # Show item details
+        items_info = []
+        for item in order.orderitem.all():
+            items_info.append(f"""
+        📦 Item: {item.product.title}
+        • Quantity: {item.qty}
+        • Color: '{item.color}' (type: {type(item.color)})
+        • Size: '{item.size}' (type: {type(item.size)})
+        • Price: ${item.price:.2f}
+        • Product Stock: {item.product.stock_qty}
+        """)
+            
+            # Show color stock if available
+            if item.color and item.color != "No Color":
+                try:
+                    color = item.product.colors.filter(name=item.color).first()
+                    if color:
+                        items_info.append(f"        • Color Stock: {color.stock_qty}")
+                    else:
+                        items_info.append(f"        • Color Stock: Color '{item.color}' not found!")
+                except Exception as e:
+                    items_info.append(f"        • Color Stock: Error - {e}")
+            
+            # Show size stock if available
+            if item.size and item.size != "No Size":
+                try:
+                    size = item.product.sizes.filter(name=item.size).first()
+                    if size:
+                        items_info.append(f"        • Size Stock: {size.stock_qty}")
+                    else:
+                        items_info.append(f"        • Size Stock: Size '{item.size}' not found!")
+                except Exception as e:
+                    items_info.append(f"        • Size Stock: Error - {e}")
+        
+        full_message = message + "\n".join(items_info)
+        self.message_user(request, full_message, level='INFO')
+    
+    debug_whatsapp_order.short_description = "🔍 Debug WhatsApp Order Details"
+    
     fieldsets = (
         ('Order Information', {
             'fields': ('oid', 'buyer', 'date'),
@@ -303,7 +465,7 @@ class CartOrderAdmin(admin.ModelAdmin):
             'classes': ('wide',)
         }),
         ('Order Status', {
-            'fields': ('payment_method', 'payment_status', 'order_status'),
+            'fields': ('payment_method', 'payment_status', 'order_status', 'stock_status_display'),
             'classes': ('wide',)
         }),
         ('Financial Details', {
@@ -311,7 +473,7 @@ class CartOrderAdmin(admin.ModelAdmin):
             'classes': ('wide',)
         }),
         ('Order Items', {
-            'fields': ('order_items_display',),
+            'fields': ('order_items_display', 'stock_levels_display'),
             'classes': ('wide', 'collapse',),
         }),
         ('Vendors', {
@@ -335,10 +497,86 @@ class CartOrderAdmin(admin.ModelAdmin):
         return f"{count} artículos"
     items_count.short_description = "Artículos"
     
+    def stock_status_display(self, obj):
+        """Display stock status and provide manual stock reduction button for WhatsApp orders"""
+        if obj.payment_method == 'whatsapp':
+            if obj.payment_status == 'paid':
+                # Check if stock was actually reduced
+                try:
+                    # This will trigger the stock reduction method to check
+                    obj.reduce_stock_for_whatsapp_order()
+                    return format_html(
+                        '<span style="color: green; font-weight: bold;">✅ Stock Reduced</span>'
+                    )
+                except Exception as e:
+                    # Stock reduction failed or not needed
+                    return format_html(
+                        '<span style="color: orange; font-weight: bold;">⚠️ Stock Reduction Failed</span><br>'
+                        '<small style="color: red;">{}</small>'.format(str(e))
+                    )
+            else:
+                return format_html(
+                    '<span style="color: orange; font-weight: bold;">⚠️ Stock Not Reduced</span><br>'
+                    '<small>Mark as paid to reduce stock</small>'
+                )
+        else:
+            return format_html(
+                '<span style="color: blue;">📦 Stock managed automatically</span>'
+            )
+    stock_status_display.short_description = "Stock Status"
+    
+    def stock_levels_display(self, obj):
+        """Display current stock levels for order items"""
+        if not obj.pk:
+            return "Save the order first to see stock levels"
+        
+        try:
+            items_info = []
+            for item in obj.orderitem.all():
+                item_info = f"<strong>{item.product.title}</strong><br>"
+                item_info += f"• Product Stock: {item.product.stock_qty}<br>"
+                
+                if item.color and item.color != "No Color":
+                    try:
+                        color = item.product.colors.filter(name=item.color).first()
+                        if color:
+                            item_info += f"• Color '{item.color}' Stock: {color.stock_qty}<br>"
+                        else:
+                            item_info += f"• Color '{item.color}' Stock: Not found<br>"
+                    except:
+                        item_info += f"• Color '{item.color}' Stock: Error<br>"
+                
+                if item.size and item.size != "No Size":
+                    try:
+                        size = item.product.sizes.filter(name=item.size).first()
+                        if size:
+                            item_info += f"• Size '{item.size}' Stock: {size.stock_qty}<br>"
+                        else:
+                            item_info += f"• Size '{item.size}' Stock: Not found<br>"
+                    except:
+                        item_info += f"• Size '{item.size}' Stock: Error<br>"
+                
+                items_info.append(item_info)
+            
+            if items_info:
+                return format_html("<br>".join(items_info))
+            else:
+                return "No items in this order"
+                
+        except Exception as e:
+            return f"Error loading stock levels: {str(e)}"
+    
+    stock_levels_display.short_description = "Current Stock Levels"
+    
     def payment_method_display(self, obj):
         """Highlight WhatsApp orders with enhanced styling"""
         if obj.payment_method == 'whatsapp':
-            return f"📱 WHATSAPP"
+            if obj.payment_status == 'pending':
+                return f"📱 WHATSAPP ⚠️ (Stock not reduced)"
+            elif obj.payment_status == 'paid':
+                return f"📱 WHATSAPP ✅ (Stock reduced)"
+            else:
+                return f"📱 WHATSAPP {obj.payment_status.upper()}"
         elif obj.payment_method:
             return obj.payment_method.upper()
         return 'N/A'
@@ -360,127 +598,111 @@ class CartOrderAdmin(admin.ModelAdmin):
         return qs.order_by('-date')
     
     def changelist_view(self, request, extra_context=None):
-        """Add custom CSS and WhatsApp orders summary"""
+        """Add WhatsApp orders summary"""
         extra_context = extra_context or {}
         
-        # Get WhatsApp orders count
-        whatsapp_count = CartOrder.objects.filter(payment_method='whatsapp').count()
-        pending_whatsapp = CartOrder.objects.filter(payment_method='whatsapp', payment_status='pending').count()
-        
-        extra_context['whatsapp_stats'] = {
-            'total': whatsapp_count,
-            'pending': pending_whatsapp
-        }
-        
-        extra_context['css'] = '''
-            <style>
-                .field-payment_method_display {
-                    font-weight: bold;
-                }
-                .field-payment_method_display:contains("📱 WHATSAPP") {
-                    background-color: #25d366 !important;
-                    color: white !important;
-                    padding: 4px 12px !important;
-                    border-radius: 20px !important;
-                    font-weight: bold !important;
-                    text-align: center !important;
-                }
-                /* Highlight WhatsApp order rows */
-                tr:has(td:contains("📱 WHATSAPP")) {
-                    background-color: #f0f9ff !important;
-                    border-left: 4px solid #25d366 !important;
-                }
-                /* WhatsApp order header */
-                .whatsapp-header {
-                    background: linear-gradient(135deg, #25d366, #128c7e) !important;
-                    color: white !important;
-                    padding: 10px !important;
-                    margin: 10px 0 !important;
-                    border-radius: 8px !important;
-                    text-align: center !important;
-                    font-weight: bold !important;
-                }
-                /* WhatsApp stats box */
-                .whatsapp-stats {
-                    background: linear-gradient(135deg, #25d366, #128c7e) !important;
-                    color: white !important;
-                    padding: 15px !important;
-                    margin: 15px 0 !important;
-                    border-radius: 10px !important;
-                    text-align: center !important;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-                }
-                .whatsapp-stats h3 {
-                    margin: 0 0 10px 0 !important;
-                    font-size: 18px !important;
-                }
-                .whatsapp-stats .stats-grid {
-                    display: grid !important;
-                    grid-template-columns: 1fr 1fr !important;
-                    gap: 20px !important;
-                    margin-top: 10px !important;
-                }
-                .whatsapp-stats .stat-item {
-                    background: rgba(255,255,255,0.2) !important;
-                    padding: 10px !important;
-                    border-radius: 8px !important;
-                }
-                .whatsapp-stats .stat-number {
-                    font-size: 24px !important;
-                    font-weight: bold !important;
-                }
-            </style>
-        '''
+        try:
+            # Get WhatsApp orders count
+            whatsapp_count = CartOrder.objects.filter(payment_method='whatsapp').count()
+            pending_whatsapp = CartOrder.objects.filter(payment_method='whatsapp', payment_status='pending').count()
+            
+            extra_context['whatsapp_stats'] = {
+                'total': whatsapp_count,
+                'pending': pending_whatsapp
+            }
+        except Exception as e:
+            # If there's an error, just add empty stats
+            extra_context['whatsapp_stats'] = {
+                'total': 0,
+                'pending': 0
+            }
         
         return super().changelist_view(request, extra_context)
+    
+    def save_model(self, request, obj, form, change):
+        """Override save to automatically reduce stock for WhatsApp orders when marked as paid"""
+        if change:  # Only for existing objects (editing)
+            try:
+                # Get the old instance to check if payment_status changed
+                old_instance = CartOrder.objects.get(pk=obj.pk)
+                old_payment_status = old_instance.payment_status
+                new_payment_status = obj.payment_status
+                
+                print(f"DEBUG: save_model called for order {obj.oid}")
+                print(f"DEBUG: Old payment_status: {old_payment_status}")
+                print(f"DEBUG: New payment_status: {new_payment_status}")
+                print(f"DEBUG: Payment method: {obj.payment_method}")
+                
+                # Check if this is a WhatsApp order that was just marked as paid
+                if (obj.payment_method == 'whatsapp' and 
+                    old_payment_status != 'paid' and 
+                    new_payment_status == 'paid'):
+                    
+                    print(f"DEBUG: WhatsApp order {obj.oid} marked as paid - reducing stock")
+                    
+                    # First save the order with the new status
+                    super().save_model(request, obj, form, change)
+                    
+                    # Now reduce the stock
+                    try:
+                        obj.reduce_stock_for_whatsapp_order()
+                        print(f"DEBUG: Stock reduced successfully for order {obj.oid}")
+                        
+                        # Add success message
+                        messages.success(request, f'✅ WhatsApp order {obj.oid} marked as paid and stock reduced successfully!')
+                        
+                    except Exception as stock_error:
+                        print(f"DEBUG: Stock reduction failed for order {obj.oid}: {stock_error}")
+                        messages.error(request, f'❌ Stock reduction failed for order {obj.oid}: {str(stock_error)}')
+                        
+                else:
+                    # Normal save for non-WhatsApp orders or status changes
+                    print(f"DEBUG: Normal save for order {obj.oid}")
+                    super().save_model(request, obj, form, change)
+                    
+            except Exception as e:
+                print(f"DEBUG: Error in save_model: {e}")
+                # Fall back to normal save
+                super().save_model(request, obj, form, change)
+        else:
+            # New order creation - normal save
+            super().save_model(request, obj, form, change)
     
     def order_items_display(self, obj):
         if not obj.pk:
             return "Guarde el pedido primero para ver los artículos"
         
-        items = obj.orderitem.all()
-        if not items:
-            return "No hay artículos en este pedido"
-        
-        html = f"<h4>Artículos del Pedido ({items.count()} artículos)</h4>"
-        html += "<table style='width: 100%; border-collapse: collapse; margin-top: 10px;'>"
-        html += "<thead><tr style='background-color: #f8f9fa;'>"
-        html += "<th style='border: 1px solid #dee2e6; padding: 8px; text-align: left;'>Producto</th>"
-        html += "<th style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>Cantidad</th>"
-        html += "<th style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>Precio</th>"
-        html += "<th style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>Total</th>"
-        html += "<th style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>Variante</th>"
-        html += "</tr></thead><tbody>"
-        
-        for item in items:
-            variant_info = []
-            if item.color:
-                variant_info.append(f"Color: {item.color}")
-            if item.size:
-                variant_info.append(f"Talla: {item.size}")
-            variant_text = " | ".join(variant_info) if variant_info else "Sin variante"
+        try:
+            items = obj.orderitem.all()
+            if not items.exists():
+                return "No hay artículos en este pedido"
             
-            html += "<tr>"
-            html += f"<td style='border: 1px solid #dee2e6; padding: 8px;'>{item.product.title}</td>"
-            html += f"<td style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>{item.qty}</td>"
-            html += f"<td style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>${item.price:.2f}</td>"
-            html += f"<td style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>${item.total:.2f}</td>"
-            html += f"<td style='border: 1px solid #dee2e6; padding: 8px; text-align: center;'>{variant_text}</td>"
-            html += "</tr>"
-        
-        html += "</tbody></table>"
-        
-        # Add summary
-        html += f"<div style='margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;'>"
-        html += f"<strong>Resumen:</strong><br>"
-        html += f"Subtotal: ${obj.sub_total:.2f}<br>"
-        html += f"Envío: ${obj.shipping_ammount:.2f}<br>"
-        html += f"Impuestos: ${obj.tax_fee:.2f}<br>"
-        html += f"Tarifa de servicio: ${obj.service_fee:.2f}<br>"
-        html += f"<strong>Total: ${obj.total:.2f}</strong>"
-        html += "</div>"
-        
-        return mark_safe(html)
+            items_list = []
+            for item in items:
+                try:
+                    variant_info = []
+                    if item.color:
+                        variant_info.append(f"Color: {item.color}")
+                    if item.size:
+                        variant_info.append(f"Talla: {item.size}")
+                    variant_text = " | ".join(variant_info) if variant_info else "Sin variante"
+                    
+                    items_list.append(
+                        f"• {item.product.title} - Cantidad: {item.qty} - "
+                        f"Precio: ${item.price:.2f} - Total: ${item.total:.2f} - {variant_text}"
+                    )
+                except Exception as e:
+                    items_list.append(f"• Error loading item: {str(e)}")
+            
+            summary = f"<strong>Resumen del Pedido:</strong><br>"
+            summary += f"Total de artículos: {items.count()}<br><br>"
+            summary += "<br>".join(items_list)
+            summary += f"<br><br><strong>Total del pedido: ${obj.total:.2f}</strong>"
+            
+            return mark_safe(summary)
+            
+        except Exception as e:
+            return f"Error loading order items: {str(e)}"
     order_items_display.short_description = "Artículos del Pedido"
 
 @admin.register(CartOrderItem)

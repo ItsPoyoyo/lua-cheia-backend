@@ -11,6 +11,28 @@ from store.models import CartOrder, CartOrderItem
 
 
 @staff_member_required
+def simple_dashboard(request):
+    """
+    Simple dashboard view for admin panel
+    """
+    # Get basic stats
+    total_orders = CartOrder.objects.count()
+    total_sales = CartOrder.objects.filter(payment_status='paid').aggregate(Sum('total'))['total__sum'] or Decimal('0.00')
+    pending_orders = CartOrder.objects.filter(payment_status='pending').count()
+    whatsapp_orders = CartOrder.objects.filter(payment_method='whatsapp').count()
+    
+    context = {
+        'title': 'Dashboard',
+        'total_orders': total_orders,
+        'total_sales': total_sales,
+        'pending_orders': pending_orders,
+        'whatsapp_orders': whatsapp_orders,
+    }
+    
+    return render(request, 'admin/index.html', context)
+
+
+@staff_member_required
 def sales_dashboard(request):
     """
     Sales dashboard view for admin panel

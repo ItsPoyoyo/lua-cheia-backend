@@ -25,7 +25,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', custom_admin_site.urls),  # Custom admin with CartOrders widget
+    path('admin/', admin.site.urls),  # Use default admin temporarily
     path('store/', include('store.urls')),  # Store app URLs including live orders feed
     path('api/v1/', include('api.urls')),
     path('i18n/', include('django.conf.urls.i18n')),  # Language switching
@@ -36,5 +36,6 @@ urlpatterns = [
 
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Add media files serving for production
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
