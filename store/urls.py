@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 from .views import (
     health_check,
+    simple_health_check,
 )
 
 app_name = 'store'
@@ -16,4 +17,6 @@ urlpatterns = [
     path('media/<path:file_path>', views.serve_media_file, name='serve_media_file'),  # Custom media serving
     # Health check for Railway
     path('health/', health_check, name='health_check'),
+    # Simple health check (fallback)
+    path('health-simple/', simple_health_check, name='simple_health_check'),
 ]

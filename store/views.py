@@ -1853,6 +1853,20 @@ def test_media(request):
     
     return HttpResponse("Test view working")
 
+# Simple health check that doesn't depend on external packages
+def simple_health_check(request):
+    """
+    Simple health check endpoint for Railway monitoring
+    Returns 200 OK if the application is running
+    """
+    from django.http import HttpResponse
+    from django.utils import timezone
+    
+    return HttpResponse(
+        f"SuperParaguai E-commerce API is running - {timezone.now().isoformat()}",
+        status=200
+    )
+
 @api_view(['GET'])
 def health_check(request):
     """

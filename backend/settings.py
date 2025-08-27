@@ -98,10 +98,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Application definition
-# Security packages (only include what's actually installed)
 INSTALLED_APPS = [
-    # Admin theme (with fallback)
-    'django.contrib.admin',  # Default Django admin
+    # Core Django apps
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -113,25 +112,28 @@ INSTALLED_APPS = [
     'customer',
     'userauths',
     'api',
-    # THIRD PARTIES - Only verified working packages
+    # THIRD PARTIES - Only essential packages
     'rest_framework',
     'corsheaders',
 ]
 
-# Try to add jazzmin if available
+# Try to add optional packages if available
 try:
     import jazzmin
     INSTALLED_APPS.insert(0, 'jazzmin')
 except ImportError:
-    # Continue without jazzmin - use default Django admin
     pass
 
-# Try to add axes if available
 try:
     import axes
     INSTALLED_APPS.append('axes')
 except ImportError:
-    # Continue without axes
+    pass
+
+try:
+    import ratelimit
+    INSTALLED_APPS.append('ratelimit')
+except ImportError:
     pass
 
 CORS_ALLOWED_ORIGINS = [
@@ -177,12 +179,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Try to add axes middleware if available
+# Try to add optional middleware if available
 try:
     import axes
     MIDDLEWARE.append('axes.middleware.AxesMiddleware')
 except ImportError:
-    # Continue without axes
     pass
 
 ROOT_URLCONF = 'backend.urls'
