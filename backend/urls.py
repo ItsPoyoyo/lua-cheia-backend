@@ -8,9 +8,13 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-# Import custom admin site
-from store.admin import custom_admin_site
-from store.views import health_check
+# Try to use custom admin if jazzmin is available
+try:
+    from store.admin import custom_admin_site
+    admin.site = custom_admin_site
+except ImportError:
+    # Use default Django admin if custom admin is not available
+    pass
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -26,15 +30,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Use default admin temporarily
-    path('store/', include('store.urls')),  # Store app URLs including live orders feed
-    path('api/v1/', include('api.urls')),
-    path('i18n/', include('django.conf.urls.i18n')),  # Language switching
-
-    #Documentation
-
-    path("", schema_view.with_ui('swagger', cache_timeout=0), name="schema-swagger-ui"),
-
+    path('admin/', admin.site.urls),
+    path('api/v1/', include('store.urls')),
+    
     # Root health check for Railway
     path('health/', health_check, name='root_health_check'),
 ]

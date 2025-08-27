@@ -48,8 +48,8 @@ FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://lua-cheia-backend-production.up.railway.app').split(',')
 
-# ==================== BASIC SECURITY SETTINGS ====================
-# These settings work without external packages
+# ==================== SECURITY SETTINGS ====================
+# Only include security settings that don't require external packages
 
 # HTTPS Settings (will be enabled in production)
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default='False').lower() == 'true'
@@ -100,8 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Application definition
 # Security packages (only include what's actually installed)
 INSTALLED_APPS = [
-    'jazzmin',  # Must come before django.contrib.admin
-    'django.contrib.admin',
+    # Admin theme (with fallback)
+    'django.contrib.admin',  # Default Django admin
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -116,8 +116,23 @@ INSTALLED_APPS = [
     # THIRD PARTIES - Only verified working packages
     'rest_framework',
     'corsheaders',
-    'axes',
 ]
+
+# Try to add jazzmin if available
+try:
+    import jazzmin
+    INSTALLED_APPS.insert(0, 'jazzmin')
+except ImportError:
+    # Continue without jazzmin - use default Django admin
+    pass
+
+# Try to add axes if available
+try:
+    import axes
+    INSTALLED_APPS.append('axes')
+except ImportError:
+    # Continue without axes
+    pass
 
 CORS_ALLOWED_ORIGINS = [
     'https://lua-cheia-frontend.vercel.app',
@@ -160,8 +175,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',  # Only if axes is installed
 ]
+
+# Try to add axes middleware if available
+try:
+    import axes
+    MIDDLEWARE.append('axes.middleware.AxesMiddleware')
+except ImportError:
+    # Continue without axes
+    pass
 
 ROOT_URLCONF = 'backend.urls'
 
