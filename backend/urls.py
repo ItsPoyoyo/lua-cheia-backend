@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 # Import health check view
 from store.views import health_check
 
-# Try to use custom admin if jazzmin is available
+# Try to use custom admin if available
 try:
     from store.admin import custom_admin_site
     admin.site = custom_admin_site
