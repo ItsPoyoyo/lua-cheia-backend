@@ -1,4 +1,4 @@
-from userauths.serializer import ProfileSerializer
+# from userauths.serializer import ProfileSerializer  # Temporarily commented to avoid circular import
 from rest_framework import serializers
 from store.models import (
     Cart, Category, Product, Gallery, Specification, Size, Color, 
@@ -170,7 +170,7 @@ class VendorSerializer(serializers.ModelSerializer):
             self.Meta.depth = 3
 
 class ReviewSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
+    # profile = ProfileSerializer()  # Temporarily commented to avoid circular import
     
     class Meta:
         model = Review
