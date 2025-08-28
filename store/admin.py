@@ -12,9 +12,14 @@ from store.models import (
 )
 from store.permissions import VendorPermissionMixin
 
-# Import other app models
-from userauths.models import User, Profile
-from vendor.models import Vendor
+# Import other app models with error handling
+try:
+    from userauths.models import User, Profile
+    from vendor.models import Vendor
+    MODELS_AVAILABLE = True
+except ImportError:
+    MODELS_AVAILABLE = False
+    print("Warning: Some models not available during startup")
 
 # ============================================================================
 # INLINE CLASSES
@@ -837,40 +842,47 @@ class WishlistAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'product__title']
 
 # User and Profile Admin
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name_plural = 'Profile'
+# Only define ProfileInline if Profile model is available
+if MODELS_AVAILABLE:
+    @admin.register(User)
+    class UserAdmin(admin.ModelAdmin):
+        list_display = ('email', 'full_name', 'phone', 'is_active', 'is_staff')
+        list_filter = ('is_active', 'is_staff', 'is_superuser')
+        search_fields = ('email', 'full_name', 'phone')
+        ordering = ('-date_joined',)
+        inlines = (ProfileInline,)
+        
+        fieldsets = (
+            (None, {'fields': ('email', 'password')}),
+            ('Personal info', {'fields': ('full_name', 'phone')}),
+            ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+            ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        )
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'full_name', 'phone', 'is_active', 'is_staff')
-    list_filter = ('is_active', 'is_staff', 'is_superuser')
-    search_fields = ('email', 'full_name', 'phone')
-    ordering = ('-date_joined',)
-    inlines = (ProfileInline,)
+    @admin.register(Profile)
+    class ProfileAdmin(admin.ModelAdmin):
+        list_display = ['full_name', 'gender', 'country', 'state', 'city', 'user']
+        list_filter = ['gender', 'country', 'state']
+        search_fields = ['full_name', 'country', 'state', 'city', 'user__email']
+        readonly_fields = ['user']
+
+    @admin.register(Vendor)
+    class VendorAdmin(admin.ModelAdmin):
+        list_display = ['name', 'email', 'mobile', 'active', 'date']
+        list_filter = ['active', 'date']
+        search_fields = ['name', 'email', 'mobile', 'description']
+        readonly_fields = ['date', 'slug']
+        prepopulated_fields = {'slug': ('name',)}
+else:
+    # Create dummy classes if models are not available
+    class UserAdmin:
+        pass
     
-    fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('full_name', 'phone')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
-    )
-
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'gender', 'country', 'state', 'city', 'user']
-    list_filter = ['gender', 'country', 'state']
-    search_fields = ['full_name', 'country', 'state', 'city', 'user__email']
-    readonly_fields = ['user']
-
-@admin.register(Vendor)
-class VendorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'mobile', 'active', 'date']
-    list_filter = ['active', 'date']
-    search_fields = ['name', 'email', 'mobile', 'description']
-    readonly_fields = ['date', 'slug']
-    prepopulated_fields = {'slug': ('name',)}
+    class ProfileAdmin:
+        pass
+    
+    class VendorAdmin:
+        pass
 
 
 
@@ -1005,9 +1017,15 @@ custom_admin_site.register(OffersCarousel, OffersCarouselAdmin)
 custom_admin_site.register(Review, ReviewAdmin)
 custom_admin_site.register(ProductFaq, ProductFaqAdmin)
 
-# Register User, Profile, and Vendor models
-custom_admin_site.register(User, UserAdmin)
-custom_admin_site.register(Profile, ProfileAdmin)
-custom_admin_site.register(Vendor, VendorAdmin)
+# Register User, Profile, and Vendor models only if available
+if MODELS_AVAILABLE:
+    try:
+        custom_admin_site.register(User, UserAdmin)
+        custom_admin_site.register(Profile, ProfileAdmin)
+        custom_admin_site.register(Vendor, VendorAdmin)
+    except Exception as e:
+        print(f"Warning: Could not register some admin models: {e}")
+else:
+    print("Warning: Skipping admin model registration - models not available")
 
 
