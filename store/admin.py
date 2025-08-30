@@ -844,6 +844,10 @@ class WishlistAdmin(admin.ModelAdmin):
 # User and Profile Admin
 # Only define ProfileInline if Profile model is available
 if MODELS_AVAILABLE:
+    class ProfileInline(admin.StackedInline):
+        model = Profile
+        can_delete = False
+        verbose_name_plural = 'Profile'
     @admin.register(User)
     class UserAdmin(admin.ModelAdmin):
         list_display = ('email', 'full_name', 'phone', 'is_active', 'is_staff')

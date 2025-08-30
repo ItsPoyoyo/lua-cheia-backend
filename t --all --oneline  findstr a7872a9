@@ -1,0 +1,5 @@
+[33mf538e79c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix deployment issues - enable Django apps and fix Railway config
+[33m4f5fdbef[m Fix deployment issues - enable Django apps and fix Railway config
+[33mf425827f[m Temporarily disable store, vendor, and customer apps to prevent admin template errors
+[33m6a1917f8[m Temporarily disable store, vendor, and customer apps to prevent admin template errors
+[33m4a222b42[m Temporarily disable store, vendor, and customer apps to prevent admin template errors

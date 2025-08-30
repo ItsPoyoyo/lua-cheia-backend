@@ -1,0 +1,64 @@
+INFO 2025-08-30 09:44:31,840 autoreload 29388 19540 Watching for file changes with StatReloader
+INFO 2025-08-30 09:44:58,179 autoreload 22700 39896 Watching for file changes with StatReloader
+INFO 2025-08-30 10:08:03,280 autoreload 24844 25164 Watching for file changes with StatReloader
+ERROR 2025-08-30 10:08:13,882 basehttp 24844 12412 "GET / HTTP/1.1" 500 59
+ERROR 2025-08-30 10:08:23,011 basehttp 24844 12412 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2025-08-30 10:08:31,305 basehttp 24844 12412 "GET /admin/ HTTP/1.1" 302 0
+ERROR 2025-08-30 10:08:39,309 basehttp 24844 12412 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 59
+ERROR 2025-08-30 10:08:47,882 basehttp 24844 12412 "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2025-08-30 10:08:53,053 basehttp 24844 34656 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 500 59
+INFO 2025-08-30 10:09:03,095 autoreload 42632 3700 Watching for file changes with StatReloader
+ERROR 2025-08-30 10:09:16,957 basehttp 42632 14564 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 59
+ERROR 2025-08-30 10:09:30,940 basehttp 42632 14564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 500 59
+ERROR 2025-08-30 10:09:31,024 basehttp 42632 22204 "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2025-08-30 10:10:43,282 basehttp 42632 22204 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 59
+ERROR 2025-08-30 10:10:55,220 basehttp 42632 22204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 500 59
+ERROR 2025-08-30 10:10:55,803 basehttp 42632 14564 "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2025-08-30 10:13:38,107 basehttp 42632 14564 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 59
+ERROR 2025-08-30 10:13:49,147 basehttp 42632 14564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 500 59
+INFO 2025-08-30 10:13:49,173 basehttp 42632 14564 - Broken pipe from ('127.0.0.1', 58921)
+INFO 2025-08-30 10:13:58,255 autoreload 35056 38964 Watching for file changes with StatReloader
+INFO 2025-08-30 10:14:06,162 basehttp 35056 44116 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3383
+WARNING 2025-08-30 10:14:06,222 log 35056 44116 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-30 10:14:06,222 basehttp 35056 44116 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2985
+INFO 2025-08-30 10:14:06,922 basehttp 35056 36444 "GET /static/vendor/bootswatch/darkly/bootstrap.min.css HTTP/1.1" 200 164213
+INFO 2025-08-30 10:14:06,941 basehttp 35056 40884 "GET /static/jazzmin/css/main.css HTTP/1.1" 200 17896
+INFO 2025-08-30 10:14:06,952 basehttp 35056 30460 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+INFO 2025-08-30 10:14:06,965 basehttp 35056 44124 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 59348
+INFO 2025-08-30 10:14:06,980 basehttp 35056 40884 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44250
+INFO 2025-08-30 10:14:07,020 basehttp 35056 43248 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382986
+INFO 2025-08-30 10:14:07,029 basehttp 35056 44116 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 303423
+INFO 2025-08-30 10:14:07,047 basehttp 35056 36444 "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62446
+INFO 2025-08-30 10:14:07,095 basehttp 35056 36444 "GET /static/vendor/adminlte/css/adminlte.min.css.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:14:07,115 basehttp 35056 36444 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 78196
+INFO 2025-08-30 10:14:07,116 basehttp 35056 44116 "GET /static/vendor/bootstrap/js/bootstrap.min.js.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:14:07,122 basehttp 35056 44116 "GET /static/vendor/adminlte/js/adminlte.min.js.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:14:23,391 basehttp 35056 5320 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-30 10:14:23,666 basehttp 35056 5320 "GET /admin/ HTTP/1.1" 200 87946
+WARNING 2025-08-30 10:14:23,716 log 35056 5320 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-30 10:14:23,717 basehttp 35056 5320 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2985
+INFO 2025-08-30 10:14:24,313 basehttp 35056 5320 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 13276
+INFO 2025-08-30 10:14:24,331 basehttp 35056 5320 "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+WARNING 2025-08-30 10:14:24,368 log 35056 5320 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 10:14:24,369 basehttp 35056 5320 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 10:14:24,385 log 35056 44280 Not Found: /store/admin/dashboard-stats/
+WARNING 2025-08-30 10:14:24,387 basehttp 35056 44280 "GET /store/admin/dashboard-stats/?time_period=week HTTP/1.1" 404 2942
+WARNING 2025-08-30 10:16:25,290 log 35056 44280 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 10:16:25,290 basehttp 35056 44280 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+INFO 2025-08-30 10:16:32,522 basehttp 35056 44280 "GET /admin/store/product/ HTTP/1.1" 200 36849
+INFO 2025-08-30 10:16:32,571 basehttp 35056 5320 "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+WARNING 2025-08-30 10:16:32,576 log 35056 44280 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-08-30 10:16:32,577 basehttp 35056 33920 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,578 basehttp 35056 5320 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+WARNING 2025-08-30 10:16:32,579 basehttp 35056 44280 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2985
+INFO 2025-08-30 10:16:32,580 basehttp 35056 5320 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,581 basehttp 35056 26564 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,581 basehttp 35056 23072 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,583 basehttp 35056 33920 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,585 basehttp 35056 5320 "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,586 basehttp 35056 13268 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,591 basehttp 35056 26564 "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:32,661 basehttp 35056 18104 "GET /admin/jsi18n/ HTTP/1.1" 200 8691
+INFO 2025-08-30 10:16:33,069 basehttp 35056 18104 "GET /static/vendor/adminlte/css/adminlte.min.css.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:33,141 basehttp 35056 18104 "GET /static/vendor/bootstrap/js/bootstrap.min.js.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:16:33,141 basehttp 35056 26564 "GET /static/vendor/adminlte/js/adminlte.min.js.map HTTP/1.1" 304 0
