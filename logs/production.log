@@ -63,3 +63,75 @@ INFO 2025-08-30 10:16:33,069 basehttp 35056 18104 "GET /static/vendor/adminlte/c
 INFO 2025-08-30 10:16:33,141 basehttp 35056 18104 "GET /static/vendor/bootstrap/js/bootstrap.min.js.map HTTP/1.1" 304 0
 INFO 2025-08-30 10:16:33,141 basehttp 35056 26564 "GET /static/vendor/adminlte/js/adminlte.min.js.map HTTP/1.1" 304 0
 INFO 2025-08-30 10:28:57,559 autoreload 15268 34532 Watching for file changes with StatReloader
+INFO 2025-08-30 10:38:25,258 autoreload 29388 19540 C:\Users\gazou\Videos\Ecom\backend\backend\settings.py changed, reloading.
+INFO 2025-08-30 10:39:41,984 autoreload 37292 10696 Watching for file changes with StatReloader
+INFO 2025-08-30 10:39:46,213 autoreload 37292 10696 C:\Users\gazou\Videos\Ecom\backend\vendor\admin.py changed, reloading.
+INFO 2025-08-30 10:39:47,354 autoreload 11884 38076 Watching for file changes with StatReloader
+INFO 2025-08-30 11:03:35,030 autoreload 18088 28168 Watching for file changes with StatReloader
+WARNING 2025-08-30 11:03:37,734 log 18088 43660 Not Found: /
+WARNING 2025-08-30 11:03:37,736 basehttp 18088 43660 "GET / HTTP/1.1" 404 2823
+WARNING 2025-08-30 11:03:38,205 log 18088 43660 Not Found: /favicon.ico
+WARNING 2025-08-30 11:03:38,206 basehttp 18088 43660 "GET /favicon.ico HTTP/1.1" 404 2874
+INFO 2025-08-30 11:03:51,676 basehttp 18088 43660 "GET /admin/ HTTP/1.1" 200 87880
+WARNING 2025-08-30 11:03:51,973 log 18088 43660 Not Found: /store/admin/dashboard-stats/
+WARNING 2025-08-30 11:03:51,974 basehttp 18088 43660 "GET /store/admin/dashboard-stats/?time_period=week HTTP/1.1" 404 2942
+WARNING 2025-08-30 11:03:51,992 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:03:51,994 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:05:51,963 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:05:51,963 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:07:51,960 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:07:51,960 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:08:52,290 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:08:52,291 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:09:52,286 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:09:52,286 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:11:52,299 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:11:52,299 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:13:52,285 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:13:52,286 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:13:52,301 log 18088 30664 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:13:52,302 basehttp 18088 30664 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:15:52,294 log 18088 27004 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:15:52,295 basehttp 18088 27004 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:17:52,286 log 18088 27004 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:17:52,286 basehttp 18088 27004 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:20:37,203 log 18088 22344 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:20:37,205 basehttp 18088 22344 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:20:37,233 log 18088 22344 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:20:37,234 basehttp 18088 22344 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:21:52,099 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:21:52,100 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:23:52,099 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:23:52,099 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:23:52,115 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:23:52,115 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:25:52,102 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:25:52,102 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:27:52,091 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:27:52,091 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:28:52,105 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:28:52,105 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:29:52,105 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:29:52,105 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:31:52,090 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:31:52,092 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:33:52,086 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:33:52,086 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:33:52,102 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:33:52,103 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:35:52,085 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:35:52,086 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:37:51,764 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:37:51,765 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:38:52,091 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:38:52,091 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:39:53,096 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:39:53,096 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:41:52,105 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:41:52,108 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:43:52,096 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:43:52,097 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:43:52,111 log 18088 40068 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:43:52,113 basehttp 18088 40068 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
+WARNING 2025-08-30 11:45:52,109 log 18088 43816 Not Found: /store/admin/live-orders/
+WARNING 2025-08-30 11:45:52,111 basehttp 18088 43816 "GET /store/admin/live-orders/?time_period=week HTTP/1.1" 404 2930
