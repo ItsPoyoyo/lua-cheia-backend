@@ -62,3 +62,4 @@ INFO 2025-08-30 10:16:32,661 basehttp 35056 18104 "GET /admin/jsi18n/ HTTP/1.1" 
 INFO 2025-08-30 10:16:33,069 basehttp 35056 18104 "GET /static/vendor/adminlte/css/adminlte.min.css.map HTTP/1.1" 304 0
 INFO 2025-08-30 10:16:33,141 basehttp 35056 18104 "GET /static/vendor/bootstrap/js/bootstrap.min.js.map HTTP/1.1" 304 0
 INFO 2025-08-30 10:16:33,141 basehttp 35056 26564 "GET /static/vendor/adminlte/js/adminlte.min.js.map HTTP/1.1" 304 0
+INFO 2025-08-30 10:28:57,559 autoreload 15268 34532 Watching for file changes with StatReloader
