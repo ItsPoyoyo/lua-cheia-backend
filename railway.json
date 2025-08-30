@@ -5,7 +5,7 @@
   },
   "deploy": {
     "startCommand": "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120",
-    "healthcheckPath": "/api/v1/",
+    "healthcheckPath": "/admin/",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3
